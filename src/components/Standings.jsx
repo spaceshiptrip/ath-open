@@ -1,3 +1,5 @@
+import { TOURNAMENT } from '../config'
+
 export default function Standings({ matches = [] }) {
   const total  = matches.filter(m => m.winner).length
   const winsA  = matches.filter(m => m.winner === 'A').length
@@ -10,11 +12,13 @@ export default function Standings({ matches = [] }) {
       <div className="grid grid-cols-2 gap-4">
         <TeamStat
           team="A"
+          name={TOURNAMENT.teams.A.name}
           wins={winsA}
           isLeading={leader === 'A'}
         />
         <TeamStat
           team="B"
+          name={TOURNAMENT.teams.B.name}
           wins={winsB}
           isLeading={leader === 'B'}
         />
@@ -26,12 +30,12 @@ export default function Standings({ matches = [] }) {
   )
 }
 
-function TeamStat({ team, wins, isLeading }) {
+function TeamStat({ team, name, wins, isLeading }) {
   const isA = team === 'A'
   return (
     <div className={`rounded-xl p-4 text-center ${isA ? 'bg-red-50' : 'bg-blue-50'}`}>
       <p className={`text-xs font-bold uppercase tracking-widest mb-1 ${isA ? 'text-red-500' : 'text-blue-500'}`}>
-        Team {team}
+        {name}
       </p>
       <p className={`text-4xl font-display font-bold ${isA ? 'text-red-700' : 'text-blue-700'}`}>
         {wins}

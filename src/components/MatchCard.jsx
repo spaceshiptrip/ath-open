@@ -1,3 +1,5 @@
+import { TOURNAMENT } from '../config'
+
 export default function MatchCard({ match, players, onSetWinner, canEdit = false }) {
   const getPlayer = (id) => players?.find(p => p.id === id)
   const pairLabel = (p1Id, p2Id) => {
@@ -7,10 +9,11 @@ export default function MatchCard({ match, players, onSetWinner, canEdit = false
     return `${p1.firstName} & ${p2.firstName}`
   }
 
+  const teamName = (t) => TOURNAMENT.teams[t].name
   const winnerLabel = match.winner === 'A'
-    ? 'Team A wins'
+    ? `${teamName('A')} wins`
     : match.winner === 'B'
-      ? 'Team B wins'
+      ? `${teamName('B')} wins`
       : null
 
   return (
@@ -29,7 +32,7 @@ export default function MatchCard({ match, players, onSetWinner, canEdit = false
       <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
         {/* Team A pair */}
         <div className={`text-center p-2 rounded-lg ${match.winner === 'A' ? 'bg-red-50 ring-1 ring-red-300' : 'bg-gray-50'}`}>
-          <p className="text-xs text-red-600 font-semibold mb-0.5">Team A</p>
+          <p className="text-xs text-red-600 font-semibold mb-0.5">{teamName('A')}</p>
           <p className="font-medium text-gray-900">{pairLabel(match.teamAP1, match.teamAP2)}</p>
         </div>
 
@@ -37,7 +40,7 @@ export default function MatchCard({ match, players, onSetWinner, canEdit = false
 
         {/* Team B pair */}
         <div className={`text-center p-2 rounded-lg ${match.winner === 'B' ? 'bg-blue-50 ring-1 ring-blue-300' : 'bg-gray-50'}`}>
-          <p className="text-xs text-blue-600 font-semibold mb-0.5">Team B</p>
+          <p className="text-xs text-blue-600 font-semibold mb-0.5">{teamName('B')}</p>
           <p className="font-medium text-gray-900">{pairLabel(match.teamBP1, match.teamBP2)}</p>
         </div>
       </div>

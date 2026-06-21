@@ -10,7 +10,7 @@ export const TOURNAMENT = {
   location: 'The Athenaeum',
   teams: {
     A: { id: 'A', name: 'Team A', captain: 'Suzan', color: 'red'  },
-    B: { id: 'B', name: 'Team B', captain: 'Cora',  color: 'blue' },
+    B: { id: 'B', name: 'Blue Crew', captain: 'Cora',  color: 'blue' },
   },
 }
 

@@ -20,14 +20,14 @@ export default function Teams() {
       </p>
 
       <div className="grid md:grid-cols-2 gap-6">
-        <TeamSection team="A" players={teamA} captain={TOURNAMENT.teams.A.captain} />
-        <TeamSection team="B" players={teamB} captain={TOURNAMENT.teams.B.captain} logo={teamBLogo} />
+        <TeamSection team="A" name={TOURNAMENT.teams.A.name} players={teamA} captain={TOURNAMENT.teams.A.captain} />
+        <TeamSection team="B" name={TOURNAMENT.teams.B.name} players={teamB} captain={TOURNAMENT.teams.B.captain} logo={teamBLogo} />
       </div>
     </div>
   )
 }
 
-function TeamSection({ team, players, captain, logo }) {
+function TeamSection({ team, name, players, captain, logo }) {
   const isA = team === 'A'
   const headerBg = isA ? 'bg-red-600' : 'bg-blue-700'
   const countBg  = isA ? 'bg-red-700' : 'bg-blue-800'
@@ -51,7 +51,7 @@ function TeamSection({ team, players, captain, logo }) {
             />
           )}
           <div>
-            <h2 className="font-display text-xl font-bold">Team {team}</h2>
+            <h2 className="font-display text-xl font-bold">{name}</h2>
             <p className="text-sm opacity-80">Captain: {captain}</p>
           </div>
         </div>
