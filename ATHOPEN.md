@@ -289,54 +289,106 @@ npm run dev
 
 ## 6. Google Sheets Setup (one-time, before tournament)
 
-### A. Create the spreadsheet
-1. Go to https://sheets.google.com → create new spreadsheet
-2. Name it **ATH Open Pickleball**
-3. Copy the Spreadsheet ID from the URL bar:
-   `https://docs.google.com/spreadsheets/d/`**`SPREADSHEET_ID_HERE`**`/edit`
+> **How the roster works:** The registration form at `/#/register` writes directly to the **Players** sheet via the Apps Script API. The Teams page (`/#/teams`) reads from that same sheet. Players can self-register on the live site, or you can add rows manually in the spreadsheet — both work identically. Match pairings (who plays who) are the one thing not automated; those must be filled into the Schedule sheet manually before each round.
 
-### B. Add the Apps Script
+### Step 1 — Create the spreadsheet
+
+1. Go to **https://sheets.google.com** → click **Blank spreadsheet**
+2. Name it `ATH Open Pickleball`
+3. Copy the **Spreadsheet ID** from the URL bar — it's the long string between `/d/` and `/edit`:
+   ```
+   https://docs.google.com/spreadsheets/d/THIS_PART_HERE/edit
+   ```
+   Save it — you'll use it in the next step.
+
+### Step 2 — Add the Apps Script
+
 1. In the spreadsheet: **Extensions → Apps Script**
-2. Delete all default content in `Code.gs`
-3. Paste the full contents of `backend/code.gs`
-4. At the top of the file, set: `const SS_ID = 'SPREADSHEET_ID_HERE';`
-5. Save (Ctrl/Cmd+S), name the project **ATH Open API**
+2. Delete all the default content in `Code.gs`
+3. Open `backend/code.gs` from your local repo and paste the entire contents
+4. On line 1, paste your Spreadsheet ID:
+   ```js
+   const SS_ID = 'YOUR_SPREADSHEET_ID_HERE';
+   ```
+5. **Save** (Cmd+S) — name the project `ATH Open API`
 
-### C. Initialize the sheets (run once)
-1. In Apps Script editor, select `initSheets` from the function dropdown
+### Step 3 — Initialize the sheets (run once)
+
+1. In the Apps Script editor, find the function dropdown (top center) and select **`initSheets`**
 2. Click **Run**
-3. Approve all permission prompts
-4. Two new tabs appear in the spreadsheet: **Players** and **Schedule**
-5. Schedule is pre-populated with all 16 match slots
+3. A permissions popup will appear — click **Review permissions → Allow**
+4. Back in your spreadsheet you'll now see two new tabs: **Players** and **Schedule**
+5. The Schedule tab will have all 16 match slots pre-filled with the correct round/court/Mix Doubles data
 
-### D. Deploy as Web App
+### Step 4 — Deploy as Web App
+
 1. Apps Script → **Deploy → New deployment**
-2. Gear icon → **Web app**
-3. Settings:
+2. Click the **gear icon** next to "Select type" → choose **Web app**
+3. Set:
    - Description: `ATH Open API`
    - Execute as: **Me**
    - Who has access: **Anyone**
-4. Click **Deploy** → copy the Web App URL (ends in `/exec`)
-5. **Important:** save this URL — you'll need it for both `.env` and the GitHub secret
+4. Click **Deploy**
+5. Copy the **Web App URL** — it ends in `/exec`. Save it — you'll need it in Steps 5 and 6.
 
-### E. Add pairings to Schedule sheet
-After players register, fill in columns E–H (`teamAP1`, `teamAP2`, `teamBP1`, `teamBP2`) with Player IDs from the Players tab. Captains do this before each round starts or in advance.
+### Step 5 — Add the secret to GitHub
 
-### F. Redeployment note
-If you edit `code.gs` and redeploy, **always edit the existing deployment** (Manage deployments → pencil icon) rather than creating a new one. Creating a new deployment generates a new URL, which requires updating the GitHub secret and rebuilding the frontend.
+1. Go to **https://github.com/spaceshiptrip/ath-open/settings/secrets/actions**
+2. Click **New repository secret**
+3. Name: `VITE_SHEETS_API_URL`
+4. Value: the Web App URL from Step 4
+5. Click **Add secret**
+
+### Step 6 — Trigger a redeploy
+
+1. Go to **https://github.com/spaceshiptrip/ath-open/actions**
+2. Click the latest **Deploy to GitHub Pages** workflow → **Re-run all jobs**
+
+The build will inject the real Sheets URL into the app. Once it goes green, the live site talks to your spreadsheet.
+
+### Step 7 — Test the connection
+
+1. Go to **https://spaceshiptrip.github.io/ath-open/#/register**
+2. Register a test player
+3. Open your Google Spreadsheet → **Players** tab — the row should appear immediately
+4. Go to **`/#/teams`** — the player should show up in the roster
+5. Go to **`/#/scores`**, click **Enter Scores**, toggle a win for any match
+6. Check the **Schedule** tab in Sheets — the `winner` column (column I) for that match should update
+
+### Step 8 — Add match pairings (before or on tournament day)
+
+After players are registered, fill in the Schedule sheet so the app shows who is playing who:
+
+1. Open the **Schedule** tab in the spreadsheet
+2. For each of the 16 rows (m1–m16), fill in columns E–H:
+   - **E** (`teamAP1`) — Team A Player 1's ID (e.g. `p1750000000001`)
+   - **F** (`teamAP2`) — Team A Player 2's ID
+   - **G** (`teamBP1`) — Team B Player 1's ID
+   - **H** (`teamBP2`) — Team B Player 2's ID
+3. Player IDs are in column A of the **Players** tab
+4. You can fill these in round by round on the day, or all in advance
+
+> **Tip:** The Schedule and Teams pages will show player names automatically once pairings are filled in — no code changes needed.
+
+### Redeployment note
+
+If you ever edit `code.gs` and need to redeploy, **always edit the existing deployment** rather than creating a new one:  
+Apps Script → **Deploy → Manage deployments** → pencil icon → **Save**.  
+Creating a new deployment generates a new URL, which means you'd have to update the GitHub secret and rebuild the frontend.
 
 ---
 
 ## 7. GitHub Pages Deployment
 
-### One-time setup
+### One-time setup (already done)
 1. GitHub repo → **Settings → Pages**
-2. Source: **GitHub Actions** (not "Deploy from a branch")
+2. Source: **GitHub Actions** ← must be this, not "Deploy from a branch"
 3. Save
 
-4. **Settings → Secrets and variables → Actions → New repository secret**
-   - Name: `VITE_SHEETS_API_URL`
-   - Value: Web App URL from step D above
+### Add / update the Sheets secret
+**Settings → Secrets and variables → Actions → New repository secret**
+- Name: `VITE_SHEETS_API_URL`
+- Value: Web App URL from Step 4 of the Sheets setup above
 
 ### Every deploy
 Any push to `main` triggers the workflow automatically:
@@ -349,8 +401,8 @@ git push origin main
 Monitor at: https://github.com/spaceshiptrip/ath-open/actions  
 Live at: https://spaceshiptrip.github.io/ath-open/
 
-### Manual re-run
-Go to Actions tab → click the workflow → **Re-run all jobs** button.
+### Manual re-run (no code change needed)
+Go to **Actions** tab → click the latest workflow run → **Re-run all jobs**.
 
 ---
 
@@ -362,13 +414,14 @@ Go to Actions tab → click the workflow → **Re-run all jobs** button.
 | `213e1d6` | Jun 21, 2026 | Added Athenaeum images: courts hero, logo in header/footer; compressed courts PNG→JPG (4.3MB→124KB) |
 | `274b8e4` | Jun 21, 2026 | Swapped team colors: Team A → red, Team B → blue (to match Dodgers logo) |
 | `2bf7fb3` | Jun 21, 2026 | Added Team B (Dodgers) logo to Teams page header and Home page team badge |
+| `a13a385` | Jun 21, 2026 | Updated ATHOPEN.md with detailed work log and current state |
 
 ---
 
 ## 9. TODO / Work Remaining
 
 ### Must-have before tournament day
-- [ ] **Connect Google Sheets** — create spreadsheet, run `initSheets()`, deploy Web App, add GitHub secret, redeploy site
+- [x] **Connect Google Sheets** — full 8-step connection guide in Section 6 above
 - [ ] **Add real players** — replace mock roster with actual registered players (either via registration form or manually in the Players sheet)
 - [ ] **Set match pairings** — fill in player IDs in Schedule sheet columns E–H before each round
 - [ ] **Team A logo** — get a logo image for Team A and wire it in the same way as Team B (Teams page + Home badge)
