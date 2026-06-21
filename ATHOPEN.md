@@ -588,7 +588,90 @@ If needed, the safety valve is: **at 11-all the next point wins (Receivers' Choi
 ---
 
 
-## 11. Known Issues / Notes
+## 11. Pairing Schedule — Pre-Assignment Strategy
+
+> **Decision: pre-assign ALL pairings before tournament day** — mixed doubles couples, men's doubles partners, and sit-out rotations. Do not leave any of these to be figured out on the court.
+
+### Why the captain's husband and all men's doubles partners must be pre-assigned
+
+The captain has to satisfy a **no-repeat-partners constraint** across 11 men's doubles matches while simultaneously running scorecards and managing rotations. That is a combinatorics problem under time pressure with 24 people waiting. It is very easy to accidentally pair the same two guys again in round 7 without realizing it.
+
+With pre-set couples for mixed doubles, the full picture per man is:
+
+| Player type | Mixed games | Men's doubles games | Partner variety needed |
+|-------------|-------------|---------------------|------------------------|
+| 6 non-husband men | 0 | 3 | 3 different partners across 3 rounds |
+| Captain's husband | 1 (with captain) | 2 | 2 different men's doubles partners |
+| 2 other husbands | 2 (with wife) | 1 | 1 different men's doubles partner |
+
+Every one of those men's doubles slots needs a pre-assigned partner to guarantee no repeats.
+
+### Why pre-assignment wins over improvising on the day
+
+1. **No-repeat math is non-trivial at 9 people** — 9 men × 3 games, different partner each time, across 11 men's doubles matches. C(9,2) = 36 possible pairs to choose from but scheduling them without collisions across rounds requires actual planning. Not guessable in 60 seconds between rounds.
+
+2. **Captain's cognitive load on the day** — she is tracking wins, filling out the score sheet, and managing subs if someone gets hurt. A printed card she just reads off is a huge relief vs. doing partner math live.
+
+3. **Round speed** — with a card, pairings are announced in 30 seconds. Without one, the captain has to think through "who has already played with whom" for 9 men before every round.
+
+4. **It's what the docx was built for** — the blank form has columns for both players on each side. Those blanks are meant to be filled in before the day, not penciled in on the court.
+
+### Mixed doubles couples — fairness analysis
+
+Mixed doubles teams are pre-set (husband/wife). This affects game distribution but does NOT create inequality in game count:
+
+| Player | Mixed games | Men's doubles games | Total |
+|--------|-------------|---------------------|-------|
+| Non-captain wife's husband | 2 | 1 | **3** |
+| Captain's husband | 1 | 2 | **3** |
+| 6 non-husband men | 0 | 3 | **3** |
+
+All 9 men play exactly 3 games. Husbands swap some men's doubles slots for mixed doubles slots — same count, different flavor.
+
+### Women — game count vs men (by design)
+
+Women play fewer games than men due to the 9M + 3W per team ratio and 5 mixed doubles slots:
+
+| Player | Games | Notes |
+|--------|-------|-------|
+| Each man | **3** | — |
+| Non-captain woman | **2** | Plays in 2 of the 5 mixed rounds |
+| Captain | **1** | Intentional — she runs the day |
+
+The docx explicitly specifies this: *"2 women play 2 games; captain plays 1 game."* The captain playing once is a role tradeoff, not an oversight. The only way to give women equal games to men would be switching to 9 rounds with 9 mixed doubles (the format we analyzed before locking in the docx).
+
+### Mixed slot distribution with pre-set couples
+
+| Round | Court | Slot | Team A | Team B |
+|-------|-------|------|--------|--------|
+| 3 | S | Mix | Non-captain Woman A1 + husband | Non-captain Woman B1 + husband |
+| 3 | N | Mix | Non-captain Woman A2 + husband | Non-captain Woman B2 + husband |
+| 4 | S | Mix | Captain A + her husband | Captain B + her husband |
+| 6 | S | Mix | Non-captain Woman A1 + husband | Non-captain Woman B1 + husband |
+| 6 | N | Mix | Non-captain Woman A2 + husband | Non-captain Woman B2 + husband |
+
+Result: Woman A1 = 2 games, Woman A2 = 2 games, Captain = 1 game. Matches the docx exactly.
+
+### What to generate (next step)
+
+A single reference card (or pre-filled Schedule sheet tab) covering all 16 match rows:
+
+| Match | Round | Court | Type | Team A P1 | Team A P2 | Team B P1 | Team B P2 |
+|-------|-------|-------|------|-----------|-----------|-----------|-----------|
+| m1 | 1 | S | Men | Man A? | Man A? | Man B? | Man B? |
+| m5 | 3 | S | Mix | Husband A1 | Wife A1 | Husband B1 | Wife B1 |
+| … | … | … | … | … | … | … | … |
+
+**Inputs needed before this can be generated:**
+- Real names of all 9 men per team
+- Which 3 men are the husbands (and which woman each is paired with)
+- Whether to seed by skill level or draw randomly for men's doubles pairings
+
+Once those are provided, a valid full schedule (all 16 matches, all pairings, no man repeats a partner) can be generated and entered into the Schedule sheet columns E–H.
+
+---
+
+## 12. Known Issues / Notes
 
 - The `node_modules/` deprecation warning about Node.js 20 in GitHub Actions is cosmetic — the build succeeds. Will auto-resolve when GitHub upgrades runner defaults.
 - Source image files (`12511.jpg`, `athenaeum_header_logo.png`, `athenaeum_pickle_courts.png`, `IMG_2787.PNG`) are committed to the repo root. They are not served by the app — the app uses copies in `src/assets/`. These source files can be moved to a `/source-assets/` folder for cleanliness.
