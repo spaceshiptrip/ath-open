@@ -416,6 +416,7 @@ Go to **Actions** tab → click the latest workflow run → **Re-run all jobs**.
 | `2bf7fb3` | Jun 21, 2026 | Added Team B (Dodgers) logo to Teams page header and Home page team badge |
 | `a13a385` | Jun 21, 2026 | Updated ATHOPEN.md with detailed work log and current state |
 | `24a8409` | Jun 21, 2026 | Expanded Section 6 with full 8-step Google Sheets connection guide |
+| `6acd741` | Jun 21, 2026 | Added Section 10: tournament format analysis, timeline, rally scoring, open questions |
 
 ---
 
@@ -560,18 +561,105 @@ Rally scoring to 15 gives significant breathing room at any round count.
 
 ### Format comparison table
 
-| Format | Rounds | Matches | Games/man | Games/woman | Est. finish | Risk |
-|--------|--------|---------|-----------|-------------|-------------|------|
-| Current (trad, 11 pts) | 8 | 16 | ~3.0 | ~1.7 | ~11:56 AM | 🔴 Very tight |
-| Trad scoring, 11 pts | 10 | 20 | ~3.6 | ~2.3 | Noon+ | 🔴 Over budget |
-| Rally to 15 | 8 | 16 | ~3.0 | ~1.7 | ~10:22 AM | 🟢 90 min buffer |
-| Rally to 15 | 10 | 20 | ~3.6 | ~2.3 | ~10:50 AM | 🟡 70 min buffer |
-| Rally to 15 | 12 | 24 | ~4.2 | ~3.0 | ~11:18 AM | 🟡 42 min buffer |
-| Rally to 21 | 8 | 16 | ~3.0 | ~1.7 | ~11:26 AM | 🟡 34 min buffer |
-| Rally to 21 | 10 | 20 | ~3.6 | ~2.3 | Noon | 🔴 No buffer |
+> **Note:** table below uses rough averages. See the "Match count math" section further below for the precise per-player game counts based on confirmed 2-court, 9M+3W structure.
 
-**Sweet spot: 10 rounds, rally scoring to 15.**  
-Everyone gets 3–4 games, women get 2–3 mixed games, finishes by ~10:50 AM with time for a social hour before lunch.
+| Format | Rounds | Matches | Games/man | Games/woman | Est. finish | Clean math? | Risk |
+|--------|--------|---------|-----------|-------------|-------------|-------------|------|
+| Trad 11 pts | 8 | 16 | 3 exact ✅ | 1–2 ⚠️ | ~11:56 AM | Partially | 🔴 No buffer |
+| Trad 11 pts | 9 | 18 | 3 exact ✅ | 3 exact ✅ | Noon+ | ✅ Perfect | 🔴 Over |
+| Rally to 15 | 8 | 16 | 3 exact ✅ | 1–2 ⚠️ | ~10:22 AM | Partially | 🟢 98 min |
+| **Rally to 15** | **9** | **18** | **3 exact ✅** | **3 exact ✅** | **~10:36 AM** | **✅ Perfect** | **🟢 84 min** |
+| Rally to 15 | 10 | 20 | fractional ⚠️ | fractional ⚠️ | ~10:50 AM | ❌ Uneven | 🟡 70 min |
+| Rally to 21 | 8 | 16 | 3 exact ✅ | 1–2 ⚠️ | ~11:26 AM | Partially | 🟡 34 min |
+| Rally to 21 | 9 | 18 | 3 exact ✅ | 3 exact ✅ | ~11:36 AM | ✅ Perfect | 🟡 24 min |
+
+**Sweet spot: 9 rounds, rally scoring to 15 — everyone plays exactly 3 games, done by 10:36 AM.**
+
+---
+
+### Match count math — 2 courts confirmed, 9M + 3W per team
+
+> **Courts confirmed: 2 (North and South).** This section works out exactly how many Men's Doubles and Mixed Doubles matches are possible and what each option means for every player.
+
+#### The core equation
+
+Each round: 2 courts run simultaneously, so:
+
+```
+Total matches  = Rounds × 2
+Men's slots    = (Men's Doubles matches × 2) + (Mixed Doubles matches × 1)
+Women's slots  = Mixed Doubles matches × 1
+```
+
+With **9 men × 3 games each = 27 men's slots needed**:
+
+```
+2M + X = 27    (M = men's doubles matches, X = mixed doubles matches)
+```
+
+For M to be a whole number, **X must be odd.**  
+For 3 women to each play an equal integer number of games, **X must be divisible by 3.**  
+Both constraints together: **X must be an odd multiple of 3 → X = 3, 9, 15 …**
+
+#### The only mathematically clean options
+
+| Rounds | Total matches | Men's Doubles (M) | Mixed Doubles (X) | Games/man | Games/woman | Round structure |
+|--------|--------------|-------------------|-------------------|-----------|-------------|-----------------|
+| **8**  | 16 | **11** | **5** | 3 each ✅ | 1–2 each ⚠️ uneven | Some rounds both men's, some mixed |
+| **9**  | 18 | **9**  | **9** | 3 each ✅ | 3 each ✅ | **Every round: 1 men's court + 1 mixed court** |
+| 10     | 20 | **7**  | **13**| 3 each ✅ | 4+ each ❌ | Too much mixed |
+
+Any other round count (7, 11, 12 …) produces fractional matches or unequal women's games.
+
+#### What each option looks like on the day
+
+**8 rounds — 11 Men's Doubles + 5 Mixed Doubles**
+- Matches original tournament document structure
+- Every man plays exactly 3 games ✅
+- Two women play 2 games, one woman plays 1 game — uneven, matches old rule "captain plays 1"
+- Round structure varies: some rounds both courts men's, others one or both courts mixed
+- Risk: barely fits the noon cutoff with traditional scoring
+
+**9 rounds — 9 Men's Doubles + 9 Mixed Doubles ← cleanest solution**
+- Every man plays exactly 3 games ✅
+- Every woman plays exactly 3 games ✅
+- Round structure is perfectly uniform: **every single round has exactly 1 men's court + 1 mixed court running simultaneously** — captains always know what's happening each round
+- Finishes comfortably before noon with rally scoring to 15 (~10:36 AM)
+- This is the recommended format
+
+#### Why other round counts don't work cleanly
+
+Any round count where total matches × 2 doesn't equal a number satisfying both the "odd X" and "X divisible by 3" constraint produces either:
+- Fractional matches (impossible)
+- Some men playing more games than others (unfair)
+- Some women playing more games than others (unfair)
+- Way too many mixed doubles (e.g. 10 rounds → 13 mixed out of 20 = 65% mixed)
+
+#### Sit-out pattern per round
+
+With 2 courts and 2 players per side per match:
+- **Men's court:** 2 Team A men + 2 Team B men = 4 men per team playing
+- **Mixed court:** 1 Team A man + 1 Team A woman + 1 Team B man + 1 Team B woman = 1 man + 1 woman per team playing
+- **Per round per team:** 5 men play (4 men's + 1 mixed), 1 woman plays, **4 men sit out**
+
+With 9 men and 4 sitting out each round, in 9 rounds:
+- Each man plays 5 rounds and sits out 4 rounds (9 rounds × 5/9 playing rate = 5 games)... 
+
+Wait, that's 5 games not 3. Let me re-examine.
+
+Actually each man plays in **some** of those 5 slots. Over 9 rounds × 5 men's slots per round = 45 men's slots total per team. 45/9 men = 5 slots per man. But each match a man plays in counts as 1 game for him, so 5 games per man? That contradicts the 3 games target.
+
+Correction: the 27-slot constraint means each of 9 men fills exactly 3 of the 27 slots — so **9 men × 3 games = 27 slots used, and in 9 rounds × 3 men-slots-per-round = 27** ✅ (5 men's court slots + ... wait)
+
+Re-check per round: men's court uses 2 men per team, mixed court uses 1 man per team → **3 men per team play each round**, 6 sit out.
+
+```
+9 rounds × 3 men playing per round = 27 men-game slots ÷ 9 men = 3 games each ✅
+9 rounds × 1 woman playing per round = 9 women-game slots ÷ 3 women = 3 games each ✅
+Per round: 3 men play, 6 men sit out, 1 woman plays, 2 women sit out
+```
+
+This is the correct sit-out math. 6 of 9 men sit out each round — scheduling must ensure no man sits out more than 6 consecutive rounds, and the algorithm distributes sit-outs fairly.
 
 ---
 
@@ -579,42 +667,47 @@ Everyone gets 3–4 games, women get 2–3 mixed games, finishes by ~10:50 AM wi
 
 With 9 men needing 3 games each with **different partners every time**, manual scheduling is error-prone. A proper algorithm needs to satisfy:
 
-1. **Uniqueness constraint** — no two men from the same team are ever paired together more than once
-2. **Opponent variety** — ideally no pair faces the same opposing pair more than once
-3. **Women distribution** — 3 women spread evenly across Mixed Doubles rounds, each playing 2 games
-4. **Sit-out fairness** — with 4 of 9 men playing per round, 5 sit out; the algorithm must rotate sit-outs so no one sits out consecutively
+1. **Uniqueness constraint** — no two men from the same team are ever paired together more than once across all 9 rounds
+2. **Opponent variety** — ideally no pair from Team A faces the same opposing pair from Team B more than once
+3. **Women distribution** — 3 women take turns across 9 mixed rounds, each playing 3 games with different male partners
+4. **Sit-out fairness** — 6 of 9 men sit out each round; the algorithm must rotate sit-outs so no one sits out more than 2 rounds in a row
 
-With 9 men: C(9,2) = **36 possible unique pairs** — far more than the ~10 pairings needed for a 10-round tournament, so the uniqueness constraint is easily satisfiable.
+With 9 men: C(9,2) = **36 possible unique pairs** — far more than the 9 pairings each man needs, so the uniqueness constraint is easily satisfiable.
 
-The algorithm is essentially a **round-robin doubles scheduling problem** (also called "social doubles" or "American doubles" rotation). It can be auto-generated once the final round count and player list is confirmed.
+The algorithm is a **round-robin doubles scheduling problem** (also called "social doubles" or "American doubles" rotation). It can be auto-generated once the final scoring format is confirmed.
 
-**Plan:** once round count and scoring format are decided, generate the full pairing schedule as a pre-filled spreadsheet so captains just execute it rather than improvise on the day.
+**Plan:** generate the full 9-round pairing schedule as a pre-filled spreadsheet tab so captains just read off assignments rather than improvise on the day.
 
 ---
 
 ### ⚠️ Open questions — decisions needed before updating the app
 
-These decisions affect the Schedule sheet structure, the number of rows in the database, and what the Scores/Schedule pages display. **Do not update the app until these are resolved.**
+Courts are now confirmed as **2 (North + South)**. Remaining decisions:
 
-| # | Question | Options | Impact |
-|---|----------|---------|--------|
-| 1 | **Scoring format?** | Traditional 11 pts · Rally to 15 · Rally to 21 | Changes rules page, game timer expectations, schedule feasibility |
-| 2 | **How many rounds?** | 8 (current) · 10 (recommended) · 12 | Changes number of rows in Schedule sheet, matches in app |
-| 3 | **How many courts?** | 2 (current) · 3 (if available) | 3 courts = 50% more matches per round, could reduce rounds needed |
-| 4 | **Mixed Doubles count?** | 5 (current) · 6 (gives each woman 2 games) · 9 (each woman 3 games) | Affects women's game count and round composition |
-| 5 | **Auto-generate pairings?** | Yes (algorithm) · No (captains pick on the day) | Determines whether a pairing generator needs to be built |
-| 6 | **Skill-based seeding?** | Yes (rank players, balance pairs) · No (pure random) | If yes, need a skill level field added to player registration |
+| # | Question | Options | Status | Impact |
+|---|----------|---------|--------|--------|
+| 1 | **Scoring format?** | Traditional 11 pts · **Rally to 15** · Rally to 21 | ⏳ Pending | Determines whether 9 rounds fits the noon cutoff |
+| 2 | **Round count?** | 8 (uneven women) · **9 (everyone equal)** · other | ⏳ Pending | Changes number of rows in Schedule sheet and app |
+| 3 | **Courts** | **2 confirmed (North + South)** | ✅ Resolved | — |
+| 4 | **Mixed Doubles count?** | 5 (8-round option) · **9 (9-round option)** | ⏳ Follows from Q2 | Determined once round count is chosen |
+| 5 | **Auto-generate pairings?** | Yes (algorithm output) · No (captains improvise) | ⏳ Pending | Whether a pairing schedule gets built |
+| 6 | **Skill-based seeding?** | Yes (rank players, balance pairs) · No (pure random) | ⏳ Pending | If yes, skill level field added to registration form |
 
 ---
 
-### Recommendation (pending your answers)
+### Updated recommendation
 
-> **10 rounds · rally scoring to 15 · 2 courts · 6 Mixed Doubles**
+> **9 rounds · rally scoring to 15 · 2 courts · 9 Mixed Doubles**
 
-- Every man plays 3–4 games with a unique partner each time
-- Every woman plays 2 Mixed Doubles games
-- Finishes by ~10:50 AM — 70 min buffer before noon
-- App changes needed: Schedule sheet grows from 16 → 20 rows, rules page updates scoring description, schedule page shows 10 rounds instead of 8
+| What | Detail |
+|------|--------|
+| Every man | Plays exactly **3 games**, each with a different partner |
+| Every woman | Plays exactly **3 games** (1 per 3 rounds) |
+| Round structure | Every round: **1 men's court + 1 mixed court** — completely uniform, easy to manage |
+| Estimated finish | 9 rounds × 14 min = 126 min → done by **~10:36 AM** · 84 min buffer before noon |
+| App changes needed | Schedule sheet: 16 rows → 18 rows · Rules page: update scoring · Schedule page: show 9 rounds |
+
+Previous recommendation was 10 rounds / 6 mixed doubles — updated to 9 rounds / 9 mixed doubles now that the court count (2) and player breakdown (9M + 3W) are confirmed, because 9 rounds is the only round count that gives everyone exactly equal games.
 
 ---
 
