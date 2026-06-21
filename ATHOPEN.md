@@ -133,6 +133,7 @@ Complete Apps Script ready to paste into the Google Apps Script editor. Implemen
 | H | phone | `(555) 555-5555` |
 | I | email | `suzan@example.com` |
 | J | timestamp | `2026-06-28T08:00:00.000Z` |
+| K | partnerId | `a8` (their partner's player ID) or blank if no partner |
 
 #### Schedule tab
 | Col | Field | Example |

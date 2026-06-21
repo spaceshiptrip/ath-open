@@ -72,6 +72,7 @@ function registerPlayer(params) {
     params.phone        || '',
     params.email        || '',
     ts,
+    params.partnerId    || '',
   ]);
 
   return { success: true, id };
@@ -134,7 +135,7 @@ function initSheets() {
   // Players sheet
   ensureSheet(ss, 'Players', [
     'id','firstName','lastName','team','gender',
-    'isCaptain','headshotUrl','phone','email','timestamp',
+    'isCaptain','headshotUrl','phone','email','timestamp','partnerId',
   ]);
 
   // Schedule sheet — pre-populate with the 16 matches from the tournament doc
