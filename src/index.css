@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-pickle-600 hover:bg-pickle-700 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors duration-150 inline-flex items-center gap-2;
+  }
+  .btn-secondary {
+    @apply bg-ball text-pickle-900 hover:bg-ball-dark font-semibold px-5 py-2.5 rounded-lg transition-colors duration-150 inline-flex items-center gap-2;
+  }
+  .btn-outline {
+    @apply border-2 border-pickle-600 text-pickle-700 hover:bg-pickle-50 font-semibold px-5 py-2.5 rounded-lg transition-colors duration-150 inline-flex items-center gap-2;
+  }
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-5;
+  }
+  .section-title {
+    @apply text-2xl font-display font-bold text-pickle-900 mb-1;
+  }
+  .team-a {
+    @apply bg-blue-600;
+  }
+  .team-b {
+    @apply bg-red-600;
+  }
+}
