@@ -120,8 +120,8 @@ function TeamBtn({ team, selected, onClick }) {
       className={`flex-1 py-2 rounded-lg border-2 text-sm font-semibold transition-colors ${
         selected
           ? team === 'A'
-            ? 'bg-blue-600 border-blue-600 text-white'
-            : 'bg-red-600 border-red-600 text-white'
+            ? 'bg-red-600 border-red-600 text-white'
+            : 'bg-blue-600 border-blue-600 text-white'
           : 'border-gray-200 text-gray-600 hover:border-gray-400'
       }`}
     >

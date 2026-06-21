@@ -9,8 +9,8 @@ export const TOURNAMENT = {
   matchTime: '8:30 AM – Noon',
   location: 'The Athenaeum',
   teams: {
-    A: { id: 'A', name: 'Team A', captain: 'Suzan', color: 'blue' },
-    B: { id: 'B', name: 'Team B', captain: 'Cora',  color: 'red'  },
+    A: { id: 'A', name: 'Team A', captain: 'Suzan', color: 'red'  },
+    B: { id: 'B', name: 'Team B', captain: 'Cora',  color: 'blue' },
   },
 }
 

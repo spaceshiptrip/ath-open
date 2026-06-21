@@ -1,6 +1,6 @@
 const TEAM_COLORS = {
-  A: { bg: 'bg-blue-600',  ring: 'ring-blue-400',  badge: 'bg-blue-100 text-blue-800'  },
-  B: { bg: 'bg-red-600',   ring: 'ring-red-400',   badge: 'bg-red-100  text-red-800'   },
+  A: { bg: 'bg-red-600',   ring: 'ring-red-400',   badge: 'bg-red-100  text-red-800'   },
+  B: { bg: 'bg-blue-600',  ring: 'ring-blue-400',  badge: 'bg-blue-100 text-blue-800'  },
 }
 
 export default function PlayerCard({ player, compact = false }) {

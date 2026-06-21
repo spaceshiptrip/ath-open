@@ -52,9 +52,9 @@ export default function Home() {
           label="Team A"
           value={winsA}
           sub="wins"
-          color="text-blue-600"
-          bg="bg-blue-50"
-          ring="ring-blue-200"
+          color="text-red-600"
+          bg="bg-red-50"
+          ring="ring-red-200"
         />
         <ScoreBox
           label="Games Played"
@@ -68,9 +68,9 @@ export default function Home() {
           label="Team B"
           value={winsB}
           sub="wins"
-          color="text-red-600"
-          bg="bg-red-50"
-          ring="ring-red-200"
+          color="text-blue-600"
+          bg="bg-blue-50"
+          ring="ring-blue-200"
         />
       </div>
 
@@ -94,8 +94,8 @@ export default function Home() {
         <div className="card">
           <h2 className="section-title mb-3">Teams</h2>
           <div className="space-y-3">
-            <TeamBadge team="A" captain={TOURNAMENT.teams.A.captain} color="blue" />
-            <TeamBadge team="B" captain={TOURNAMENT.teams.B.captain} color="red" />
+            <TeamBadge team="A" captain={TOURNAMENT.teams.A.captain} color="red" />
+            <TeamBadge team="B" captain={TOURNAMENT.teams.B.captain} color="blue" />
           </div>
           <Link to="/teams" className="inline-block mt-4 text-sm text-pickle-600 hover:underline font-medium">
             View full rosters →
@@ -136,12 +136,12 @@ function ScoreBox({ label, value, sub, color, bg, ring }) {
 function TeamBadge({ team, captain, color }) {
   const isA = color === 'blue'
   return (
-    <div className={`flex items-center gap-3 p-3 rounded-lg ${isA ? 'bg-blue-50' : 'bg-red-50'}`}>
-      <div className={`w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-white text-lg shadow-sm ${isA ? 'bg-blue-600' : 'bg-red-600'}`}>
+    <div className={`flex items-center gap-3 p-3 rounded-lg ${isA ? 'bg-red-50' : 'bg-blue-50'}`}>
+      <div className={`w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-white text-lg shadow-sm ${isA ? 'bg-red-600' : 'bg-blue-600'}`}>
         {team}
       </div>
       <div>
-        <p className={`font-semibold text-sm ${isA ? 'text-blue-800' : 'text-red-800'}`}>Team {team}</p>
+        <p className={`font-semibold text-sm ${isA ? 'text-red-800' : 'text-blue-800'}`}>Team {team}</p>
         <p className="text-xs text-gray-500">Captain: {captain}</p>
       </div>
     </div>

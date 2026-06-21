@@ -29,11 +29,11 @@ export default function Standings({ matches = [] }) {
 function TeamStat({ team, wins, isLeading }) {
   const isA = team === 'A'
   return (
-    <div className={`rounded-xl p-4 text-center ${isA ? 'bg-blue-50' : 'bg-red-50'}`}>
-      <p className={`text-xs font-bold uppercase tracking-widest mb-1 ${isA ? 'text-blue-500' : 'text-red-500'}`}>
+    <div className={`rounded-xl p-4 text-center ${isA ? 'bg-red-50' : 'bg-blue-50'}`}>
+      <p className={`text-xs font-bold uppercase tracking-widest mb-1 ${isA ? 'text-red-500' : 'text-blue-500'}`}>
         Team {team}
       </p>
-      <p className={`text-4xl font-display font-bold ${isA ? 'text-blue-700' : 'text-red-700'}`}>
+      <p className={`text-4xl font-display font-bold ${isA ? 'text-red-700' : 'text-blue-700'}`}>
         {wins}
       </p>
       <p className="text-xs text-gray-500 mt-0.5">wins</p>

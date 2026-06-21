@@ -28,8 +28,8 @@ export default function Teams() {
 
 function TeamSection({ team, players, captain }) {
   const isA = team === 'A'
-  const headerBg  = isA ? 'bg-blue-600'  : 'bg-red-600'
-  const countBg   = isA ? 'bg-blue-700'  : 'bg-red-700'
+  const headerBg  = isA ? 'bg-red-600'   : 'bg-blue-600'
+  const countBg   = isA ? 'bg-red-700'   : 'bg-blue-700'
 
   const sorted = [...players].sort((a, b) => {
     if (a.isCaptain) return -1
