@@ -76,7 +76,7 @@
 |-------|------|--------|-------|
 | `/#/` | `src/pages/Home.jsx` | ✅ Done | Courts hero photo, venue badge, live win totals, CTA buttons, teams + rules cards |
 | `/#/register` | `src/pages/Register.jsx` | ✅ Done | Full form: name, team A/B toggle, gender toggle, phone, email, headshot URL |
-| `/#/teams` | `src/pages/Teams.jsx` | ✅ Done | Two-column roster, Team B shows Dodgers logo in header |
+| `/#/teams` | `src/pages/Teams.jsx` | ✅ Done | Two-column roster, Blue Crew shows Dodgers logo in header |
 | `/#/schedule` | `src/pages/Schedule.jsx` | ✅ Done | 8 rounds × 2 courts, Mix Doubles highlighted in gold |
 | `/#/scores` | `src/pages/Scores.jsx` | ✅ Done | Live standings, toggle "Enter Scores" mode, A Wins / B Wins buttons per match |
 | `/#/rules` | `src/pages/Rules.jsx` | ✅ Done | Full rules from tournament document, organized into sections |
@@ -89,7 +89,7 @@
 | `src/components/Footer.jsx` | Athenaeum logo + tournament name + date/time |
 | `src/components/PlayerCard.jsx` | Player headshot (or initials avatar); team badge; captain badge; compact mode for inline lists |
 | `src/components/MatchCard.jsx` | Shows round/court, Mix Doubles flag, pair names, result badge, A/B Win buttons (edit mode only), clear button |
-| `src/components/Standings.jsx` | Team A vs Team B wins side-by-side; "LEADING" badge; games-completed counter |
+| `src/components/Standings.jsx` | Team A vs Blue Crew wins side-by-side; "LEADING" badge; games-completed counter; reads team names from `TOURNAMENT` config |
 
 ### 3.4 Frontend — services & data
 
@@ -97,8 +97,8 @@
 |------|---------|
 | `src/services/api.js` | All API calls; auto-falls back to mock data when `VITE_SHEETS_API_URL` not set |
 | `src/hooks/useApi.js` | Generic React hook: `useApi('getPlayers')` returns `{ data, loading, error, reload }` |
-| `src/data/mockData.js` | 16 sample players (8 per team, Suzan + Cora as captains) and all 16 match slots |
-| `src/config.js` | Tournament constants (name, date, times, team captains); `RULES` array; env var export |
+| `src/data/mockData.js` | 24 sample players (12 per team: 3F + 9M, with `partnerId` set for couples) and all 16 match slots with valid no-repeat pairings |
+| `src/config.js` | Tournament constants (name, date, times, team captains); Team B name = **Blue Crew**; `RULES` array; env var export |
 
 ### 3.5 Backend — Google Apps Script (`backend/code.gs`)
 
@@ -175,7 +175,7 @@ Complete Apps Script ready to paste into the Google Apps Script editor. Implemen
 |-------|------|--------|-------|
 | Athenaeum logo | `src/assets/athenaeum_header_logo.png` | ✅ In use | Burgundy script on white; shown in header pill and footer |
 | Courts photo | `src/assets/athenaeum_pickle_courts.jpg` | ✅ In use | Hero background on Home page; compressed from 4.3 MB PNG → 124 KB JPG |
-| Team B logo | `src/assets/team-b-logo.jpg` | ✅ In use | LA Dodgers logo; shown in Teams page Team B header + Home page team badge |
+| Team B (Blue Crew) logo | `src/assets/team-b-logo.jpg` | ✅ In use | LA Dodgers logo; shown in Teams page Blue Crew header + Home page team badge |
 | Team A logo | — | ❌ Not yet | TBD — placeholder is a red circle with "A" |
 
 ### 3.8 CI/CD — GitHub Actions (`.github/workflows/deploy.yml`)
@@ -196,10 +196,10 @@ Complete Apps Script ready to paste into the Google Apps Script editor. Implemen
 | `pickle-500` | `#2d7d4f` | Accent green |
 | `ball` | `#f5c518` | Yellow accent — logo text, active nav, Mix Doubles badges |
 | `red-600` | Tailwind | Team A color (all badges, avatars, headers, score buttons) |
-| `blue-600/700` | Tailwind | Team B color (all badges, avatars, headers, score buttons) |
+| `blue-600/700` | Tailwind | Blue Crew (Team B) color (all badges, avatars, headers, score buttons) |
 | `gray-50` | Tailwind | Page background |
 
-**Note:** Team colors were originally A=blue/B=red, then swapped to A=red/B=blue on June 21 because Team B has the Dodgers (blue) logo.
+**Note:** Team colors were originally A=blue/B=red, then swapped to A=red/B=blue on June 21 because Blue Crew (Team B) has the Dodgers (blue) logo. Team B display name is "Blue Crew" — set in `src/config.js` and read dynamically by all UI components.
 
 ---
 
@@ -211,14 +211,16 @@ ath-open/
 │   └── workflows/
 │       └── deploy.yml              # GitHub Actions — build + deploy to Pages
 ├── backend/
-│   └── code.gs                     # Google Apps Script — paste into Script Editor
+│   ├── code.gs                     # Google Apps Script — paste into Script Editor
+│   ├── ATH_Open_Sheets_Template.xlsx   # Reference spreadsheet template (24 example players, 16 matches)
+│   └── generate_template.py        # Script that regenerates the xlsx (.venv/bin/python3 backend/generate_template.py)
 ├── public/
 │   └── assets/                     # Static files (empty — images are in src/assets/)
 ├── src/
 │   ├── assets/
 │   │   ├── athenaeum_header_logo.png   # The Athenaeum burgundy script logo
 │   │   ├── athenaeum_pickle_courts.jpg # Courts photo (compressed, used as hero bg)
-│   │   └── team-b-logo.jpg             # LA Dodgers logo for Team B
+│   │   └── team-b-logo.jpg             # LA Dodgers logo for Blue Crew (Team B)
 │   ├── components/
 │   │   ├── Header.jsx              # Sticky nav, Athenaeum logo pill, mobile hamburger
 │   │   ├── Footer.jsx              # Logo + tournament details
@@ -226,7 +228,7 @@ ath-open/
 │   │   ├── MatchCard.jsx           # Match display + A/B win entry buttons
 │   │   └── Standings.jsx           # Side-by-side team wins + LEADING badge
 │   ├── data/
-│   │   └── mockData.js             # 16 sample players + 16 matches for local dev
+│   │   └── mockData.js             # 24 sample players (12/team, partnerId set for couples) + 16 valid matches
 │   ├── hooks/
 │   │   └── useApi.js               # useApi('method') → { data, loading, error, reload }
 │   ├── pages/
@@ -242,7 +244,7 @@ ath-open/
 │   ├── config.js                   # TOURNAMENT constants, RULES array, env var
 │   ├── index.css                   # Tailwind directives + .btn-primary, .card etc.
 │   └── main.jsx                    # React 18 createRoot entry point
-├── 12511.jpg                       # Source file for Team B logo (Dodgers)
+├── 12511.jpg                       # Source file for Blue Crew (Team B) logo (Dodgers)
 ├── athenaeum_header_logo.png       # Source file for Athenaeum logo
 ├── athenaeum_pickle_courts.png     # Source PNG for courts (uncompressed original)
 ├── IMG_2787.PNG                    # Screenshot of email with tournament special notes
@@ -418,6 +420,11 @@ Go to **Actions** tab → click the latest workflow run → **Re-run all jobs**.
 | `a13a385` | Jun 21, 2026 | Updated ATHOPEN.md with detailed work log and current state |
 | `24a8409` | Jun 21, 2026 | Expanded Section 6 with full 8-step Google Sheets connection guide |
 | `6acd741` | Jun 21, 2026 | Added Section 10: tournament format analysis, timeline, rally scoring, open questions |
+| `c7137bb` | Jun 21, 2026 | Locked in final tournament format from docx; cleaned up superseded analysis in ATHOPEN.md |
+| `3bfc642` | Jun 21, 2026 | Added Section 11: pairing pre-assignment strategy and fairness analysis |
+| `ede69de` | Jun 21, 2026 | Renamed Team B → **Blue Crew**; expanded mock roster to 24 players (12/team, 3F+9M); all UI components read team name from config |
+| `ecde6ab` | Jun 21, 2026 | Added `partnerId` field (col K) to Players schema in code.gs, mockData.js, and ATHOPEN.md |
+| `bac7f73` | Jun 21, 2026 | Moved xlsx template to `backend/`; saved `generate_template.py` script |
 
 ---
 
@@ -425,10 +432,13 @@ Go to **Actions** tab → click the latest workflow run → **Re-run all jobs**.
 
 ### Must-have before tournament day
 - [x] **Connect Google Sheets** — full 8-step connection guide in Section 6 above
-- [ ] **Add real players** — replace mock roster with actual registered players (either via registration form or manually in the Players sheet)
-- [ ] **Finalize tournament format** — scoring (rally vs traditional), round count, court count (see Section 10 open questions)
-- [ ] **Set match pairings** — fill in player IDs in Schedule sheet columns E–H before each round; consider auto-generating the full pairing schedule once format is decided
-- [ ] **Team A logo** — get a logo image for Team A and wire it in the same way as Team B (Teams page + Home badge)
+- [x] **Finalize tournament format** — 8 rounds, traditional scoring to 11, 11 men's + 5 mixed doubles (Section 10)
+- [x] **Team B name** — "Blue Crew" set in config.js, all UI components read it dynamically
+- [x] **partnerId field** — added to Players sheet (col K) to track mixed doubles couples
+- [ ] **Add real players** — replace mock roster with actual registered players (via registration form or directly in Players sheet); fill in `partnerId` for couples
+- [ ] **Decide men's doubles seeding** — random draw or captain's choice; then generate full 16-match pairing schedule
+- [ ] **Set match pairings** — fill in player IDs in Schedule sheet columns E–H (teamAP1/AP2/BP1/BP2) before tournament day
+- [ ] **Team A logo** — get a logo image for Team A and wire it in the same way as Blue Crew (Teams page + Home badge)
 
 ### Nice-to-have
 - [ ] **Captain PIN / score lock** — right now anyone can click "Enter Scores" and change results; a simple 4-digit PIN would restrict this to captains only
