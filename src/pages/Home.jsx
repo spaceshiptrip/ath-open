@@ -3,6 +3,7 @@ import { TOURNAMENT, RULES } from '../config'
 import { useApi } from '../hooks/useApi'
 import athLogo   from '../assets/athenaeum_header_logo.png'
 import athCourts from '../assets/athenaeum_pickle_courts.jpg'
+import teamBLogo from '../assets/team-b-logo.jpg'
 
 export default function Home() {
   const { data: matches } = useApi('getMatches')
@@ -95,7 +96,7 @@ export default function Home() {
           <h2 className="section-title mb-3">Teams</h2>
           <div className="space-y-3">
             <TeamBadge team="A" captain={TOURNAMENT.teams.A.captain} color="red" />
-            <TeamBadge team="B" captain={TOURNAMENT.teams.B.captain} color="blue" />
+            <TeamBadge team="B" captain={TOURNAMENT.teams.B.captain} color="blue" logo={teamBLogo} />
           </div>
           <Link to="/teams" className="inline-block mt-4 text-sm text-pickle-600 hover:underline font-medium">
             View full rosters →
@@ -133,15 +134,19 @@ function ScoreBox({ label, value, sub, color, bg, ring }) {
   )
 }
 
-function TeamBadge({ team, captain, color }) {
-  const isA = color === 'blue'
+function TeamBadge({ team, captain, color, logo }) {
+  const isRed = color === 'red'
   return (
-    <div className={`flex items-center gap-3 p-3 rounded-lg ${isA ? 'bg-red-50' : 'bg-blue-50'}`}>
-      <div className={`w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-white text-lg shadow-sm ${isA ? 'bg-red-600' : 'bg-blue-600'}`}>
-        {team}
-      </div>
+    <div className={`flex items-center gap-3 p-3 rounded-lg ${isRed ? 'bg-red-50' : 'bg-blue-50'}`}>
+      {logo ? (
+        <img src={logo} alt={`Team ${team} logo`} className="w-10 h-10 rounded-lg object-cover shadow-sm" />
+      ) : (
+        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-white text-lg shadow-sm ${isRed ? 'bg-red-600' : 'bg-blue-600'}`}>
+          {team}
+        </div>
+      )}
       <div>
-        <p className={`font-semibold text-sm ${isA ? 'text-red-800' : 'text-blue-800'}`}>Team {team}</p>
+        <p className={`font-semibold text-sm ${isRed ? 'text-red-800' : 'text-blue-800'}`}>Team {team}</p>
         <p className="text-xs text-gray-500">Captain: {captain}</p>
       </div>
     </div>

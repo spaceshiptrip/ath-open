@@ -1,6 +1,7 @@
 import { useApi } from '../hooks/useApi'
 import PlayerCard from '../components/PlayerCard'
 import { TOURNAMENT } from '../config'
+import teamBLogo from '../assets/team-b-logo.jpg'
 
 export default function Teams() {
   const { data: players, loading, error } = useApi('getPlayers')
@@ -20,16 +21,16 @@ export default function Teams() {
 
       <div className="grid md:grid-cols-2 gap-6">
         <TeamSection team="A" players={teamA} captain={TOURNAMENT.teams.A.captain} />
-        <TeamSection team="B" players={teamB} captain={TOURNAMENT.teams.B.captain} />
+        <TeamSection team="B" players={teamB} captain={TOURNAMENT.teams.B.captain} logo={teamBLogo} />
       </div>
     </div>
   )
 }
 
-function TeamSection({ team, players, captain }) {
+function TeamSection({ team, players, captain, logo }) {
   const isA = team === 'A'
-  const headerBg  = isA ? 'bg-red-600'   : 'bg-blue-600'
-  const countBg   = isA ? 'bg-red-700'   : 'bg-blue-700'
+  const headerBg = isA ? 'bg-red-600' : 'bg-blue-700'
+  const countBg  = isA ? 'bg-red-700' : 'bg-blue-800'
 
   const sorted = [...players].sort((a, b) => {
     if (a.isCaptain) return -1
@@ -41,9 +42,18 @@ function TeamSection({ team, players, captain }) {
     <div className="rounded-xl overflow-hidden shadow-sm border border-gray-100">
       {/* Team header */}
       <div className={`${headerBg} text-white px-5 py-4 flex items-center justify-between`}>
-        <div>
-          <h2 className="font-display text-xl font-bold">Team {team}</h2>
-          <p className="text-sm opacity-80">Captain: {captain}</p>
+        <div className="flex items-center gap-3">
+          {logo && (
+            <img
+              src={logo}
+              alt={`Team ${team} logo`}
+              className="w-12 h-12 rounded-lg object-cover shadow-md ring-2 ring-white/30"
+            />
+          )}
+          <div>
+            <h2 className="font-display text-xl font-bold">Team {team}</h2>
+            <p className="text-sm opacity-80">Captain: {captain}</p>
+          </div>
         </div>
         <span className={`${countBg} text-white text-sm font-bold px-3 py-1 rounded-full`}>
           {players.length} players
