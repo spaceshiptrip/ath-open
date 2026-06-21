@@ -415,6 +415,7 @@ Go to **Actions** tab → click the latest workflow run → **Re-run all jobs**.
 | `274b8e4` | Jun 21, 2026 | Swapped team colors: Team A → red, Team B → blue (to match Dodgers logo) |
 | `2bf7fb3` | Jun 21, 2026 | Added Team B (Dodgers) logo to Teams page header and Home page team badge |
 | `a13a385` | Jun 21, 2026 | Updated ATHOPEN.md with detailed work log and current state |
+| `24a8409` | Jun 21, 2026 | Expanded Section 6 with full 8-step Google Sheets connection guide |
 
 ---
 
@@ -423,7 +424,8 @@ Go to **Actions** tab → click the latest workflow run → **Re-run all jobs**.
 ### Must-have before tournament day
 - [x] **Connect Google Sheets** — full 8-step connection guide in Section 6 above
 - [ ] **Add real players** — replace mock roster with actual registered players (either via registration form or manually in the Players sheet)
-- [ ] **Set match pairings** — fill in player IDs in Schedule sheet columns E–H before each round
+- [ ] **Finalize tournament format** — scoring (rally vs traditional), round count, court count (see Section 10 open questions)
+- [ ] **Set match pairings** — fill in player IDs in Schedule sheet columns E–H before each round; consider auto-generating the full pairing schedule once format is decided
 - [ ] **Team A logo** — get a logo image for Team A and wire it in the same way as Team B (Teams page + Home badge)
 
 ### Nice-to-have
@@ -437,7 +439,186 @@ Go to **Actions** tab → click the latest workflow run → **Re-run all jobs**.
 
 ---
 
-## 10. Known Issues / Notes
+## 10. Tournament Format Analysis — 12 Players Per Team
+
+> **Status as of Jun 21, 2026 — decisions pending.** See open questions at the bottom of this section before updating the app or spreadsheet.
+
+### Roster size confirmed
+- **24 players total**: 12 per team
+- **Each team**: 9 men + 3 women
+- **Game types**: Men's Doubles and Mixed Doubles (no Women's Doubles planned)
+- **Team A captain**: Suzan (woman) · **Team B captain**: Cora (woman)
+
+---
+
+### Does the current 8-round format scale to 24 players?
+
+**Current format:** 8 rounds × 2 courts = **16 matches total**  
+Each match uses 2 players per side → **32 player-game slots per team per tournament**
+
+```
+32 slots ÷ 12 players = 2.67 games per person average
+```
+
+#### Men's games breakdown (16 total matches, assume 5 are Mixed Doubles)
+
+| Stat | Value |
+|------|-------|
+| Men's Doubles matches | 11 |
+| Mixed Doubles matches | 5 |
+| Men's slots (11 × 2 + 5 × 1) | 27 |
+| Men per team | 9 |
+| Average games per man | **3.0** ✅ |
+
+Men just barely fit — everyone averages exactly 3 games. But this requires perfectly balanced scheduling with no one sitting out twice in a row, which is hard to achieve manually with 9 people and only 4 playing per round.
+
+#### Women's games breakdown (5 Mixed Doubles matches)
+
+| Stat | Value |
+|------|-------|
+| Mixed Doubles matches | 5 |
+| Women's slots available | 5 |
+| Women per team | 3 |
+| Average games per woman | **1.67** ⚠️ |
+
+Women are underserved — some get only 1 game. To give all 3 women **2 games each** you need **6 Mixed Doubles slots**, which means either:
+- Replacing 1 Men's Doubles match with a Mixed Doubles match (reducing men's total slightly), or
+- Adding more rounds (see options below)
+
+---
+
+### Does a bracket/elimination format work here?
+
+**No — and here's why:**
+
+A bracket (single or double elimination) assumes:
+- Individual or pair matchups where losers get eliminated
+- Only the winner advances to the next round
+- Half the field stops playing after Round 1
+
+This tournament is **Team vs Team round robin** — the *team's cumulative wins* determine the winner, not any individual pair. Every player needs to keep competing throughout the tournament regardless of their game result. A bracket would mean half the players sit out for the rest of the day after losing Round 1, which defeats the purpose of a social tournament.
+
+**What "bracket seeding" actually means here:** how you *order and assign pairs* within a round (skill-based seeding so strong pairs don't always face each other). That's a pairing/scheduling problem, not a bracket format. The round robin structure stays.
+
+---
+
+### Timeline reality check — traditional scoring
+
+Traditional scoring: only the **serving team** scores a point.
+
+```
+Average game to 11 (traditional):   15–20 minutes
+Court changeover between rounds:      3–5 minutes
+Per round (wait for both courts):    ~20–25 minutes worst case
+
+8 rounds × 22 min = 176 minutes = ~2 hr 56 min
++ warm-up buffer (8:00–8:30)     = 3 hr 26 min total
+Hard cutoff: Noon (3.5 hrs from 8:30 start)
+Buffer remaining: ~4 minutes ← effectively zero
+```
+
+**Risk:** One game that runs to 13-11 or 15-13 (common in competitive play) costs 5–8 extra minutes. With 8 rounds that risk compounds. The schedule likely **runs over** with 24 players and traditional scoring.
+
+Additional time pressure with 24 players vs the original smaller group:
+- More players to rotate in/out between rounds
+- Captains need to assign pairs and confirm rosters each round
+- Score reporting takes longer with more matches to track
+
+---
+
+### Rally scoring — what it is and whether it helps
+
+**Rally scoring:** both teams can score a point on *every* rally, regardless of who served. Standard in most pickleball tournaments and leagues.
+
+```
+Average game to 15 (rally scoring):   10–13 minutes
+Average game to 21 (rally scoring):   16–22 minutes
+Average game to 11 (rally scoring):    7–10 minutes
+```
+
+**Why rally scoring to 15 is the tournament standard:**  
+- Faster and more predictable than traditional scoring to 11
+- Games rarely blow out (a team down 14-5 knows it's over; in traditional scoring they don't)
+- Easier to track score (no side-out confusion)
+- Widely understood — most recreational players have played it
+
+#### Timeline with rally scoring to 15
+
+```
+Average game to 15 (rally):           11 minutes
+Court changeover:                       3 minutes
+Per round (both courts):              ~14 minutes
+
+8 rounds  × 14 min = 112 min = 1 hr 52 min → done by ~10:22 AM
+10 rounds × 14 min = 140 min = 2 hr 20 min → done by ~10:50 AM
+12 rounds × 14 min = 168 min = 2 hr 48 min → done by ~11:18 AM
+```
+
+Rally scoring to 15 gives significant breathing room at any round count.
+
+---
+
+### Format comparison table
+
+| Format | Rounds | Matches | Games/man | Games/woman | Est. finish | Risk |
+|--------|--------|---------|-----------|-------------|-------------|------|
+| Current (trad, 11 pts) | 8 | 16 | ~3.0 | ~1.7 | ~11:56 AM | 🔴 Very tight |
+| Trad scoring, 11 pts | 10 | 20 | ~3.6 | ~2.3 | Noon+ | 🔴 Over budget |
+| Rally to 15 | 8 | 16 | ~3.0 | ~1.7 | ~10:22 AM | 🟢 90 min buffer |
+| Rally to 15 | 10 | 20 | ~3.6 | ~2.3 | ~10:50 AM | 🟡 70 min buffer |
+| Rally to 15 | 12 | 24 | ~4.2 | ~3.0 | ~11:18 AM | 🟡 42 min buffer |
+| Rally to 21 | 8 | 16 | ~3.0 | ~1.7 | ~11:26 AM | 🟡 34 min buffer |
+| Rally to 21 | 10 | 20 | ~3.6 | ~2.3 | Noon | 🔴 No buffer |
+
+**Sweet spot: 10 rounds, rally scoring to 15.**  
+Everyone gets 3–4 games, women get 2–3 mixed games, finishes by ~10:50 AM with time for a social hour before lunch.
+
+---
+
+### Player pairing / seeding algorithm
+
+With 9 men needing 3 games each with **different partners every time**, manual scheduling is error-prone. A proper algorithm needs to satisfy:
+
+1. **Uniqueness constraint** — no two men from the same team are ever paired together more than once
+2. **Opponent variety** — ideally no pair faces the same opposing pair more than once
+3. **Women distribution** — 3 women spread evenly across Mixed Doubles rounds, each playing 2 games
+4. **Sit-out fairness** — with 4 of 9 men playing per round, 5 sit out; the algorithm must rotate sit-outs so no one sits out consecutively
+
+With 9 men: C(9,2) = **36 possible unique pairs** — far more than the ~10 pairings needed for a 10-round tournament, so the uniqueness constraint is easily satisfiable.
+
+The algorithm is essentially a **round-robin doubles scheduling problem** (also called "social doubles" or "American doubles" rotation). It can be auto-generated once the final round count and player list is confirmed.
+
+**Plan:** once round count and scoring format are decided, generate the full pairing schedule as a pre-filled spreadsheet so captains just execute it rather than improvise on the day.
+
+---
+
+### ⚠️ Open questions — decisions needed before updating the app
+
+These decisions affect the Schedule sheet structure, the number of rows in the database, and what the Scores/Schedule pages display. **Do not update the app until these are resolved.**
+
+| # | Question | Options | Impact |
+|---|----------|---------|--------|
+| 1 | **Scoring format?** | Traditional 11 pts · Rally to 15 · Rally to 21 | Changes rules page, game timer expectations, schedule feasibility |
+| 2 | **How many rounds?** | 8 (current) · 10 (recommended) · 12 | Changes number of rows in Schedule sheet, matches in app |
+| 3 | **How many courts?** | 2 (current) · 3 (if available) | 3 courts = 50% more matches per round, could reduce rounds needed |
+| 4 | **Mixed Doubles count?** | 5 (current) · 6 (gives each woman 2 games) · 9 (each woman 3 games) | Affects women's game count and round composition |
+| 5 | **Auto-generate pairings?** | Yes (algorithm) · No (captains pick on the day) | Determines whether a pairing generator needs to be built |
+| 6 | **Skill-based seeding?** | Yes (rank players, balance pairs) · No (pure random) | If yes, need a skill level field added to player registration |
+
+---
+
+### Recommendation (pending your answers)
+
+> **10 rounds · rally scoring to 15 · 2 courts · 6 Mixed Doubles**
+
+- Every man plays 3–4 games with a unique partner each time
+- Every woman plays 2 Mixed Doubles games
+- Finishes by ~10:50 AM — 70 min buffer before noon
+- App changes needed: Schedule sheet grows from 16 → 20 rows, rules page updates scoring description, schedule page shows 10 rounds instead of 8
+
+---
+
+## 11. Known Issues / Notes
 
 - The `node_modules/` deprecation warning about Node.js 20 in GitHub Actions is cosmetic — the build succeeds. Will auto-resolve when GitHub upgrades runner defaults.
 - Source image files (`12511.jpg`, `athenaeum_header_logo.png`, `athenaeum_pickle_courts.png`, `IMG_2787.PNG`) are committed to the repo root. They are not served by the app — the app uses copies in `src/assets/`. These source files can be moved to a `/source-assets/` folder for cleanliness.
