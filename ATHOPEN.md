@@ -1,6 +1,6 @@
 # ATH Open Pickleball Tournament — Requirements, Design & Work Log
 
-**Last updated:** June 21, 2026  
+**Last updated:** June 22, 2026  
 **Live site:** https://spaceshiptrip.github.io/ath-open/  
 **Repo:** https://github.com/spaceshiptrip/ath-open  
 **Local dev:** `npm run dev` → http://localhost:5173/ath-open/
@@ -19,13 +19,13 @@
 | At 11-all | Next point wins — Receivers' Choice |
 | Server | Coin/paddle toss each game |
 | Reporting | WIN ONLY reported to captain |
-| Total games | 16 (8 rounds × 2 courts) |
-| Games breakdown | 27 Men's Doubles + 5 Mixed Doubles |
-| Men's play | Each man plays 3 games, different partner each time |
-| Women's play | 2 women play 2 games; captain plays 1 game |
-| Mix Doubles rounds | Rounds 3 (S+N), 4 (S only), 6 (S+N) = 5 Mix games |
+| Total games | 18 (9 rounds × 2 courts) |
+| Games breakdown | 11 Men's Doubles + 7 Mixed Doubles |
+| Men's play | Each man plays 3 games (2 men play 4 — unavoidable), different partner each time |
+| Women's play | One woman plays 3 games, two play 2 (unavoidable with 7 mixed slots / 3 couples) |
+| Mix Doubles rounds | R4 (both), R5 (South only), R7 (both), R9 (both) = 7 Mix games |
 | Team A captain | Suzan |
-| Team B captain | Cora |
+| Team B captain | Alexis |
 | Courts | S = South Court, N = North Court |
 | Special note | Mix Dub game 4 and 6 (from email — `IMG_2787.PNG`) |
 
@@ -77,7 +77,7 @@
 | `/#/` | `src/pages/Home.jsx` | ✅ Done | Courts hero photo, venue badge, live win totals, CTA buttons, teams + rules cards |
 | `/#/register` | `src/pages/Register.jsx` | ✅ Done | Full form: name, team A/B toggle, gender toggle, phone, email, headshot URL |
 | `/#/teams` | `src/pages/Teams.jsx` | ✅ Done | Two-column roster, Blue Crew shows Dodgers logo in header |
-| `/#/schedule` | `src/pages/Schedule.jsx` | ✅ Done | 8 rounds × 2 courts, Mix Doubles highlighted in gold |
+| `/#/schedule` | `src/pages/Schedule.jsx` | ✅ Done | 9 rounds × 2 courts (18 matches), Mix Doubles highlighted in gold |
 | `/#/scores` | `src/pages/Scores.jsx` | ✅ Done | Live standings, toggle "Enter Scores" mode, A Wins / B Wins buttons per match |
 | `/#/rules` | `src/pages/Rules.jsx` | ✅ Done | Full rules from tournament document, organized into sections |
 
@@ -97,7 +97,7 @@
 |------|---------|
 | `src/services/api.js` | All API calls; auto-falls back to mock data when `VITE_SHEETS_API_URL` not set |
 | `src/hooks/useApi.js` | Generic React hook: `useApi('getPlayers')` returns `{ data, loading, error, reload }` |
-| `src/data/mockData.js` | 24 sample players (12 per team: 3F + 9M, with `partnerId` set for couples) and all 16 match slots with valid no-repeat pairings |
+| `src/data/mockData.js` | 24 real players (HSB + Blue Crew names, 12 per team: 3F + 9M, `partnerId` for couples) and all 18 match slots with valid no-repeat pairings across 9 rounds |
 | `src/config.js` | Tournament constants (name, date, times, team captains); Team B name = **Blue Crew**; `RULES` array; env var export |
 
 ### 3.5 Backend — Google Apps Script (`backend/code.gs`)
@@ -112,7 +112,7 @@ Complete Apps Script ready to paste into the Google Apps Script editor. Implemen
 | `getMatches()` | GET | Returns all rows from Schedule sheet; coerces `isMix` to boolean |
 | `updateScore(matchId, winner)` | GET | Finds match row by ID, writes winner value to column I |
 | `getStandings()` | GET | Counts A/B wins from Schedule sheet; returns `{ A: n, B: n }` |
-| `initSheets()` | Setup | Creates Players + Schedule tabs with headers + formatting; pre-populates all 16 match slots |
+| `initSheets()` | Setup | Creates Players + Schedule tabs with headers + formatting; pre-populates all 18 match slots (9 rounds) |
 | `ensureSheet()` | Helper | Creates sheet if missing, adds bold green header row, freezes row 1 |
 | `rowToObj()` | Helper | Converts a sheet row array + header array into a plain JS object |
 
@@ -156,18 +156,20 @@ Complete Apps Script ready to paste into the Google Apps Script editor. Implemen
 | m2  | 1 | N | No  |
 | m3  | 2 | S | No  |
 | m4  | 2 | N | No  |
-| m5  | 3 | S | **Yes ★** |
-| m6  | 3 | N | **Yes ★** |
+| m5  | 3 | S | No  |
+| m6  | 3 | N | No  |
 | m7  | 4 | S | **Yes ★** |
-| m8  | 4 | N | No  |
-| m9  | 5 | S | No  |
+| m8  | 4 | N | **Yes ★** |
+| m9  | 5 | S | **Yes ★** |
 | m10 | 5 | N | No  |
-| m11 | 6 | S | **Yes ★** |
-| m12 | 6 | N | **Yes ★** |
-| m13 | 7 | S | No  |
-| m14 | 7 | N | No  |
+| m11 | 6 | S | No  |
+| m12 | 6 | N | No  |
+| m13 | 7 | S | **Yes ★** |
+| m14 | 7 | N | **Yes ★** |
 | m15 | 8 | S | No  |
 | m16 | 8 | N | No  |
+| m17 | 9 | S | **Yes ★** |
+| m18 | 9 | N | **Yes ★** |
 
 ### 3.7 Branding & assets
 
@@ -212,8 +214,9 @@ ath-open/
 │       └── deploy.yml              # GitHub Actions — build + deploy to Pages
 ├── backend/
 │   ├── code.gs                     # Google Apps Script — paste into Script Editor
-│   ├── ATH_Open_Sheets_Template.xlsx   # Reference spreadsheet template (24 example players, 16 matches)
-│   └── generate_template.py        # Script that regenerates the xlsx (.venv/bin/python3 backend/generate_template.py)
+│   ├── ATH_Open_Sheets_Template.xlsx   # Reference spreadsheet (24 players — real names, 18 matches, 9 rounds)
+│   ├── generate_template.py        # Regenerates ATH_Open_Sheets_Template.xlsx (.venv/bin/python3 backend/generate_template.py)
+│   └── generate_pairings.py        # Generates docs/BlueCrew_Pairings.xlsx (.venv/bin/python3 backend/generate_pairings.py)
 ├── public/
 │   └── assets/                     # Static files (empty — images are in src/assets/)
 ├── src/
@@ -228,14 +231,14 @@ ath-open/
 │   │   ├── MatchCard.jsx           # Match display + A/B win entry buttons
 │   │   └── Standings.jsx           # Side-by-side team wins + LEADING badge
 │   ├── data/
-│   │   └── mockData.js             # 24 sample players (12/team, partnerId set for couples) + 16 valid matches
+│   │   └── mockData.js             # 24 real players (HSB + Blue Crew names, 12/team) + 18 valid matches (9 rounds)
 │   ├── hooks/
 │   │   └── useApi.js               # useApi('method') → { data, loading, error, reload }
 │   ├── pages/
 │   │   ├── Home.jsx                # Hero, stats, CTAs, teams card, rules preview
 │   │   ├── Register.jsx            # Player sign-up form
 │   │   ├── Teams.jsx               # Two-column rosters with logos
-│   │   ├── Schedule.jsx            # Read-only 16-match schedule
+│   │   ├── Schedule.jsx            # Read-only 18-match schedule (9 rounds)
 │   │   ├── Scores.jsx              # Live standings + score entry toggle
 │   │   └── Rules.jsx               # Full formatted rules
 │   ├── services/
@@ -251,7 +254,8 @@ ath-open/
 │   ├── IMG_2787.PNG                    # Screenshot of email with tournament special notes
 │   ├── 2 Courts:2 Teams RR Blank Form.docx  # Blank tournament scoring document
 │   ├── Team Round Robin Athenaeum.docx      # Filled schedule — Hill Street Blues pairings
-│   └── ATH_Pairings_Matrix.xlsx        # Generated pairings matrix (Hill Street Blues)
+│   ├── ATH_Pairings_Matrix.xlsx        # Generated pairings matrix (Hill Street Blues — Team A)
+│   └── BlueCrew_Pairings.xlsx          # Generated pairings schedule (Blue Crew — Team B)
 ├── .env.example                    # Template: VITE_SHEETS_API_URL=...
 ├── .gitignore
 ├── index.html
@@ -324,7 +328,7 @@ npm run dev
 2. Click **Run**
 3. A permissions popup will appear — click **Review permissions → Allow**
 4. Back in your spreadsheet you'll now see two new tabs: **Players** and **Schedule**
-5. The Schedule tab will have all 16 match slots pre-filled with the correct round/court/Mix Doubles data
+5. The Schedule tab will have all 18 match slots pre-filled with the correct round/court/Mix Doubles data (9 rounds)
 
 ### Step 4 — Deploy as Web App
 
@@ -366,7 +370,7 @@ The build will inject the real Sheets URL into the app. Once it goes green, the 
 After players are registered, fill in the Schedule sheet so the app shows who is playing who:
 
 1. Open the **Schedule** tab in the spreadsheet
-2. For each of the 16 rows (m1–m16), fill in columns E–H:
+2. For each of the 18 rows (m1–m18), fill in columns E–H:
    - **E** (`teamAP1`) — Team A Player 1's ID (e.g. `p1750000000001`)
    - **F** (`teamAP2`) — Team A Player 2's ID
    - **G** (`teamBP1`) — Team B Player 1's ID
@@ -428,6 +432,7 @@ Go to **Actions** tab → click the latest workflow run → **Re-run all jobs**.
 | `ede69de` | Jun 21, 2026 | Renamed Team B → **Blue Crew**; expanded mock roster to 24 players (12/team, 3F+9M); all UI components read team name from config |
 | `ecde6ab` | Jun 21, 2026 | Added `partnerId` field (col K) to Players schema in code.gs, mockData.js, and ATHOPEN.md |
 | `bac7f73` | Jun 21, 2026 | Moved xlsx template to `backend/`; saved `generate_template.py` script |
+| *(pending)* | Jun 22, 2026 | Blue Crew pairings schedule generated (`docs/BlueCrew_Pairings.xlsx`); real player names (HSB + Blue Crew) in mockData.js; updated to 9 rounds / 18 matches across all files |
 
 ---
 
@@ -438,9 +443,11 @@ Go to **Actions** tab → click the latest workflow run → **Re-run all jobs**.
 - [x] **Finalize tournament format** — 8 rounds, traditional scoring to 11, 11 men's + 5 mixed doubles (Section 10)
 - [x] **Team B name** — "Blue Crew" set in config.js, all UI components read it dynamically
 - [x] **partnerId field** — added to Players sheet (col K) to track mixed doubles couples
-- [ ] **Add real players** — replace mock roster with actual registered players (via registration form or directly in Players sheet); fill in `partnerId` for couples
-- [ ] **Decide men's doubles seeding** — random draw or captain's choice; then generate full 16-match pairing schedule
-- [ ] **Set match pairings** — fill in player IDs in Schedule sheet columns E–H (teamAP1/AP2/BP1/BP2) before tournament day
+- [x] **Real player names in mock data** — HSB (Suzan, Rachel, Molly, Pierre, Jeff E, Dro, Steve, Mich, Wilfred, Jeff W, Yu Fon, Johnny) and Blue Crew (Alexis, Carmela, Ivy, Jay, Marv, Arman, Jon, Trevor, Richard, Rhon, Joe, Pierre) replace placeholder names
+- [x] **Blue Crew pairings generated** — `docs/BlueCrew_Pairings.xlsx` has full schedule; `backend/generate_pairings.py` saved for re-runs; Trevor/Alexis get 3 mixed, others get 2; Arman/Richard play 4 games
+- [x] **Tournament format corrected to 9 rounds / 18 matches** — actual HSB docx has 9 rounds (not 8); 7 mixed doubles (not 5); all code updated
+- [ ] **Add real players to Google Sheets** — replace mock roster with actual registered players (via registration form or directly in Players sheet); fill in `partnerId` for couples
+- [ ] **Set match pairings** — fill in player IDs in Schedule sheet columns E–H (m1–m18) using `docs/BlueCrew_Pairings.xlsx` and `docs/ATH_Pairings_Matrix.xlsx`
 - [ ] **Team A logo** — get a logo image for Team A and wire it in the same way as Blue Crew (Teams page + Home badge)
 
 ### Nice-to-have
@@ -456,7 +463,7 @@ Go to **Actions** tab → click the latest workflow run → **Re-run all jobs**.
 
 ## 10. Tournament Format — FINAL DECISION
 
-> **✅ DECIDED Jun 21, 2026 — format locked.** Going with the format from `2 Courts:2 Teams RR Blank Form.docx` as designed by Suzan King. The document was written specifically for this tournament's 9M + 3W per team structure. All open questions from earlier analysis are now resolved below.
+> **✅ DECIDED Jun 22, 2026 — format locked from actual Hill Street Blues docx.** The blank form had 8 rounds; the actual `Team Round Robin Athenaeum.docx` (Hill Street Blues' filled schedule) has **9 rounds / 18 matches / 7 mixed doubles**. All app files updated to match.
 
 ### Confirmed tournament spec
 
@@ -472,90 +479,80 @@ Go to **Actions** tab → click the latest workflow run → **Re-run all jobs**.
 | Scoring | **Traditional: 11 points, win by 2** | docx |
 | At 11-all | Next point wins — **Receivers' Choice** | docx |
 | First server | Coin/paddle toss each game | docx |
-| Total rounds | **8** | docx |
-| Total matches | **16** (8 rounds × 2 courts) | docx |
-| Men's Doubles matches | **11** | docx |
-| Mixed Doubles matches | **5** (marked ★) | docx |
-| Games per man | **3** (each with a different partner) | docx |
-| Games per woman (non-captain) | **2** | docx |
-| Games per captain (woman) | **1** | docx |
+| Total rounds | **9** | HSB docx |
+| Total matches | **18** (9 rounds × 2 courts) | HSB docx |
+| Men's Doubles matches | **11** | HSB docx |
+| Mixed Doubles matches | **7** (marked ★) | HSB docx |
+| Games per man | **3 most men, 2 must play 4** (unavoidable — see math) | calculated |
+| Games per woman | **One woman plays 3, two play 2** (unavoidable with 7 slots / 3 couples) | calculated |
 | Score reporting | **WIN ONLY** to captain | docx |
 | Team A captain | **Suzan** | docx |
-| Team B captain | **Cora** | docx |
+| Team B captain | **Alexis** | confirmed |
 
 ---
 
-### Match schedule — confirmed from docx
+### Match schedule — confirmed from HSB docx
 
-The exact round/court structure is defined in the scoring document. Mixed Doubles (★) are concentrated in rounds 3, 4, and 6.
+Mixed Doubles (★) in rounds 4, 5 (South only), 7, and 9.
 
 | Round | South Court | North Court | Notes |
 |-------|-------------|-------------|-------|
 | 1 | Men's Doubles | Men's Doubles | — |
 | 2 | Men's Doubles | Men's Doubles | — |
-| 3 | **Mix Doubles ★** | **Mix Doubles ★** | Both courts mixed |
-| 4 | **Mix Doubles ★** | Men's Doubles | South only |
-| 5 | Men's Doubles | Men's Doubles | — |
-| 6 | **Mix Doubles ★** | **Mix Doubles ★** | Both courts mixed |
-| 7 | Men's Doubles | Men's Doubles | — |
+| 3 | Men's Doubles | Men's Doubles | — |
+| 4 | **Mix Doubles ★** | **Mix Doubles ★** | Both courts mixed |
+| 5 | **Mix Doubles ★** | Men's Doubles | South only |
+| 6 | Men's Doubles | Men's Doubles | — |
+| 7 | **Mix Doubles ★** | **Mix Doubles ★** | Both courts mixed |
 | 8 | Men's Doubles | Men's Doubles | — |
+| 9 | **Mix Doubles ★** | **Mix Doubles ★** | Both courts mixed |
 
-Mixed Doubles: rounds 3S, 3N, 4S, 6S, 6N = **5 mixed matches**  
+Mixed Doubles: R4S, R4N, R5S, R7S, R7N, R9S, R9N = **7 mixed matches**  
 Men's Doubles: all other slots = **11 men's matches**  
-Total: **16 matches** ✅
-
-> Source email from Suzan (IMG_2787.PNG): *"Mix Dub game 4 and 6."* — confirming rounds 4 and 6 contain the mixed doubles (round 3 has both courts mixed, round 4 has South only, round 6 has both courts mixed again).
+Total: **18 matches** ✅
 
 ---
 
 ### Why this format works for 9M + 3W per team
 
-#### Men
+#### Men — why 2 players must play 4 games
 ```
 11 men's doubles × 2 men per side = 22 men's slots
- 5 mixed doubles  × 1 man per side =  5 men's slots
-                           Total  = 27 men's slots
-                   27 ÷ 9 men     =  3 games per man  ✅
+ 7 mixed doubles  × 1 man per side =  7 men's slots  (one couple man per match)
+                           Total  = 29 men's slots
+
+3 couples → their men contribute:
+  couple A (3 mixed): 0 men's doubles games
+  couple B (2 mixed): 1 men's doubles game
+  couple C (2 mixed): 1 men's doubles game
+  Subtotal = 2 men's player-slots
+
+6 non-couple men fill: 22 - 2 = 20 men's slots
+20 ÷ 6 = 3 remainder 2  → exactly 2 men play 4 games, 4 men play 3 games
 ```
 
-Every man plays **exactly 3 games**, each time with a different partner. No man is ever partnered with the same teammate twice.
+Every man plays **3 or 4 games**, each time with a different partner. No man repeats a partner.
 
-Unique pairs available: C(9,2) = **36 possible pairs** — far more than the 9 pairings needed, so the uniqueness constraint is easily satisfiable by the pairing schedule.
-
-#### Women
+#### Women — why one woman plays 3 games
 ```
-5 mixed doubles × 1 woman per side = 5 women's slots
-Distribution: 2 women play 2 games each (4 slots)
-              captain plays 1 game        (1 slot)
-              Total = 5 slots             ✅
+7 mixed doubles × 1 woman per side = 7 women's slots
+3 couples → distribute 7 slots: only (3,2,2) is possible (no way to fit 7 into 3 groups ≤2)
+→ one woman plays 3 games, two play 2 games
 ```
 
-The captain playing only 1 game is **intentional** — the captain runs the day (tracks wins, assigns pairings, manages the schedule) and plays 1 mixed game when needed. The other 2 women each play 2 games.
+Hill Street Blues women: Suzan=1, Rachel=3, Molly=3 (distribution 3,3,1)  
+Blue Crew women: Alexis=3 (couple drew 3 mixed), Carmela=2, Ivy=2 (distribution 3,2,2)
 
-#### Sit-out pattern per round
+#### Men's game count verification
 ```
-Men's court:   2 Team A men + 2 Team B men play
-Mixed court:   1 Team A man + 1 Team A woman + 1 Team B man + 1 Team B woman play
-Per round:     3 men per team play, 6 men sit out
-               1 woman per team plays (in mixed rounds), 2 women sit out
+All-men's rounds (R1, R2, R3, R6, R8 — both courts men's): 5 × 4 = 20 slots
+Split round (R5 — South mixed, North men's): 1 × 2 = 2 slots
+Total men's player-slots: 22  ✅ (11 matches × 2)
+
+Total game appearances for all men:
+  22 (men's) + 7 (mixed) = 29 player-slots
+  Couple men: 3+1+1 = 5  →  non-couple: 24 slots / 6 men → 2×4 + 4×3  ✓
 ```
-
-With 9 men and 3 playing per round over 8 rounds:
-- 8 rounds × 3 men playing = 24 men's appearances... 
-
-Wait — let me recheck. In a round, the **men's court** uses 2 men and the **mixed court** uses 1 man = 3 men play per round per team. But in an all-men's round (rounds 1, 2, 5, 7, 8 — both courts men's), 4 men play.
-
-```
-All-men's rounds (rounds 1, 2, 5, 7, 8): 2 courts × 2 men = 4 men play, 5 sit out
-Mixed rounds — both courts mixed (rounds 3, 6): 2 men play, 7 sit out
-Mixed rounds — one court mixed (round 4): 2+1 = 3 men play, 6 sit out
-```
-
-Total men's appearances:
-- 5 all-men's rounds × 4 = 20
-- 2 both-mixed rounds × 2  = 4
-- 1 split round × 3         = 3
-- Total = **27** ÷ 9 men = **3 per man** ✅
 
 ---
 
@@ -567,15 +564,13 @@ Average game duration:        ~18 minutes (recreational level)
 Court changeover / rotation:   ~3 minutes
 Per round (wait for both courts): ~21 minutes average
 
-8 rounds × 21 min = 168 min = 2 hr 48 min
+9 rounds × 21 min = 189 min = 3 hr 9 min
 Start: 8:30 AM
-Finish: ~11:18 AM
-Buffer before noon: ~42 minutes ✅
+Finish: ~11:39 AM
+Buffer before noon: ~21 minutes ✅ (tight but doable)
 ```
 
-The 42-minute buffer absorbs 2–3 games running long (e.g. 13-11 or 15-13 deuces). Only a catastrophic scenario (4+ games going to extended play) risks noon.
-
-If needed, the safety valve is: **at 11-all the next point wins (Receivers' Choice)** — this rule is already in the document and prevents infinite deuce loops, capping game length naturally.
+The 21-minute buffer is tighter than the old 8-round estimate but still workable. The safety valve is: **at 11-all the next point wins (Receivers' Choice)** — prevents infinite deuce loops.
 
 ---
 
@@ -584,25 +579,63 @@ If needed, the safety valve is: **at 11-all the next point wins (Receivers' Choi
 | # | Question | Decision |
 |---|----------|----------|
 | 1 | Scoring format? | ✅ **Traditional to 11, win by 2. At 11-all Receivers' Choice.** |
-| 2 | Round count? | ✅ **8 rounds** |
+| 2 | Round count? | ✅ **9 rounds (from actual HSB docx, not blank form)** |
 | 3 | Courts? | ✅ **2 — North and South** |
-| 4 | Mixed Doubles count? | ✅ **5** (rounds 3S, 3N, 4S, 6S, 6N) |
-| 5 | Auto-generate pairings? | ⏳ **Next step** — generate full pairing schedule for all 16 matches |
-| 6 | Skill-based seeding? | ⏳ **Pending** — random or skill-ranked? |
+| 4 | Mixed Doubles count? | ✅ **7** (R4S, R4N, R5S, R7S, R7N, R9S, R9N) |
+| 5 | Blue Crew pairing schedule? | ✅ **Generated — `docs/BlueCrew_Pairings.xlsx`** |
+| 6 | Skill-based seeding? | ✅ **Random draw (no DUPR, playing for fun)** |
 
 ---
 
 ### What's left before tournament day
 
-1. **Generate pairing schedule** — assign which players fill each of the 16 match slots (9 men paired uniquely across 11 men's doubles + 5 mixed doubles, 3 women distributed across 5 mixed slots)
-2. **Enter real players** — replace mock roster with actual registered players
-3. **Update app schedule** — app currently shows 16 matches with blank pairings; once pairings are generated, fill in Schedule sheet columns E–H
-4. **Decide skill seeding** — random draw or rank players first?
+1. **Enter real players** — replace mock roster with actual registered players via the registration form or directly in the Players sheet
+2. **Set match pairings in Schedule sheet** — fill columns E–H (m1–m18) using `docs/BlueCrew_Pairings.xlsx` for Blue Crew and `docs/ATH_Pairings_Matrix.xlsx` for Hill Street Blues
 
 ---
 
 
-## 11. Pairing Schedule — Pre-Assignment Strategy
+## 11. Blue Crew Pairings — Generated Schedule
+
+### Output: `docs/BlueCrew_Pairings.xlsx`
+
+Generated by `.venv/bin/python3 backend/generate_pairings.py`. Run again for a new random draw.
+
+The xlsx has 3 tabs: **Full Schedule** (both teams side by side), **Blue Crew Matrix** (who played with whom), **Player Summary** (games per player + all partners listed).
+
+### Blue Crew (Team B) — player game counts
+
+| Player | Gender | Couple partner | Mix games | Men's games | Total | Notes |
+|--------|--------|---------------|-----------|-------------|-------|-------|
+| Alexis | F | Trevor | 3 | 0 | **3** | One couple draws 3 mixed (unavoidable with 7 slots / 3 couples) |
+| Carmela | F | Marv | 2 | 0 | **2** | |
+| Ivy | F | Pierre | 2 | 0 | **2** | |
+| Jay | M | — | 0 | 3 | **3** | |
+| Marv | M | Carmela | 2 | 1 | **3** | |
+| Arman | M | — | 0 | 4 | **4** | One of 2 men who play 4 games (unavoidable — 20 slots / 6 men → 2 remainder) |
+| Jon | M | — | 0 | 3 | **3** | |
+| Trevor | M | Alexis | 3 | 0 | **3** | |
+| Richard | M | — | 0 | 4 | **4** | One of 2 men who play 4 games |
+| Rhon | M | — | 0 | 3 | **3** | |
+| Joe | M | — | 0 | 3 | **3** | |
+| Pierre | M | Ivy | 2 | 1 | **3** | |
+
+### Constraints satisfied
+
+- ✅ Couples (Trevor↔Alexis, Marv↔Carmela, Pierre↔Ivy) play together in all their mixed doubles games
+- ✅ No man repeats a partner across all 11 men's doubles slots
+- ✅ Mixed slots match HSB structure exactly (R4S, R4N, R5S, R7S, R7N, R9S, R9N)
+- ✅ Random draw — no skill ranking (no DUPR, playing for fun)
+- ✅ Distribution (3,2,2) for women — minimum possible inequality with 7 slots
+- ✅ 2 men play 4 games (Arman, Richard) — mathematically unavoidable
+
+### Future iteration
+
+The user noted a second iteration where women play 1 game with their preferred partner and 1 game with a random partner. The current cut locks all mixed doubles to fixed couples.
+
+---
+
+## 12. Pairing Schedule — Pre-Assignment Strategy
 
 > **Decision: pre-assign ALL pairings before tournament day** — mixed doubles couples, men's doubles partners, and sit-out rotations. Do not leave any of these to be figured out on the court.
 
@@ -685,8 +718,9 @@ Once those are provided, a valid full schedule (all 16 matches, all pairings, no
 
 ---
 
-## 12. Known Issues / Notes
+## 13. Known Issues / Notes
 
 - The `node_modules/` deprecation warning about Node.js 20 in GitHub Actions is cosmetic — the build succeeds. Will auto-resolve when GitHub upgrades runner defaults.
 - Source image files (`12511.jpg`, `athenaeum_header_logo.png`, `athenaeum_pickle_courts.png`, `IMG_2787.PNG`) and docx files have been moved to `docs/`. They are not served by the app — the app uses compressed copies in `src/assets/`.
-- The `.venv/` Python virtual environment is gitignored. It contains `python-docx` and `Pillow`, used during development to read the `.docx` file and compress images.
+- The `.venv/` Python virtual environment is gitignored. It contains `openpyxl`, `python-docx`, and `Pillow`, used during development to read the `.docx` file, compress images, and generate xlsx files.
+- `backend/generate_pairings.py` uses `random.seed()` with no argument, so each run produces a different pairing draw. Re-run to get a new randomized schedule; the `docs/BlueCrew_Pairings.xlsx` will be overwritten.

@@ -147,30 +147,33 @@ function initSheets() {
   // Only populate if the sheet is empty (beyond the header row)
   if (scheduleSheet.getLastRow() <= 1) {
     const matches = [
-      // Round 1
+      // Round 1 — Men's Doubles
       ['m1',  1,'S','FALSE','','','','',''],
       ['m2',  1,'N','FALSE','','','','',''],
-      // Round 2
+      // Round 2 — Men's Doubles
       ['m3',  2,'S','FALSE','','','','',''],
       ['m4',  2,'N','FALSE','','','','',''],
-      // Round 3 — Mix Doubles both courts
-      ['m5',  3,'S','TRUE', '','','','',''],
-      ['m6',  3,'N','TRUE', '','','','',''],
-      // Round 4 — Mix South only
+      // Round 3 — Men's Doubles
+      ['m5',  3,'S','FALSE','','','','',''],
+      ['m6',  3,'N','FALSE','','','','',''],
+      // Round 4 — Mixed Doubles ★ both courts
       ['m7',  4,'S','TRUE', '','','','',''],
-      ['m8',  4,'N','FALSE','','','','',''],
-      // Round 5
-      ['m9',  5,'S','FALSE','','','','',''],
+      ['m8',  4,'N','TRUE', '','','','',''],
+      // Round 5 — Mixed South ★, Men's North
+      ['m9',  5,'S','TRUE', '','','','',''],
       ['m10', 5,'N','FALSE','','','','',''],
-      // Round 6 — Mix Doubles both courts
-      ['m11', 6,'S','TRUE', '','','','',''],
-      ['m12', 6,'N','TRUE', '','','','',''],
-      // Round 7
-      ['m13', 7,'S','FALSE','','','','',''],
-      ['m14', 7,'N','FALSE','','','','',''],
-      // Round 8
+      // Round 6 — Men's Doubles
+      ['m11', 6,'S','FALSE','','','','',''],
+      ['m12', 6,'N','FALSE','','','','',''],
+      // Round 7 — Mixed Doubles ★ both courts
+      ['m13', 7,'S','TRUE', '','','','',''],
+      ['m14', 7,'N','TRUE', '','','','',''],
+      // Round 8 — Men's Doubles
       ['m15', 8,'S','FALSE','','','','',''],
       ['m16', 8,'N','FALSE','','','','',''],
+      // Round 9 — Mixed Doubles ★ both courts
+      ['m17', 9,'S','TRUE', '','','','',''],
+      ['m18', 9,'N','TRUE', '','','','',''],
     ];
     scheduleSheet.getRange(2, 1, matches.length, matches[0].length).setValues(matches);
   }

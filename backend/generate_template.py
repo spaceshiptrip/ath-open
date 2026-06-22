@@ -79,21 +79,21 @@ team_a = [
     ["a12", "Brian",  "Torres",  "A", "M", "FALSE", "", "(555)100-0012", "brian@example.com",  "", "a10"],
 ]
 
-# Blue Crew — Team B (12: 3F + 9M)
-# Couples: b1↔b8, b9↔b11, b10↔b12
+# Blue Crew (JPL Team) — Team B (12: 3F + 9M)
+# Couples: b1(Alexis)↔b6(Trevor), b9(Carmela)↔b3(Marv), b10(Ivy)↔b12(Pierre)
 team_b = [
-    ["b1",  "Cora",   "Williams", "B", "F", "TRUE",  "", "(555)200-0001", "cora@example.com",   "", "b8"],
-    ["b9",  "Sofia",  "Reyes",    "B", "F", "FALSE", "", "(555)200-0009", "sofia@example.com",  "", "b11"],
-    ["b10", "Maria",  "Kim",      "B", "F", "FALSE", "", "(555)200-0010", "maria@example.com",  "", "b12"],
-    ["b2",  "Paul",   "Jensen",   "B", "M", "FALSE", "", "(555)200-0002", "paul@example.com",   "", ""],
-    ["b3",  "Raj",    "Patel",    "B", "M", "FALSE", "", "(555)200-0003", "raj@example.com",    "", ""],
-    ["b4",  "Tom",    "Nguyen",   "B", "M", "FALSE", "", "(555)200-0004", "tom@example.com",    "", ""],
-    ["b5",  "Eric",   "Hall",     "B", "M", "FALSE", "", "(555)200-0005", "eric@example.com",   "", ""],
-    ["b6",  "Diego",  "Castro",   "B", "M", "FALSE", "", "(555)200-0006", "diego@example.com",  "", ""],
-    ["b7",  "Nathan", "Ford",     "B", "M", "FALSE", "", "(555)200-0007", "nathan@example.com", "", ""],
-    ["b8",  "Omar",   "Diallo",   "B", "M", "FALSE", "", "(555)200-0008", "omar@example.com",   "", "b1"],
-    ["b11", "Carlos", "Reyes",    "B", "M", "FALSE", "", "(555)200-0011", "carlos@example.com", "", "b9"],
-    ["b12", "James",  "Kim",      "B", "M", "FALSE", "", "(555)200-0012", "james@example.com",  "", "b10"],
+    ["b1",  "Alexis",  "", "B", "F", "TRUE",  "", "", "", "", "b6"],
+    ["b9",  "Carmela", "", "B", "F", "FALSE", "", "", "", "", "b3"],
+    ["b10", "Ivy",     "", "B", "F", "FALSE", "", "", "", "", "b12"],
+    ["b2",  "Jay",     "", "B", "M", "FALSE", "", "", "", "", ""],
+    ["b3",  "Marv",    "", "B", "M", "FALSE", "", "", "", "", "b9"],
+    ["b4",  "Arman",   "", "B", "M", "FALSE", "", "", "", "", ""],
+    ["b5",  "Jon",     "", "B", "M", "FALSE", "", "", "", "", ""],
+    ["b6",  "Trevor",  "", "B", "M", "FALSE", "", "", "", "", "b1"],
+    ["b7",  "Richard", "", "B", "M", "FALSE", "", "", "", "", ""],
+    ["b8",  "Rhon",    "", "B", "M", "FALSE", "", "", "", "", ""],
+    ["b11", "Joe",     "", "B", "M", "FALSE", "", "", "", "", ""],
+    ["b12", "Pierre",  "", "B", "M", "FALSE", "", "", "", "", "b10"],
 ]
 
 for row_idx, row in enumerate(team_a + team_b, 3):
@@ -128,24 +128,27 @@ matches = [
     # Round 2 — Men's Doubles
     ["m3",  2, "S", "FALSE", "", "", "", "", ""],
     ["m4",  2, "N", "FALSE", "", "", "", "", ""],
-    # Round 3 — Mix Doubles both courts ★
-    ["m5",  3, "S", "TRUE",  "", "", "", "", ""],
-    ["m6",  3, "N", "TRUE",  "", "", "", "", ""],
-    # Round 4 — Mix South only ★, Men's North
+    # Round 3 — Men's Doubles
+    ["m5",  3, "S", "FALSE", "", "", "", "", ""],
+    ["m6",  3, "N", "FALSE", "", "", "", "", ""],
+    # Round 4 — Mixed Doubles ★ both courts
     ["m7",  4, "S", "TRUE",  "", "", "", "", ""],
-    ["m8",  4, "N", "FALSE", "", "", "", "", ""],
-    # Round 5 — Men's Doubles
-    ["m9",  5, "S", "FALSE", "", "", "", "", ""],
+    ["m8",  4, "N", "TRUE",  "", "", "", "", ""],
+    # Round 5 — Mixed South ★, Men's North
+    ["m9",  5, "S", "TRUE",  "", "", "", "", ""],
     ["m10", 5, "N", "FALSE", "", "", "", "", ""],
-    # Round 6 — Mix Doubles both courts ★
-    ["m11", 6, "S", "TRUE",  "", "", "", "", ""],
-    ["m12", 6, "N", "TRUE",  "", "", "", "", ""],
-    # Round 7 — Men's Doubles
-    ["m13", 7, "S", "FALSE", "", "", "", "", ""],
-    ["m14", 7, "N", "FALSE", "", "", "", "", ""],
+    # Round 6 — Men's Doubles
+    ["m11", 6, "S", "FALSE", "", "", "", "", ""],
+    ["m12", 6, "N", "FALSE", "", "", "", "", ""],
+    # Round 7 — Mixed Doubles ★ both courts
+    ["m13", 7, "S", "TRUE",  "", "", "", "", ""],
+    ["m14", 7, "N", "TRUE",  "", "", "", "", ""],
     # Round 8 — Men's Doubles
     ["m15", 8, "S", "FALSE", "", "", "", "", ""],
     ["m16", 8, "N", "FALSE", "", "", "", "", ""],
+    # Round 9 — Mixed Doubles ★ both courts
+    ["m17", 9, "S", "TRUE",  "", "", "", "", ""],
+    ["m18", 9, "N", "TRUE",  "", "", "", "", ""],
 ]
 
 for row_idx, row in enumerate(matches, 2):

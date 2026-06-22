@@ -1,61 +1,68 @@
 export const mockPlayers = [
-  // Team A — Captain: Suzan (9 men + 3 women)
-  // Couples: (a1 Suzan ↔ a8 Andre), (a9 Rachel ↔ a11 Ryan), (a10 Lisa ↔ a12 Brian)
-  { id: 'a1',  firstName: 'Suzan',   lastName: 'King',    team: 'A', gender: 'F', isCaptain: true,  headshotUrl: '', partnerId: 'a8'  },
-  { id: 'a9',  firstName: 'Rachel',  lastName: 'Park',    team: 'A', gender: 'F', isCaptain: false, headshotUrl: '', partnerId: 'a11' },
-  { id: 'a10', firstName: 'Lisa',    lastName: 'Torres',  team: 'A', gender: 'F', isCaptain: false, headshotUrl: '', partnerId: 'a12' },
-  { id: 'a2',  firstName: 'Marcus',  lastName: 'Rivera',  team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
-  { id: 'a3',  firstName: 'Derek',   lastName: 'Pham',    team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
-  { id: 'a4',  firstName: 'James',   lastName: 'Okafor',  team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
-  { id: 'a5',  firstName: 'Luis',    lastName: 'Chen',    team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
-  { id: 'a6',  firstName: 'Tyler',   lastName: 'Brooks',  team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
-  { id: 'a7',  firstName: 'Kevin',   lastName: 'Marsh',   team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
-  { id: 'a8',  firstName: 'Andre',   lastName: 'Santos',  team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: 'a1'  },
-  { id: 'a11', firstName: 'Ryan',    lastName: 'Park',    team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: 'a9'  },
-  { id: 'a12', firstName: 'Brian',   lastName: 'Torres',  team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: 'a10' },
-  // Blue Crew (Team B) — Captain: Cora (9 men + 3 women)
-  // Couples: (b1 Cora ↔ b8 Omar), (b9 Sofia ↔ b11 Carlos), (b10 Maria ↔ b12 James)
-  { id: 'b1',  firstName: 'Cora',    lastName: 'Williams', team: 'B', gender: 'F', isCaptain: true,  headshotUrl: '', partnerId: 'b8'  },
-  { id: 'b9',  firstName: 'Sofia',   lastName: 'Reyes',    team: 'B', gender: 'F', isCaptain: false, headshotUrl: '', partnerId: 'b11' },
-  { id: 'b10', firstName: 'Maria',   lastName: 'Kim',      team: 'B', gender: 'F', isCaptain: false, headshotUrl: '', partnerId: 'b12' },
-  { id: 'b2',  firstName: 'Paul',    lastName: 'Jensen',   team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
-  { id: 'b3',  firstName: 'Raj',     lastName: 'Patel',    team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
-  { id: 'b4',  firstName: 'Tom',     lastName: 'Nguyen',   team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
-  { id: 'b5',  firstName: 'Eric',    lastName: 'Hall',     team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
-  { id: 'b6',  firstName: 'Diego',   lastName: 'Castro',   team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
-  { id: 'b7',  firstName: 'Nathan',  lastName: 'Ford',     team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
-  { id: 'b8',  firstName: 'Omar',    lastName: 'Diallo',   team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: 'b1'  },
-  { id: 'b11', firstName: 'Carlos',  lastName: 'Reyes',    team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: 'b9'  },
-  { id: 'b12', firstName: 'James',   lastName: 'Kim',      team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: 'b10' },
+  // Hill Street Blues (Team A) — Captain: Suzan (9 men + 3 women)
+  // No fixed couples — HSB mixes women with different men each game
+  { id: 'a1',  firstName: 'Suzan',   lastName: '',      team: 'A', gender: 'F', isCaptain: true,  headshotUrl: '', partnerId: '' },
+  { id: 'a2',  firstName: 'Rachel',  lastName: '',      team: 'A', gender: 'F', isCaptain: false, headshotUrl: '', partnerId: '' },
+  { id: 'a3',  firstName: 'Molly',   lastName: '',      team: 'A', gender: 'F', isCaptain: false, headshotUrl: '', partnerId: '' },
+  { id: 'a4',  firstName: 'Pierre',  lastName: '',      team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: '' },
+  { id: 'a5',  firstName: 'Jeff',    lastName: 'E',     team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: '' },
+  { id: 'a6',  firstName: 'Dro',     lastName: '',      team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: '' },
+  { id: 'a7',  firstName: 'Steve',   lastName: '',      team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: '' },
+  { id: 'a8',  firstName: 'Mich',    lastName: '',      team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: '' },
+  { id: 'a9',  firstName: 'Wilfred', lastName: '',      team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: '' },
+  { id: 'a10', firstName: 'Jeff',    lastName: 'W',     team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: '' },
+  { id: 'a11', firstName: 'Yu Fon',  lastName: '',      team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: '' },
+  { id: 'a12', firstName: 'Johnny',  lastName: '',      team: 'A', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: '' },
+  // Blue Crew (Team B / JPL Team) — Captain: Alexis (9 men + 3 women)
+  // Couples (play mixed doubles together): Alexis↔Trevor, Carmela↔Marv, Ivy↔Pierre
+  { id: 'b1',  firstName: 'Alexis',  lastName: '',      team: 'B', gender: 'F', isCaptain: true,  headshotUrl: '', partnerId: 'b6'  },
+  { id: 'b9',  firstName: 'Carmela', lastName: '',      team: 'B', gender: 'F', isCaptain: false, headshotUrl: '', partnerId: 'b3'  },
+  { id: 'b10', firstName: 'Ivy',     lastName: '',      team: 'B', gender: 'F', isCaptain: false, headshotUrl: '', partnerId: 'b12' },
+  { id: 'b2',  firstName: 'Jay',     lastName: '',      team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
+  { id: 'b3',  firstName: 'Marv',    lastName: '',      team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: 'b9'  },
+  { id: 'b4',  firstName: 'Arman',   lastName: '',      team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
+  { id: 'b5',  firstName: 'Jon',     lastName: '',      team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
+  { id: 'b6',  firstName: 'Trevor',  lastName: '',      team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: 'b1'  },
+  { id: 'b7',  firstName: 'Richard', lastName: '',      team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
+  { id: 'b8',  firstName: 'Rhon',    lastName: '',      team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
+  { id: 'b11', firstName: 'Joe',     lastName: '',      team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''    },
+  { id: 'b12', firstName: 'Pierre',  lastName: '',      team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: 'b10' },
 ]
 
-// 16 matches: 8 rounds × 2 courts (S = South, N = North)
-// Mix Doubles (★): rounds 3S, 3N, 4S, 6S, 6N — pre-set couples play together
-// Men's Doubles: each man plays exactly 3 games with a different partner each time
-// Couples: A=(a1↔a8, a9↔a11, a10↔a12)  B=(b1↔b8, b9↔b11, b10↔b12)
+// 18 matches: 9 rounds × 2 courts (S = South, N = North)
+// Mixed Doubles (★): R4S, R4N, R5S, R7S, R7N, R9S, R9N (7 slots)
+// Hill Street Blues use no fixed couples — women rotate across different partners
+// Blue Crew couples always play together in mixed (this iteration)
+// Team A couples: none (HSB format)
+// Team B couples: b1(Alexis)↔b6(Trevor), b9(Carmela)↔b3(Marv), b10(Ivy)↔b12(Pierre)
+// Arman(b4) and Richard(b7) each play 4 games (unavoidable — 2 of 6 non-couple men must)
+// Trevor(b6)/Alexis(b1) draw 3 mixed games; other couples draw 2 each
 export const mockMatches = [
-  // Round 1 — both courts Men's Doubles
-  { id: 'm1',  round: 1, court: 'S', isMix: false, teamAP1: 'a2',  teamAP2: 'a3',  teamBP1: 'b2',  teamBP2: 'b3',  winner: '' },
-  { id: 'm2',  round: 1, court: 'N', isMix: false, teamAP1: 'a4',  teamAP2: 'a5',  teamBP1: 'b4',  teamBP2: 'b5',  winner: '' },
-  // Round 2 — both courts Men's Doubles
-  { id: 'm3',  round: 2, court: 'S', isMix: false, teamAP1: 'a6',  teamAP2: 'a7',  teamBP1: 'b6',  teamBP2: 'b7',  winner: '' },
-  { id: 'm4',  round: 2, court: 'N', isMix: false, teamAP1: 'a2',  teamAP2: 'a6',  teamBP1: 'b2',  teamBP2: 'b6',  winner: '' },
-  // Round 3 — both courts Mix Doubles ★ (Lisa+Brian vs Maria+James; Rachel+Ryan vs Sofia+Carlos)
-  { id: 'm5',  round: 3, court: 'S', isMix: true,  teamAP1: 'a10', teamAP2: 'a12', teamBP1: 'b10', teamBP2: 'b12', winner: '' },
-  { id: 'm6',  round: 3, court: 'N', isMix: true,  teamAP1: 'a9',  teamAP2: 'a11', teamBP1: 'b9',  teamBP2: 'b11', winner: '' },
-  // Round 4 — South Mix Doubles ★ (Suzan+Andre vs Cora+Omar); North Men's Doubles
-  { id: 'm7',  round: 4, court: 'S', isMix: true,  teamAP1: 'a1',  teamAP2: 'a8',  teamBP1: 'b1',  teamBP2: 'b8',  winner: '' },
-  { id: 'm8',  round: 4, court: 'N', isMix: false, teamAP1: 'a3',  teamAP2: 'a8',  teamBP1: 'b3',  teamBP2: 'b8',  winner: '' },
-  // Round 5 — both courts Men's Doubles
-  { id: 'm9',  round: 5, court: 'S', isMix: false, teamAP1: 'a4',  teamAP2: 'a7',  teamBP1: 'b4',  teamBP2: 'b7',  winner: '' },
-  { id: 'm10', round: 5, court: 'N', isMix: false, teamAP1: 'a5',  teamAP2: 'a11', teamBP1: 'b5',  teamBP2: 'b11', winner: '' },
-  // Round 6 — both courts Mix Doubles ★ (same couples repeat)
-  { id: 'm11', round: 6, court: 'S', isMix: true,  teamAP1: 'a10', teamAP2: 'a12', teamBP1: 'b10', teamBP2: 'b12', winner: '' },
-  { id: 'm12', round: 6, court: 'N', isMix: true,  teamAP1: 'a9',  teamAP2: 'a11', teamBP1: 'b9',  teamBP2: 'b11', winner: '' },
-  // Round 7 — both courts Men's Doubles
-  { id: 'm13', round: 7, court: 'S', isMix: false, teamAP1: 'a2',  teamAP2: 'a5',  teamBP1: 'b2',  teamBP2: 'b5',  winner: '' },
-  { id: 'm14', round: 7, court: 'N', isMix: false, teamAP1: 'a3',  teamAP2: 'a4',  teamBP1: 'b3',  teamBP2: 'b4',  winner: '' },
-  // Round 8 — both courts Men's Doubles
-  { id: 'm15', round: 8, court: 'S', isMix: false, teamAP1: 'a6',  teamAP2: 'a8',  teamBP1: 'b6',  teamBP2: 'b8',  winner: '' },
-  { id: 'm16', round: 8, court: 'N', isMix: false, teamAP1: 'a7',  teamAP2: 'a12', teamBP1: 'b7',  teamBP2: 'b12', winner: '' },
+  // Round 1 — Men's Doubles
+  { id: 'm1',  round: 1, court: 'S', isMix: false, teamAP1: 'a4',  teamAP2: 'a5',  teamBP1: 'b2',  teamBP2: 'b5',  winner: '' },
+  { id: 'm2',  round: 1, court: 'N', isMix: false, teamAP1: 'a6',  teamAP2: 'a7',  teamBP1: 'b4',  teamBP2: 'b8',  winner: '' },
+  // Round 2 — Men's Doubles
+  { id: 'm3',  round: 2, court: 'S', isMix: false, teamAP1: 'a8',  teamAP2: 'a9',  teamBP1: 'b7',  teamBP2: 'b11', winner: '' },
+  { id: 'm4',  round: 2, court: 'N', isMix: false, teamAP1: 'a10', teamAP2: 'a11', teamBP1: 'b2',  teamBP2: 'b11', winner: '' },
+  // Round 3 — Men's Doubles
+  { id: 'm5',  round: 3, court: 'S', isMix: false, teamAP1: 'a7',  teamAP2: 'a10', teamBP1: 'b4',  teamBP2: 'b5',  winner: '' },
+  { id: 'm6',  round: 3, court: 'N', isMix: false, teamAP1: 'a6',  teamAP2: 'a12', teamBP1: 'b7',  teamBP2: 'b8',  winner: '' },
+  // Round 4 — Mixed Doubles ★ (both courts)
+  { id: 'm7',  round: 4, court: 'S', isMix: true,  teamAP1: 'a4',  teamAP2: 'a1',  teamBP1: 'b6',  teamBP2: 'b1',  winner: '' },
+  { id: 'm8',  round: 4, court: 'N', isMix: true,  teamAP1: 'a5',  teamAP2: 'a2',  teamBP1: 'b3',  teamBP2: 'b9',  winner: '' },
+  // Round 5 — Mixed South ★, Men's North
+  { id: 'm9',  round: 5, court: 'S', isMix: true,  teamAP1: 'a5',  teamAP2: 'a3',  teamBP1: 'b12', teamBP2: 'b10', winner: '' },
+  { id: 'm10', round: 5, court: 'N', isMix: false, teamAP1: 'a12', teamAP2: 'a9',  teamBP1: 'b2',  teamBP2: 'b7',  winner: '' },
+  // Round 6 — Men's Doubles
+  { id: 'm11', round: 6, court: 'S', isMix: false, teamAP1: 'a11', teamAP2: 'a7',  teamBP1: 'b4',  teamBP2: 'b11', winner: '' },
+  { id: 'm12', round: 6, court: 'N', isMix: false, teamAP1: 'a4',  teamAP2: 'a8',  teamBP1: 'b5',  teamBP2: 'b8',  winner: '' },
+  // Round 7 — Mixed Doubles ★ (both courts)
+  { id: 'm13', round: 7, court: 'S', isMix: true,  teamAP1: 'a12', teamAP2: 'a2',  teamBP1: 'b6',  teamBP2: 'b1',  winner: '' },
+  { id: 'm14', round: 7, court: 'N', isMix: true,  teamAP1: 'a8',  teamAP2: 'a3',  teamBP1: 'b3',  teamBP2: 'b9',  winner: '' },
+  // Round 8 — Men's Doubles
+  { id: 'm15', round: 8, court: 'S', isMix: false, teamAP1: 'a10', teamAP2: 'a6',  teamBP1: 'b4',  teamBP2: 'b3',  winner: '' },
+  { id: 'm16', round: 8, court: 'N', isMix: false, teamAP1: 'a11', teamAP2: 'a5',  teamBP1: 'b7',  teamBP2: 'b12', winner: '' },
+  // Round 9 — Mixed Doubles ★ (both courts)
+  { id: 'm17', round: 9, court: 'S', isMix: true,  teamAP1: 'a9',  teamAP2: 'a2',  teamBP1: 'b6',  teamBP2: 'b1',  winner: '' },
+  { id: 'm18', round: 9, court: 'N', isMix: true,  teamAP1: 'a4',  teamAP2: 'a3',  teamBP1: 'b12', teamBP2: 'b10', winner: '' },
 ]
