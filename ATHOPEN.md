@@ -244,11 +244,14 @@ ath-open/
 │   ├── config.js                   # TOURNAMENT constants, RULES array, env var
 │   ├── index.css                   # Tailwind directives + .btn-primary, .card etc.
 │   └── main.jsx                    # React 18 createRoot entry point
-├── 12511.jpg                       # Source file for Blue Crew (Team B) logo (Dodgers)
-├── athenaeum_header_logo.png       # Source file for Athenaeum logo
-├── athenaeum_pickle_courts.png     # Source PNG for courts (uncompressed original)
-├── IMG_2787.PNG                    # Screenshot of email with tournament special notes
-├── 2 Courts:2 Teams RR Blank Form.docx  # Official tournament scoring document
+├── docs/
+│   ├── 12511.jpg                       # Source file for Blue Crew (Team B) logo (Dodgers)
+│   ├── athenaeum_header_logo.png       # Source file for Athenaeum logo
+│   ├── athenaeum_pickle_courts.png     # Source PNG for courts (uncompressed original, 4.3 MB)
+│   ├── IMG_2787.PNG                    # Screenshot of email with tournament special notes
+│   ├── 2 Courts:2 Teams RR Blank Form.docx  # Blank tournament scoring document
+│   ├── Team Round Robin Athenaeum.docx      # Filled schedule — Hill Street Blues pairings
+│   └── ATH_Pairings_Matrix.xlsx        # Generated pairings matrix (Hill Street Blues)
 ├── .env.example                    # Template: VITE_SHEETS_API_URL=...
 ├── .gitignore
 ├── index.html
@@ -685,5 +688,5 @@ Once those are provided, a valid full schedule (all 16 matches, all pairings, no
 ## 12. Known Issues / Notes
 
 - The `node_modules/` deprecation warning about Node.js 20 in GitHub Actions is cosmetic — the build succeeds. Will auto-resolve when GitHub upgrades runner defaults.
-- Source image files (`12511.jpg`, `athenaeum_header_logo.png`, `athenaeum_pickle_courts.png`, `IMG_2787.PNG`) are committed to the repo root. They are not served by the app — the app uses copies in `src/assets/`. These source files can be moved to a `/source-assets/` folder for cleanliness.
+- Source image files (`12511.jpg`, `athenaeum_header_logo.png`, `athenaeum_pickle_courts.png`, `IMG_2787.PNG`) and docx files have been moved to `docs/`. They are not served by the app — the app uses compressed copies in `src/assets/`.
 - The `.venv/` Python virtual environment is gitignored. It contains `python-docx` and `Pillow`, used during development to read the `.docx` file and compress images.
