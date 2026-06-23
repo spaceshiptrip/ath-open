@@ -46,7 +46,7 @@ export default function Home() {
       {/* ── Live scoreboard ── */}
       <div className="grid grid-cols-3 gap-3 sm:gap-4">
         <ScoreBox
-          label="Team A"
+          label={TOURNAMENT.teams.A.label}
           value={winsA}
           sub="wins"
           color="text-red-600"
@@ -62,7 +62,7 @@ export default function Home() {
           ring="ring-pickle-200"
         />
         <ScoreBox
-          label="Team B"
+          label={TOURNAMENT.teams.B.label}
           value={winsB}
           sub="wins"
           color="text-blue-600"
