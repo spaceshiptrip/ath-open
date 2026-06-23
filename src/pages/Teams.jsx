@@ -1,6 +1,7 @@
 import { useApi } from '../hooks/useApi'
 import PlayerCard from '../components/PlayerCard'
 import { TOURNAMENT } from '../config'
+import teamALogo from '../assets/hsb_logo.png'
 import teamBLogo from '../assets/team-b-logo.jpg'
 
 export default function Teams() {
@@ -20,7 +21,7 @@ export default function Teams() {
       </p>
 
       <div className="grid md:grid-cols-2 gap-6">
-        <TeamSection team="A" name={TOURNAMENT.teams.A.name} players={teamA} captain={TOURNAMENT.teams.A.captain} />
+        <TeamSection team="A" name={TOURNAMENT.teams.A.name} players={teamA} captain={TOURNAMENT.teams.A.captain} logo={teamALogo} />
         <TeamSection team="B" name={TOURNAMENT.teams.B.name} players={teamB} captain={TOURNAMENT.teams.B.captain} logo={teamBLogo} />
       </div>
     </div>
@@ -47,7 +48,7 @@ function TeamSection({ team, name, players, captain, logo }) {
             <img
               src={logo}
               alt={`Team ${team} logo`}
-              className="w-12 h-12 rounded-lg object-cover shadow-md ring-2 ring-white/30"
+              className={`w-12 h-12 rounded-lg object-cover shadow-md ring-2 ring-white/30 ${isA ? 'object-top bg-black' : ''}`}
             />
           )}
           <div>

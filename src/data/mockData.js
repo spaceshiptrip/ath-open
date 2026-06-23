@@ -41,8 +41,8 @@ export const mockPlayers = [
 // Rhon & Joe play 4 men's games (17 slots / 5 non-mixed men → 2 play 4, 3 play 3)
 export const mockMatches = [
   // Round 1 — 8:30 AM — Men's Doubles
-  { id: 'm1',  round: 1, court: 'S', isMix: false, teamAP1: 'a4',  teamAP2: 'a5',  teamBP1: 'b7',  teamBP2: 'b11', winner: '' },
-  { id: 'm2',  round: 1, court: 'N', isMix: false, teamAP1: 'a6',  teamAP2: 'a7',  teamBP1: 'b6',  teamBP2: 'b8',  winner: '' },
+  { id: 'm1',  round: 1, court: 'S', isMix: false, teamAP1: 'a4',  teamAP2: 'a5',  teamBP1: 'b6',  teamBP2: 'b8',  winner: '' },
+  { id: 'm2',  round: 1, court: 'N', isMix: false, teamAP1: 'a6',  teamAP2: 'a7',  teamBP1: 'b7',  teamBP2: 'b11', winner: '' },
   // Round 2 — 8:50 AM — Men's Doubles
   { id: 'm3',  round: 2, court: 'S', isMix: false, teamAP1: 'a8',  teamAP2: 'a9',  teamBP1: 'b4',  teamBP2: 'b12', winner: '' },
   { id: 'm4',  round: 2, court: 'N', isMix: false, teamAP1: 'a10', teamAP2: 'a11', teamBP1: 'b3',  teamBP2: 'b5',  winner: '' },

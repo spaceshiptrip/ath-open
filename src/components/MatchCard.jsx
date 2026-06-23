@@ -2,11 +2,12 @@ import { TOURNAMENT } from '../config'
 
 export default function MatchCard({ match, players, onSetWinner, canEdit = false }) {
   const getPlayer = (id) => players?.find(p => p.id === id)
+  const playerName = (p) => p.lastName ? `${p.firstName} ${p.lastName}` : p.firstName
   const pairLabel = (p1Id, p2Id) => {
     const p1 = getPlayer(p1Id)
     const p2 = getPlayer(p2Id)
     if (!p1 || !p2) return '—'
-    return `${p1.firstName} & ${p2.firstName}`
+    return `${playerName(p1)} & ${playerName(p2)}`
   }
 
   const teamName = (t) => TOURNAMENT.teams[t].name

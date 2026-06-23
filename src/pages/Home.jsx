@@ -3,6 +3,7 @@ import { TOURNAMENT, RULES } from '../config'
 import { useApi } from '../hooks/useApi'
 import athLogo   from '../assets/athenaeum_header_logo.png'
 import athCourts from '../assets/athenaeum_pickle_courts.jpg'
+import teamALogo from '../assets/hsb_logo.png'
 import teamBLogo from '../assets/team-b-logo.jpg'
 
 export default function Home() {
@@ -95,7 +96,7 @@ export default function Home() {
         <div className="card">
           <h2 className="section-title mb-3">Teams</h2>
           <div className="space-y-3">
-            <TeamBadge team="A" name={TOURNAMENT.teams.A.name} captain={TOURNAMENT.teams.A.captain} color="red" />
+            <TeamBadge team="A" name={TOURNAMENT.teams.A.name} captain={TOURNAMENT.teams.A.captain} color="red"  logo={teamALogo} />
             <TeamBadge team="B" name={TOURNAMENT.teams.B.name} captain={TOURNAMENT.teams.B.captain} color="blue" logo={teamBLogo} />
           </div>
           <Link to="/teams" className="inline-block mt-4 text-sm text-pickle-600 hover:underline font-medium">
@@ -139,7 +140,7 @@ function TeamBadge({ team, name, captain, color, logo }) {
   return (
     <div className={`flex items-center gap-3 p-3 rounded-lg ${isRed ? 'bg-red-50' : 'bg-blue-50'}`}>
       {logo ? (
-        <img src={logo} alt={`${name} logo`} className="w-10 h-10 rounded-lg object-cover shadow-sm" />
+        <img src={logo} alt={`${name} logo`} className={`w-10 h-10 rounded-lg object-cover shadow-sm ${isRed ? 'object-top bg-black' : ''}`} />
       ) : (
         <div className={`w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-white text-lg shadow-sm ${isRed ? 'bg-red-600' : 'bg-blue-600'}`}>
           {team}
