@@ -59,8 +59,8 @@ export const mockMatches = [
   { id: 'm11', round: 6, court: 'S', isMix: false, teamAP1: 'a11', teamAP2: 'a7',  teamBP1: 'b4',  teamBP2: 'b7',  winner: '' },
   { id: 'm12', round: 6, court: 'N', isMix: false, teamAP1: 'a4',  teamAP2: 'a8',  teamBP1: 'b5',  teamBP2: 'b11', winner: '' },
   // Round 7 — 11:00 AM — Mixed Doubles ★ (both courts)
-  { id: 'm13', round: 7, court: 'S', isMix: true,  teamAP1: 'a12', teamAP2: 'a2',  teamBP1: 'b12', teamBP2: 'b10', winner: '' },
-  { id: 'm14', round: 7, court: 'N', isMix: true,  teamAP1: 'a8',  teamAP2: 'a3',  teamBP1: 'b2',  teamBP2: 'b13', winner: '' },
+  { id: 'm13', round: 7, court: 'S', isMix: true,  teamAP1: 'a12', teamAP2: 'a2',  teamBP1: 'b2',  teamBP2: 'b13', winner: '' },
+  { id: 'm14', round: 7, court: 'N', isMix: true,  teamAP1: 'a8',  teamAP2: 'a3',  teamBP1: 'b12', teamBP2: 'b10', winner: '' },
   // Round 8 — 11:30 AM — Men's Doubles
   { id: 'm15', round: 8, court: 'S', isMix: false, teamAP1: 'a10', teamAP2: 'a6',  teamBP1: 'b4',  teamBP2: 'b11', winner: '' },
   { id: 'm16', round: 8, court: 'N', isMix: false, teamAP1: 'a11', teamAP2: 'a5',  teamBP1: 'b5',  teamBP2: 'b8',  winner: '' },
