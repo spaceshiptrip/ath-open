@@ -5,7 +5,7 @@ import MatchCard from '../components/MatchCard'
 import Standings from '../components/Standings'
 import { SHEETS_API_URL } from '../config'
 
-const ROUNDS = [1, 2, 3, 4, 5, 6, 7, 8]
+const ROUNDS = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 export default function Scores() {
   const [matches,  setMatches]  = useState([])

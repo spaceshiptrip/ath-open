@@ -22,10 +22,10 @@
 | Total games | 18 (9 rounds × 2 courts) |
 | Games breakdown | 11 Men's Doubles + 7 Mixed Doubles |
 | Men's play | Each man plays 3 games (2 men play 4 — unavoidable), different partner each time |
-| Women's play | One woman plays 3 games, two play 2 (unavoidable with 7 mixed slots / 3 couples) |
+| Women's play | Captain plays 1 game; each other woman plays 2 games (1+2+2+2 = 7 slots) |
 | Mix Doubles rounds | R4 (both), R5 (South only), R7 (both), R9 (both) = 7 Mix games |
 | Team A captain | Suzan |
-| Team B captain | Alexis |
+| Team B captain | Cora |
 | Courts | S = South Court, N = North Court |
 | Special note | Mix Dub game 4 and 6 (from email — `IMG_2787.PNG`) |
 
@@ -97,7 +97,7 @@
 |------|---------|
 | `src/services/api.js` | All API calls; auto-falls back to mock data when `VITE_SHEETS_API_URL` not set |
 | `src/hooks/useApi.js` | Generic React hook: `useApi('getPlayers')` returns `{ data, loading, error, reload }` |
-| `src/data/mockData.js` | 24 real players (HSB + Blue Crew names, 12 per team: 3F + 9M, `partnerId` for couples) and all 18 match slots with valid no-repeat pairings across 9 rounds |
+| `src/data/mockData.js` | 25 real players (HSB: 12, Blue Crew: 13 — Cora b13 added as captain, 4F+9M) and all 18 match slots with valid no-repeat, no-back-to-back pairings across 9 rounds |
 | `src/config.js` | Tournament constants (name, date, times, team captains); Team B name = **Blue Crew**; `RULES` array; env var export |
 
 ### 3.5 Backend — Google Apps Script (`backend/code.gs`)
@@ -231,7 +231,7 @@ ath-open/
 │   │   ├── MatchCard.jsx           # Match display + A/B win entry buttons
 │   │   └── Standings.jsx           # Side-by-side team wins + LEADING badge
 │   ├── data/
-│   │   └── mockData.js             # 24 real players (HSB + Blue Crew names, 12/team) + 18 valid matches (9 rounds)
+│   │   └── mockData.js             # 25 real players (HSB: 12 / Blue Crew: 13 incl. Cora) + 18 valid matches (9 rounds, no back-to-back)
 │   ├── hooks/
 │   │   └── useApi.js               # useApi('method') → { data, loading, error, reload }
 │   ├── pages/
@@ -433,7 +433,7 @@ Go to **Actions** tab → click the latest workflow run → **Re-run all jobs**.
 | `ecde6ab` | Jun 21, 2026 | Added `partnerId` field (col K) to Players schema in code.gs, mockData.js, and ATHOPEN.md |
 | `bac7f73` | Jun 21, 2026 | Moved xlsx template to `backend/`; saved `generate_template.py` script |
 | `f4aadbc` | Jun 22, 2026 | Blue Crew pairings schedule generated (`docs/BlueCrew_Pairings.xlsx`); real player names (HSB + Blue Crew) in mockData.js; updated to 9 rounds / 18 matches across all files |
-| *(pending)* | Jun 22, 2026 | Fixed scheduling bug (same-round player conflicts); added round-conflict backtracking to `generate_pairings.py`; wrote full pairing documentation in ATHOPEN.md Section 11 |
+| *(pending)* | Jun 22, 2026 | Added Cora (b13) as Blue Crew captain (4th woman); Jay+Cora captain pair (1 mixed game, R7N); all 3 regular couples play 2 mixed each (1+2+2+2=7 ✓); added no-back-to-back constraint; new pairings generated; Schedule.jsx shows 9 rounds with times; Section 11 updated |
 
 ---
 
@@ -445,8 +445,9 @@ Go to **Actions** tab → click the latest workflow run → **Re-run all jobs**.
 - [x] **Team B name** — "Blue Crew" set in config.js, all UI components read it dynamically
 - [x] **partnerId field** — added to Players sheet (col K) to track mixed doubles couples
 - [x] **Real player names in mock data** — HSB (Suzan, Rachel, Molly, Pierre, Jeff E, Dro, Steve, Mich, Wilfred, Jeff W, Yu Fon, Johnny) and Blue Crew (Alexis, Carmela, Ivy, Jay, Marv, Arman, Jon, Trevor, Richard, Rhon, Joe, Pierre) replace placeholder names
-- [x] **Blue Crew pairings generated** — `docs/BlueCrew_Pairings.xlsx` has full schedule; `backend/generate_pairings.py` saved for re-runs; Trevor/Alexis get 3 mixed, others get 2; Arman/Richard play 4 games
+- [x] **Blue Crew pairings generated (iteration 2)** — `docs/BlueCrew_Pairings.xlsx` has full schedule; Cora added as captain (b13, 1 mixed game with Jay in R7N); all 3 couples play 2 mixed; Rhon/Joe play 4 games; no back-to-back games for any player
 - [x] **Tournament format corrected to 9 rounds / 18 matches** — actual HSB docx has 9 rounds (not 8); 7 mixed doubles (not 5); all code updated
+- [x] **Cora added as Blue Crew captain** — 4th woman (b13); plays exactly 1 game with Jay; other 3 women play 2 each; isCaptain moved from Alexis to Cora
 - [ ] **Add real players to Google Sheets** — replace mock roster with actual registered players (via registration form or directly in Players sheet); fill in `partnerId` for couples
 - [ ] **Set match pairings** — fill in player IDs in Schedule sheet columns E–H (m1–m18) using `docs/BlueCrew_Pairings.xlsx` and `docs/ATH_Pairings_Matrix.xlsx`
 - [ ] **Team A logo** — get a logo image for Team A and wire it in the same way as Blue Crew (Teams page + Home badge)
@@ -474,8 +475,8 @@ Go to **Actions** tab → click the latest workflow run → **Re-run all jobs**.
 | Date | June 28th | docx |
 | Warm-up | 8:00 AM | docx |
 | Match time | 8:30 AM – Noon | docx |
-| Players per team | **12** (9 men + 3 women) | confirmed |
-| Total players | **24** | confirmed |
+| Players per team | **12 HSB** (9M + 3F) / **13 Blue Crew** (9M + 4F) | confirmed |
+| Total players | **25** | confirmed |
 | Courts | **2** — South (S) and North (N) | confirmed |
 | Scoring | **Traditional: 11 points, win by 2** | docx |
 | At 11-all | Next point wins — **Receivers' Choice** | docx |
@@ -485,10 +486,10 @@ Go to **Actions** tab → click the latest workflow run → **Re-run all jobs**.
 | Men's Doubles matches | **11** | HSB docx |
 | Mixed Doubles matches | **7** (marked ★) | HSB docx |
 | Games per man | **3 most men, 2 must play 4** (unavoidable — see math) | calculated |
-| Games per woman | **One woman plays 3, two play 2** (unavoidable with 7 slots / 3 couples) | calculated |
+| Games per woman | **Captain plays 1, other 3 women play 2 each** (1+2+2+2=7 ✓ — Cora plays only with Jay) | confirmed |
 | Score reporting | **WIN ONLY** to captain | docx |
 | Team A captain | **Suzan** | docx |
-| Team B captain | **Alexis** | confirmed |
+| Team B captain | **Cora** | confirmed |
 
 ---
 
@@ -534,15 +535,22 @@ Total: **18 matches** ✅
 
 Every man plays **3 or 4 games**, each time with a different partner. No man repeats a partner.
 
-#### Women — why one woman plays 3 games
+#### Women — distribution with 4 women (Cora as captain)
+
+Blue Crew has **4 women** with the following rules:
+- Cora (captain) plays **exactly 1** mixed game — with Jay (not a fixed couple, a captain pair)
+- Each of the 3 other women plays **exactly 2** mixed games with her fixed couple partner
+
 ```
-7 mixed doubles × 1 woman per side = 7 women's slots
-3 couples → distribute 7 slots: only (3,2,2) is possible (no way to fit 7 into 3 groups ≤2)
-→ one woman plays 3 games, two play 2 games
+Cora (captain):  1 game (with Jay)
+Alexis:          2 games (with Trevor)
+Carmela:         2 games (with Marv)
+Ivy:             2 games (with Pierre)
+Total: 1+2+2+2 = 7 ✅ — perfectly fills all 7 mixed slots
 ```
 
-Hill Street Blues women: Suzan=1, Rachel=3, Molly=3 (distribution 3,3,1)  
-Blue Crew women: Alexis=3 (couple drew 3 mixed), Carmela=2, Ivy=2 (distribution 3,2,2)
+Hill Street Blues women: Suzan=1, Rachel=3, Molly=3 (distribution 1,3,3)  
+Blue Crew women: Cora=1, Alexis=2, Carmela=2, Ivy=2 (distribution 1,2,2,2) ✓
 
 #### Men's game count verification
 ```
@@ -550,9 +558,15 @@ All-men's rounds (R1, R2, R3, R6, R8 — both courts men's): 5 × 4 = 20 slots
 Split round (R5 — South mixed, North men's): 1 × 2 = 2 slots
 Total men's player-slots: 22  ✅ (11 matches × 2)
 
-Total game appearances for all men:
-  22 (men's) + 7 (mixed) = 29 player-slots
-  Couple men: 3+1+1 = 5  →  non-couple: 24 slots / 6 men → 2×4 + 4×3  ✓
+Mixed men contributions:
+  Jay:    1 mixed → 2 men's games
+  Trevor: 2 mixed → 1 men's game
+  Marv:   2 mixed → 1 men's game
+  Pierre: 2 mixed → 1 men's game
+  Subtotal: 2+1+1+1 = 5 men's player-slots
+
+Non-mixed men (Arman, Jon, Richard, Rhon, Joe): 22 - 5 = 17 slots / 5 men
+  17 ÷ 5 = 3 remainder 2 → exactly 2 men play 4 games, 3 play 3  ✓
 ```
 
 ---
@@ -604,152 +618,163 @@ The 21-minute buffer is tighter than the old 8-round estimate but still workable
 
 ---
 
-### 11.1 The current schedule (as of June 22, 2026)
+### 11.1 The current schedule (as of June 22, 2026 — iteration 2)
 
-This is the schedule that was generated and saved. It is the one currently in `docs/BlueCrew_Pairings.xlsx`.
+**Key changes in this iteration vs the first:**
+- Cora added as Blue Crew captain (4th woman, id `b13`)
+- Jay+Cora are the captain pair — they play exactly **1 mixed game together** (R7N)
+- All 3 regular couples play exactly **2 mixed games each** (1+2+2+2=7 ✓)
+- `FORCED_TRIPLE` removed — no longer needed with 4 women
+- **No back-to-back games**: no player plays in two consecutive rounds (constraint enforced by algorithm)
+- Jay's mixed partner is no longer counted as a "couple" — it's a special captain pair
 
 #### Full 18-match schedule — Blue Crew side only
 
 | Match | Round | Time | Court | Type | Blue Crew Player 1 | Blue Crew Player 2 |
 |-------|-------|------|-------|------|-------------------|-------------------|
-| m1  | 1 | 8:30 am | South | Men's | Arman | Rhon |
-| m2  | 1 | 8:30 am | North | Men's | Jon | Richard |
-| m3  | 2 | 8:50 am | South | Men's | Arman | Joe |
-| m4  | 2 | 8:50 am | North | Men's | Jay | Rhon |
-| m5  | 3 | 9:15 am | South | Men's | Jay | Richard |
-| m6  | 3 | 9:15 am | North | Men's | Arman | Pierre |
-| m7  | 4 | 9:40 am | South | **Mix ★** | **Marv** | **Carmela** |
-| m8  | 4 | 9:40 am | North | **Mix ★** | **Trevor** | **Alexis** |
-| m9  | 5 | 10:10 am | South | **Mix ★** | **Marv** | **Carmela** |
-| m10 | 5 | 10:10 am | North | Men's | Jon | Joe |
-| m11 | 6 | 10:30 am | South | Men's | Jay | Joe |
-| m12 | 6 | 10:30 am | North | Men's | Trevor | Jon |
-| m13 | 7 | 11:00 am | South | **Mix ★** | **Trevor** | **Alexis** |
-| m14 | 7 | 11:00 am | North | **Mix ★** | **Pierre** | **Ivy** |
-| m15 | 8 | 11:30 am | South | Men's | Richard | Rhon |
-| m16 | 8 | 11:30 am | North | Men's | Jon | Joe |
-| m17 | 9 | — | South | **Mix ★** | **Pierre** | **Ivy** |
+| m1  | 1 | 8:30 am | South | Men's | Richard | Joe |
+| m2  | 1 | 8:30 am | North | Men's | Trevor | Rhon |
+| m3  | 2 | 8:50 am | South | Men's | Arman | Pierre |
+| m4  | 2 | 8:50 am | North | Men's | Marv | Jon |
+| m5  | 3 | 9:15 am | South | Men's | Rhon | Joe |
+| m6  | 3 | 9:15 am | North | Men's | Jay | Richard |
+| m7  | 4 | 9:40 am | South | **Mix ★** | **Pierre** | **Ivy** |
+| m8  | 4 | 9:40 am | North | **Mix ★** | **Marv** | **Carmela** |
+| m9  | 5 | 10:10 am | South | **Mix ★** | **Trevor** | **Alexis** |
+| m10 | 5 | 10:10 am | North | Men's | Jay | Rhon |
+| m11 | 6 | 10:30 am | South | Men's | Arman | Richard |
+| m12 | 6 | 10:30 am | North | Men's | Jon | Joe |
+| m13 | 7 | 11:00 am | South | **Mix ★** | **Pierre** | **Ivy** |
+| m14 | 7 | 11:00 am | North | **Mix ★** | **Jay** | **Cora** ← captain's game |
+| m15 | 8 | 11:30 am | South | Men's | Arman | Joe |
+| m16 | 8 | 11:30 am | North | Men's | Jon | Rhon |
+| m17 | 9 | — | South | **Mix ★** | **Trevor** | **Alexis** |
 | m18 | 9 | — | North | **Mix ★** | **Marv** | **Carmela** |
 
-Mixed doubles shown in **bold**. Couples are always together.
+Mixed doubles shown in **bold**. Couples always play together. Jay+Cora is the captain pair (R7N only).
 
 ---
 
 #### Per-player game log
 
-Every man's games listed in round order — use this to verify no one plays twice in the same round and no partner repeats.
-
-| Player | Gender | Couple | Mix | Men's | Total | Round-by-round games |
-|--------|--------|--------|-----|-------|-------|----------------------|
-| **Alexis** | F | Trevor | 2 | 0 | **2** | R4N★ w/Trevor, R7S★ w/Trevor |
-| **Carmela** | F | Marv | 3 | 0 | **3** | R4S★ w/Marv, R5S★ w/Marv, R9N★ w/Marv |
-| **Ivy** | F | Pierre | 2 | 0 | **2** | R7N★ w/Pierre, R9S★ w/Pierre |
-| **Jay** | M | — | 0 | 3 | **3** | R2N w/Rhon, R3S w/Richard, R6S w/Joe |
-| **Marv** | M | Carmela | 3 | 0 | **3** | R4S★ w/Carmela, R5S★ w/Carmela, R9N★ w/Carmela |
-| **Arman** | M | — | 0 | 4 | **4** | R1S w/Rhon, R2S w/Joe, R3N w/Pierre, R5N w/Richard |
-| **Jon** | M | — | 0 | 3 | **3** | R1N w/Richard, R5N... wait — see note below |
-| **Trevor** | M | Alexis | 2 | 1 | **3** | R4N★ w/Alexis, R6N w/Jon, R7S★ w/Alexis |
-| **Richard** | M | — | 0 | 4 | **4** | R1N w/Jon, R3S w/Jay, R5N w/Arman, R8S w/Rhon |
-| **Rhon** | M | — | 0 | 3 | **3** | R1S w/Arman, R2N w/Jay, R8S w/Richard |
-| **Joe** | M | — | 0 | 3 | **3** | R2S w/Arman, R6S w/Jay, R8N w/Jon |
-| **Pierre** | M | Ivy | 2 | 1 | **3** | R3N w/Arman, R7N★ w/Ivy, R9S★ w/Ivy |
-
-*Note on Jon: R1N w/Richard, R6N w/Trevor, R8N w/Joe = 3 games. The R5N listed for Jon above in an earlier draft was wrong — Arman+Richard play R5N. Jon does NOT play R5N.*
+| Player | Gender | Role | Mix | Men's | Total | Round-by-round games |
+|--------|--------|------|-----|-------|-------|----------------------|
+| **Cora** | F | Captain | 1 | 0 | **1** | R7N★ w/Jay |
+| **Alexis** | F | Couple (Trevor) | 2 | 0 | **2** | R5S★ w/Trevor, R9S★ w/Trevor |
+| **Carmela** | F | Couple (Marv) | 2 | 0 | **2** | R4N★ w/Marv, R9N★ w/Marv |
+| **Ivy** | F | Couple (Pierre) | 2 | 0 | **2** | R4S★ w/Pierre, R7S★ w/Pierre |
+| **Jay** | M | Captain pair (Cora) | 1 | 2 | **3** | R3N w/Richard, R5N w/Rhon, R7N★ w/Cora |
+| **Marv** | M | Couple (Carmela) | 2 | 1 | **3** | R2N w/Jon, R4N★ w/Carmela, R9N★ w/Carmela |
+| **Trevor** | M | Couple (Alexis) | 2 | 1 | **3** | R1N w/Rhon, R5S★ w/Alexis, R9S★ w/Alexis |
+| **Pierre** | M | Couple (Ivy) | 2 | 1 | **3** | R2S w/Arman, R4S★ w/Ivy, R7S★ w/Ivy |
+| **Arman** | M | — | 0 | 3 | **3** | R2S w/Pierre, R6S w/Richard, R8S w/Joe |
+| **Jon** | M | — | 0 | 3 | **3** | R2N w/Marv, R6N w/Joe, R8N w/Rhon |
+| **Richard** | M | — | 0 | 3 | **3** | R1S w/Joe, R3N w/Jay, R6S w/Arman |
+| **Rhon** | M | — | 0 | 4 | **4** | R1N w/Trevor, R3S w/Joe, R5N w/Jay, R8N w/Jon |
+| **Joe** | M | — | 0 | 4 | **4** | R1S w/Richard, R3S w/Rhon, R6N w/Jon, R8S w/Arman |
 
 ---
 
-#### No-repeat-partner check — men's doubles only
+#### No-back-to-back check
 
-Every pairing that appears in a men's doubles match:
+No player plays in two consecutive rounds. Verified for each player:
 
-| Match | Round | Court | Pair | Both players' other men's doubles partners |
-|-------|-------|-------|------|--------------------------------------------|
-| m1  | R1 | S | Arman + Rhon | Arman also plays Joe(R2), Pierre(R3), Richard(R5) · Rhon also plays Jay(R2), Richard(R8) |
-| m2  | R1 | N | Jon + Richard | Jon also plays Trevor(R6), Joe(R8) · Richard also plays Jay(R3), Arman(R5), Rhon(R8) |
-| m3  | R2 | S | Arman + Joe | — (Arman-Joe never repeat) |
-| m4  | R2 | N | Jay + Rhon | — (Jay-Rhon never repeat) |
-| m5  | R3 | S | Jay + Richard | — |
-| m6  | R3 | N | Arman + Pierre | — (Pierre's only men's game) |
-| m10 | R5 | N | Arman + Richard | — |
-| m11 | R6 | S | Jay + Joe | — |
-| m12 | R6 | N | Trevor + Jon | — (Trevor's only men's game) |
-| m15 | R8 | S | Richard + Rhon | — |
-| m16 | R8 | N | Jon + Joe | — |
-
-Every pair appears exactly once. No man repeats a men's doubles partner. ✅
+| Player | Rounds played | Gaps (all ≥ 2) | Back-to-back? |
+|--------|---------------|----------------|---------------|
+| Cora | R7 | — | ✅ |
+| Alexis | R5, R9 | 4 | ✅ |
+| Carmela | R4, R9 | 5 | ✅ |
+| Ivy | R4, R7 | 3 | ✅ |
+| Jay | R3, R5, R7 | 2, 2 | ✅ |
+| Marv | R2, R4, R9 | 2, 5 | ✅ |
+| Trevor | R1, R5, R9 | 4, 4 | ✅ |
+| Pierre | R2, R4, R7 | 2, 3 | ✅ |
+| Arman | R2, R6, R8 | 4, 2 | ✅ |
+| Jon | R2, R6, R8 | 4, 2 | ✅ |
+| Richard | R1, R3, R6 | 2, 3 | ✅ |
+| Rhon | R1, R3, R5, R8 | 2, 2, 3 | ✅ |
+| Joe | R1, R3, R6, R8 | 2, 3, 2 | ✅ |
 
 ---
 
 #### No same-round conflict check
 
-Each round has two simultaneous courts. No Blue Crew player can appear on both. Verified:
-
 | Round | South Court (BC players) | North Court (BC players) | Any overlap? |
 |-------|--------------------------|--------------------------|--------------|
-| R1 | Arman, Rhon | Jon, Richard | ✅ None |
-| R2 | Arman, Joe | Jay, Rhon | ✅ None |
-| R3 | Jay, Richard | Arman, Pierre | ✅ None |
-| R4 | Marv, Carmela ★ | Trevor, Alexis ★ | ✅ None |
-| R5 | Marv, Carmela ★ | Arman, Richard | ✅ None (Marv+Carmela separate court from men's) |
-| R6 | Jay, Joe | Trevor, Jon | ✅ None |
-| R7 | Trevor, Alexis ★ | Pierre, Ivy ★ | ✅ None |
-| R8 | Richard, Rhon | Jon, Joe | ✅ None |
-| R9 | Pierre, Ivy ★ | Marv, Carmela ★ | ✅ None |
+| R1 | Richard, Joe | Trevor, Rhon | ✅ None |
+| R2 | Arman, Pierre | Marv, Jon | ✅ None |
+| R3 | Rhon, Joe | Jay, Richard | ✅ None |
+| R4 | Pierre, Ivy ★ | Marv, Carmela ★ | ✅ None |
+| R5 | Trevor, Alexis ★ | Jay, Rhon | ✅ None |
+| R6 | Arman, Richard | Jon, Joe | ✅ None |
+| R7 | Pierre, Ivy ★ | Jay, Cora ★ | ✅ None |
+| R8 | Arman, Joe | Jon, Rhon | ✅ None |
+| R9 | Trevor, Alexis ★ | Marv, Carmela ★ | ✅ None |
+
+---
+
+#### No-repeat-partner check — men's doubles only
+
+| Match | Pair |
+|-------|------|
+| m1 R1S | Richard + Joe |
+| m2 R1N | Trevor + Rhon |
+| m3 R2S | Arman + Pierre |
+| m4 R2N | Marv + Jon |
+| m5 R3S | Rhon + Joe |
+| m6 R3N | Jay + Richard |
+| m10 R5N | Jay + Rhon |
+| m11 R6S | Arman + Richard |
+| m12 R6N | Jon + Joe |
+| m15 R8S | Arman + Joe |
+| m16 R8N | Jon + Rhon |
+
+Every pair appears exactly once. No man repeats a men's doubles partner. ✅
 
 ---
 
 ### 11.2 Why certain game counts are unavoidable
 
-#### Why one woman must play 3 games
+#### Women — why (1,2,2,2) is the right distribution
 
-There are 7 mixed doubles slots. Blue Crew has 3 women. The only way to distribute 7 across 3 people is (3,2,2) — you cannot fit 7 into three groups where everyone plays ≤2. Proof:
+With 4 women and 7 mixed slots:
+- Cora (captain) plays 1 game — this is the captain's format, she plays only with Jay
+- The remaining 6 slots go to 3 women at exactly 2 each: 3 × 2 = 6 ✓
+- No woman is burdened with 3 games; the captain's single game is by design
 
+This is **more equitable** than the previous iteration (which had one woman play 3 games):
 ```
-Maximum games if all women play ≤2:  3 women × 2 games = 6 total
-But we have 7 mixed slots.          7 > 6 — impossible.
-```
-
-So at least one woman *must* play 3 games. The only choice is *which* couple gets the third slot — the script randomly picks one each run (or you can force it with `FORCED_TRIPLE`).
-
-Comparison with Hill Street Blues (their actual schedule):
-```
-Hill Street Blues women:  Suzan=1 game, Rachel=3 games, Molly=3 games  → distribution (1,3,3)
-Blue Crew women:          Alexis=2,     Carmela=3,      Ivy=2          → distribution (2,3,2)
-```
-Blue Crew's (3,2,2) is more equitable than HSB's (3,3,1).
-
-#### Why two non-couple men must play 4 games
-
-There are 11 men's doubles matches × 2 players per side = **22 men's doubles player-slots** to fill.
-
-The three couple men contribute to men's doubles only when they're not playing mixed:
-```
-Marv:   3 mixed → 0 men's doubles games
-Trevor: 2 mixed → 1 men's doubles game
-Pierre: 2 mixed → 1 men's doubles game
-Couple men subtotal: 0 + 1 + 1 = 2 men's doubles player-slots
+Old (3 women): (3,2,2) — one woman plays 50% more than the others
+New (4 women): (1,2,2,2) — captain plays 1 by design; others equal at 2
 ```
 
-That leaves **22 − 2 = 20 men's doubles player-slots** for the 6 non-couple men (Jay, Arman, Jon, Richard, Rhon, Joe).
+#### Why Jay gets 2 men's games (not 3)
+
+Jay plays 1 mixed game (with Cora). Total games = 3. So he plays 2 men's doubles.
+
+This is the same total as all other couple/captain-pair men:
+- Trevor: 2 mixed + 1 men's = 3 total
+- Marv: 2 mixed + 1 men's = 3 total
+- Pierre: 2 mixed + 1 men's = 3 total
+- Jay: 1 mixed + 2 men's = 3 total ✓
+
+#### Why two non-mixed men must play 4 games
 
 ```
-20 slots ÷ 6 men = 3 remainder 2
-→ 4 men play 3 games, 2 men play 4 games  (unavoidable)
+22 men's player-slots total (11 matches × 2)
+Jay:    1 mixed → 2 men's slots
+Trevor: 2 mixed → 1 men's slot
+Marv:   2 mixed → 1 men's slot
+Pierre: 2 mixed → 1 men's slot
+Subtotal from mixed men: 2+1+1+1 = 5 men's player-slots used
+
+Remaining for non-mixed men (Arman, Jon, Richard, Rhon, Joe):
+  22 - 5 = 17 slots / 5 men
+  17 ÷ 5 = 3 remainder 2
+  → 3 men play 3 games, 2 men play 4 games  (unavoidable)
 ```
 
-The script randomly picks which 2 men play 4 (or you can force it with `FORCED_QUAD_MEN`). In the current schedule: **Arman and Richard** each play 4 games.
-
-#### What changes if the triple-game couple changes
-
-The triple-game couple controls the balance between men's doubles and mixed for the couple men:
-
-| Which couple gets 3 mixed | Marv's men's | Trevor's men's | Pierre's men's |
-|---------------------------|-------------|---------------|---------------|
-| Marv+Carmela (current) | **0** men's | 1 men's | 1 men's |
-| Trevor+Alexis | 1 men's | **0** men's | 1 men's |
-| Pierre+Ivy | 1 men's | 1 men's | **0** men's |
-
-In all cases, the total couple-men contribution to men's doubles is always 2, so the "2 non-couple men play 4" conclusion never changes — only which non-couple men are affected changes.
+In the current schedule: **Rhon and Joe** each play 4 games. Controlled by `FORCED_QUAD_MEN`.
 
 ---
 
@@ -757,69 +782,67 @@ In all cases, the total couple-men contribution to men's doubles is always 2, so
 
 The script `backend/generate_pairings.py` runs these steps in order:
 
-#### Step 1 — Pick triple-game couple
-Randomly select which of the 3 couples plays 3 mixed games. The other two play 2 each. Controlled by `FORCED_TRIPLE` (set to `0`, `1`, or `2` to pin it; `None` for random).
+#### Step 1 — Initialise RNG
+`RANDOM_SEED` is either an integer (reproducible) or `None` (new random draw each run).
 
-#### Step 2 — Assign couples to mixed slots (backtracking)
+#### Step 2 — Assign pairs to mixed slots (backtracking)
 The 7 mixed slots are: R4S, R4N, R5S, R7S, R7N, R9S, R9N.
 
-A critical constraint: **no couple can be assigned to two courts of the same round** (they can't physically be in two places at once). The rounds with two mixed courts are R4 (both courts mixed), R7 (both), and R9 (both). So R4S and R4N must have *different* couples; same for R7 and R9. R5 only has one mixed court (South), so no conflict there.
+Four "pairs" need slots:
+- `CAPTAIN_PAIR` (Jay+Cora) — gets **1** slot
+- `COUPLES[0]` (Trevor+Alexis) — gets **2** slots
+- `COUPLES[1]` (Marv+Carmela) — gets **2** slots
+- `COUPLES[2]` (Pierre+Ivy) — gets **2** slots
 
-The algorithm uses backtracking — it places couples into slots one by one, and if it reaches a state where a couple would need to be on two courts of the same round, it backtracks and tries a different assignment.
+The backtracking enforces two constraints:
+1. **No pair in same round twice** (can't be on both courts of the same round)
+2. **No pair in adjacent rounds** (no back-to-back)
 
-Example of what's prevented:
 ```
-❌ BAD (previous buggy run): Marv+Carmela in both R7S and R7N — simultaneous conflict!
-✅ GOOD (current): Marv+Carmela in R4S, R5S, R9N — all different rounds
+❌ PREVENTED: Marv+Carmela in R4 and R5 → gap of 1 (back-to-back)
+✅ ALLOWED: Marv+Carmela in R4 and R9 → gap of 5
 ```
 
 #### Step 3 — Calculate each man's men's doubles game count
-- **Couple men**: `men's games = 3 − (mixed games they play)`
-  - Marv plays 3 mixed → 0 men's
-  - Trevor plays 2 mixed → 1 men's
-  - Pierre plays 2 mixed → 1 men's
-- **Non-couple men**: 4 of them play 3, 2 play 4 (from the math above). Which 2 play 4 is random (controlled by `FORCED_QUAD_MEN`).
+
+For men who play mixed:
+- Jay (1 mixed): 3 total − 1 = **2 men's games**
+- Trevor, Marv, Pierre (2 mixed each): 3 total − 2 = **1 men's game each**
+
+For non-mixed men (Arman, Jon, Richard, Rhon, Joe):
+- 17 slots ÷ 5 men = 3 rem 2 → 2 play 4, 3 play 3
+- Which 2 play 4: random unless overridden by `FORCED_QUAD_MEN`
 
 #### Step 4 — Generate valid men's doubles pairs (backtracking)
-Build a pool of player-slots based on each man's count:
-```
-Arman × 4, Richard × 4, Jay × 3, Jon × 3, Rhon × 3, Joe × 3, Trevor × 1, Pierre × 1
-```
-Then use backtracking to pair them up with **no repeated partners**. The algorithm always picks the player with the most remaining games first (most-constrained-first heuristic), which avoids dead ends.
+Build a pool: `Rhon×4, Joe×4, Arman×3, Jon×3, Richard×3, Jay×2, Trevor×1, Marv×1, Pierre×1`
 
-Any pairs in `PINNED_PAIRS` are included verbatim and their counts are pre-subtracted before backtracking fills the rest.
+Backtracking with **no repeated partners** — most-constrained player first heuristic. Any `PINNED_PAIRS` are pre-placed.
 
-#### Step 5 — Assign pairs to rounds (backtracking)
-Place the 11 generated pairs into the 11 men's doubles slots. Two constraints:
-- **No player in two courts of the same round**: if Arman is already on the South court in Round 2, he can't also be on the North court in Round 2.
-- **No couple man in his mixed round**: if Trevor plays mixed in R4 and R7, his one men's doubles game must land in R1, R2, R3, R5, R6, R8, or R9 — not R4 or R7.
+#### Step 5 — Assign pairs to men's doubles slots (backtracking)
+Place 11 pairs into 11 slots. Three constraints checked per slot:
+1. **No player on two courts of same round**
+2. **No player in two adjacent rounds (back-to-back)**
+3. **No player in a round adjacent to their mixed game** (e.g. Trevor plays mixed R5+R9 → men's game can't be R4, R6, or R8)
 
-If a pair can't be placed without violating those constraints, the algorithm backtracks and tries a different pair for that slot.
-
-#### Step 6 — Validate
-Before saving the xlsx, the script checks:
-- No player appears in two slots of the same round
-- No man repeats a men's doubles partner
-
-If any violation is found, the script exits with an error and prints which constraint was broken.
+#### Step 6 — Validate and exit on error
+Script checks all three constraints on the full schedule and exits with a clear error message if any are violated.
 
 ---
 
 ### 11.4 How to tweak the schedule
 
-Open `backend/generate_pairings.py` — the configuration block is at the very top, clearly marked:
+Open `backend/generate_pairings.py` — the configuration block is at the very top:
 
 ```python
 RANDOM_SEED     = None    # Set to integer for reproducible draw (e.g. 42)
-FORCED_TRIPLE   = None    # Which couple gets 3 mixed: 0=Trevor/Alexis, 1=Marv/Carmela, 2=Pierre/Ivy
-FORCED_QUAD_MEN = None    # Which 2 non-couple men play 4 games: e.g. ['b4','b7']
+FORCED_QUAD_MEN = None    # Which 2 non-mixed men play 4 games: e.g. ['b4','b5']
 PINNED_PAIRS    = []      # Force specific men's doubles pairings: e.g. [('b2','b5')]
 ```
 
-#### Scenario A — "I want Alexis to play 3 mixed games instead of Carmela"
+#### Scenario A — "I want Arman and Jon to be the two who play 4 games"
 
 ```python
-FORCED_TRIPLE = 0   # 0 = Trevor/Alexis couple
+FORCED_QUAD_MEN = ['b4', 'b5']   # b4=Arman, b5=Jon
 ```
 
 #### Scenario B — "I want Jay and Jon to always play together in men's doubles"
@@ -828,33 +851,24 @@ FORCED_TRIPLE = 0   # 0 = Trevor/Alexis couple
 PINNED_PAIRS = [('b2', 'b5')]   # b2=Jay, b5=Jon
 ```
 
-The algorithm will include Jay+Jon in some round and build the rest of the schedule around it.
-
-#### Scenario C — "I want Arman and Jon to be the two who play 4 games"
-
-```python
-FORCED_QUAD_MEN = ['b4', 'b11']   # b4=Arman, b11=Joe  -- wait, Jon is b5
-FORCED_QUAD_MEN = ['b4', 'b5']    # b4=Arman, b5=Jon
-```
-
-#### Scenario D — "I want the exact same random draw every time"
+#### Scenario C — "I want the exact same random draw every time"
 
 ```python
 RANDOM_SEED = 42    # any integer; same seed = same output
 ```
 
-#### Scenario E — "I want to completely hand-craft the schedule"
+#### Scenario D — "I want to completely hand-craft the schedule"
 
-Don't run the script. Edit `src/data/mockData.js` directly, changing the `teamBP1` and `teamBP2` values (which are player IDs like `b2`, `b5`, etc.) for each match.  
-Also edit the Google Sheets Schedule tab columns G and H.
+Edit `src/data/mockData.js` directly, changing `teamBP1`/`teamBP2` for each match row.
 
 Player ID reference:
 ```
-b1=Alexis  b2=Jay    b3=Marv    b4=Arman  b5=Jon   b6=Trevor
-b7=Richard b8=Rhon   b9=Carmela b10=Ivy   b11=Joe  b12=Pierre
+b13=Cora   b1=Alexis  b9=Carmela b10=Ivy
+b2=Jay     b3=Marv    b6=Trevor  b12=Pierre
+b4=Arman   b5=Jon     b7=Richard b8=Rhon   b11=Joe
 ```
 
-#### Scenario F — "I want to generate and review several random draws before picking one"
+#### Scenario E — "Generate and review several draws before picking one"
 
 ```python
 RANDOM_SEED = 1   # run, review
@@ -862,22 +876,17 @@ RANDOM_SEED = 2   # run, review
 RANDOM_SEED = 3   # run, review
 ```
 
-Each produces a completely different valid schedule. When you pick one you like, leave that seed set and the xlsx stays consistent.
+Each produces a different valid schedule. When you pick one you like, leave that seed set.
 
 ---
 
 ### 11.5 What to do with the output
 
-1. Open `docs/BlueCrew_Pairings.xlsx` — review the **Full Schedule** tab to see both teams side by side
-2. Check the **Blue Crew Matrix** tab — the 12×12 grid shows every pairing at a glance (green=men's, yellow=mixed)
-3. If the schedule looks good, copy Blue Crew's player IDs into the Google Sheets **Schedule** tab (columns G and H for each of m1–m18)
-4. Alternatively, just use the schedule as a printed reference card on tournament day
-
----
-
-### 11.6 Future iterations
-
-**Iteration 2 (planned):** Women play 1 game with their preferred partner and 1 game with a random partner. The current iteration locks all mixed doubles to the same fixed couple. To implement: expand the mixed slot assignment to allow different men for a given woman across her games.
+1. Open `docs/BlueCrew_Pairings.xlsx` → **Full Schedule** tab: both teams side by side
+2. Check **Blue Crew Matrix** tab: 13×13 grid (C★=captain game, M★=mixed, X=men's)
+3. Check **Player Summary** tab: each player's total / mix / men's count and games in order
+4. Copy Blue Crew player IDs into Google Sheets **Schedule** tab columns G+H (m1–m18)
+5. Or print the xlsx as a reference card for tournament day
 
 ---
 
@@ -895,10 +904,11 @@ A printed card is the answer. With pre-assigned pairings, the captain reads off 
 
 | Player type | Mixed games | Men's doubles | Total games |
 |-------------|-------------|---------------|-------------|
-| Couple man who draws 3 mixed | 3 | 0 | **3** |
-| Couple man who draws 2 mixed | 2 | 1 | **3** |
-| Non-couple man (most) | 0 | 3 | **3** |
-| Non-couple man (2 of 6) | 0 | 4 | **4** |
+| Captain (Cora) | 1 | 0 | **1** |
+| Captain pair man (Jay) | 1 | 2 | **3** |
+| Couple man (Trevor/Marv/Pierre) | 2 | 1 | **3** |
+| Non-mixed man (most) | 0 | 3 | **3** |
+| Non-mixed man (2 of 5) | 0 | 4 | **4** |
 
 The 4-game men are unavoidable — see Section 11.2 for the math.
 
@@ -906,7 +916,7 @@ The 4-game men are unavoidable — see Section 11.2 for the math.
 
 1. Removes scheduling complexity: each woman's game slots are entirely determined by her couple's assignment — no need to think about who she'll play with
 2. Socially natural: couples want to play together, and this format guarantees it
-3. The fairness tradeoff (one woman plays 3 games instead of 2) is the minimum possible inequality given 7 mixed slots and 3 couples
+3. With Cora as captain (1 game only), the distribution (1,2,2,2) is perfectly equitable — the captain's single game is by design, not a constraint
 
 ---
 

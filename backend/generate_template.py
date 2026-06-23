@@ -79,10 +79,12 @@ team_a = [
     ["a12", "Brian",  "Torres",  "A", "M", "FALSE", "", "(555)100-0012", "brian@example.com",  "", "a10"],
 ]
 
-# Blue Crew (JPL Team) — Team B (12: 3F + 9M)
+# Blue Crew (JPL Team) — Team B (13: 4F + 9M)
+# Captain: Cora (b13) — plays 1 mixed game with Jay; no fixed couple
 # Couples: b1(Alexis)↔b6(Trevor), b9(Carmela)↔b3(Marv), b10(Ivy)↔b12(Pierre)
 team_b = [
-    ["b1",  "Alexis",  "", "B", "F", "TRUE",  "", "", "", "", "b6"],
+    ["b13", "Cora",    "", "B", "F", "TRUE",  "", "", "", "", ""],
+    ["b1",  "Alexis",  "", "B", "F", "FALSE", "", "", "", "", "b6"],
     ["b9",  "Carmela", "", "B", "F", "FALSE", "", "", "", "", "b3"],
     ["b10", "Ivy",     "", "B", "F", "FALSE", "", "", "", "", "b12"],
     ["b2",  "Jay",     "", "B", "M", "FALSE", "", "", "", "", ""],
