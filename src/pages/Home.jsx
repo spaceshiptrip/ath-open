@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { TOURNAMENT, RULES } from '../config'
 import { useApi } from '../hooks/useApi'
-import athOpenBanner from '../assets/AthOpen_banner.png'
+import athOpenLogo from '../assets/AthOpen_logo.png'
 import athCourts     from '../assets/athenaeum_pickle_courts.jpg'
 import teamALogo from '../assets/hsb_red_logo.png'
 import teamBLogo from '../assets/team-b-logo.jpg'
@@ -32,7 +32,7 @@ export default function Home() {
         <div className="absolute inset-0 flex flex-col items-center justify-end pb-10 px-6">
           {/* Banner */}
           <img
-            src={athOpenBanner}
+            src={athOpenLogo}
             alt="The Ath Open"
             className="w-72 sm:w-96 max-w-[90%] object-contain mb-2 drop-shadow-2xl"
           />

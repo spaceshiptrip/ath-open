@@ -36,13 +36,11 @@ export default function Footer() {
           </div>
 
           {/* Right — Vibe Monkey logo */}
-          <div className="bg-white rounded-xl p-1 shadow-md shrink-0">
-            <img
-              src={vibemonkeyLogo}
-              alt="Vibe Monkey"
-              className="w-12 h-12 rounded-lg object-cover"
-            />
-          </div>
+          <img
+            src={vibemonkeyLogo}
+            alt="Vibe Monkey"
+            className="w-14 h-14 rounded-full object-cover ring-1 ring-pickle-700 shrink-0"
+          />
 
         </div>
       </div>
