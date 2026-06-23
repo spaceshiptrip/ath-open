@@ -1,7 +1,7 @@
 import { useApi } from '../hooks/useApi'
 import PlayerCard from '../components/PlayerCard'
 import { TOURNAMENT } from '../config'
-import teamALogo from '../assets/hsb_logo.png'
+import teamALogo from '../assets/hsb_red_logo.png'
 import teamBLogo from '../assets/team-b-logo.jpg'
 
 export default function Teams() {
@@ -48,7 +48,7 @@ function TeamSection({ team, name, players, captain, logo }) {
             <img
               src={logo}
               alt={`Team ${team} logo`}
-              className={`w-12 h-12 rounded-lg object-cover shadow-md ring-2 ring-white/30 ${isA ? 'object-top bg-black' : ''}`}
+              className="w-12 h-12 rounded-lg object-cover shadow-md ring-2 ring-white/30"
             />
           )}
           <div>

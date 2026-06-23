@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import athOpenBanner from '../assets/AthOpen_banner.png'
 
 const NAV = [
   { to: '/',         label: 'Home'     },
@@ -19,10 +18,15 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
 
-          {/* Banner logo */}
-          <NavLink to="/" className="flex items-center group">
-            <div className="bg-white rounded-lg px-2 py-1 shadow-md group-hover:shadow-lg transition-shadow">
-              <img src={athOpenBanner} alt="The Ath Open" className="h-9 w-auto max-w-[180px] object-contain" />
+          {/* Wordmark */}
+          <NavLink to="/" className="flex items-center gap-2 group">
+            <div className="leading-tight">
+              <span className="block font-display font-bold text-ball text-base tracking-widest uppercase">
+                The Ath Open
+              </span>
+              <span className="block text-pickle-300 text-xs tracking-wide">
+                Pickleball · June 2026
+              </span>
             </div>
           </NavLink>
 
