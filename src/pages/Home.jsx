@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 import { TOURNAMENT, RULES } from '../config'
 import { useApi } from '../hooks/useApi'
-import athLogo   from '../assets/athenaeum_header_logo.png'
-import athCourts from '../assets/athenaeum_pickle_courts.jpg'
-import teamALogo from '../assets/hsb_logo.png'
+import athOpenBanner from '../assets/AthOpen_banner.png'
+import athCourts     from '../assets/athenaeum_pickle_courts.jpg'
+import teamALogo from '../assets/hsb_red_logo.png'
 import teamBLogo from '../assets/team-b-logo.jpg'
 
 export default function Home() {
@@ -30,17 +30,12 @@ export default function Home() {
 
         {/* Floating content */}
         <div className="absolute inset-0 flex flex-col items-center justify-end pb-10 px-6">
-          {/* Venue badge */}
-          <div className="bg-white rounded-xl px-5 py-2 shadow-xl mb-5 ring-2 ring-white/30">
-            <img src={athLogo} alt="The Athenaeum" className="h-9 w-auto" />
-          </div>
-
-          <h1 className="font-display text-4xl sm:text-5xl font-bold text-ball drop-shadow-lg mb-1">
-            ATH Open
-          </h1>
-          <p className="text-lg sm:text-xl text-white font-semibold mb-1 drop-shadow">
-            Pickleball Tournament
-          </p>
+          {/* Banner */}
+          <img
+            src={athOpenBanner}
+            alt="The Ath Open"
+            className="w-72 sm:w-96 max-w-[90%] object-contain mb-2 drop-shadow-2xl"
+          />
           <p className="text-pickle-200 text-sm mb-0.5">Team Round Robin</p>
           <p className="text-pickle-300 text-xs">
             {TOURNAMENT.date} &nbsp;·&nbsp; Warm-up {TOURNAMENT.warmUp} &nbsp;·&nbsp; Matches {TOURNAMENT.matchTime}
@@ -140,7 +135,7 @@ function TeamBadge({ team, name, captain, color, logo }) {
   return (
     <div className={`flex items-center gap-3 p-3 rounded-lg ${isRed ? 'bg-red-50' : 'bg-blue-50'}`}>
       {logo ? (
-        <img src={logo} alt={`${name} logo`} className={`w-10 h-10 rounded-lg object-cover shadow-sm ${isRed ? 'object-top bg-black' : ''}`} />
+        <img src={logo} alt={`${name} logo`} className="w-10 h-10 rounded-lg object-cover shadow-sm" />
       ) : (
         <div className={`w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-white text-lg shadow-sm ${isRed ? 'bg-red-600' : 'bg-blue-600'}`}>
           {team}

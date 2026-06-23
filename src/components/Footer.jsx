@@ -1,23 +1,49 @@
-import { TOURNAMENT } from '../config'
-import athLogo from '../assets/athenaeum_header_logo.png'
+import spaceshipLogo from '../assets/spaceshiptrip_logo.png'
+import vibemonkeyLogo from '../assets/vibemonkey.png'
 
 export default function Footer() {
   return (
     <footer className="bg-pickle-900 text-gray-400 mt-auto">
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="bg-white rounded-lg px-2.5 py-1">
-              <img src={athLogo} alt="The Athenaeum" className="h-6 w-auto" />
-            </div>
-            <div className="leading-tight">
-              <p className="text-white font-display font-semibold text-sm">{TOURNAMENT.fullName}</p>
-              <p className="text-pickle-400 text-xs">{TOURNAMENT.subtitle}</p>
-            </div>
+      <div className="max-w-6xl mx-auto px-4 py-6">
+        <div className="flex items-center justify-between gap-4">
+
+          {/* Left — Spaceshiptrip logo */}
+          <img
+            src={spaceshipLogo}
+            alt="Spaceshiptrip"
+            className="w-14 h-14 rounded-full object-cover ring-1 ring-pickle-700 shrink-0"
+          />
+
+          {/* Center — tournament credit */}
+          <div className="text-center flex-1 min-w-0">
+            <p className="text-white font-display font-bold text-base leading-tight">
+              The Ath Open 2026
+            </p>
+            <p className="text-pickle-400 text-xs mt-1.5 flex items-center justify-center gap-2 flex-wrap">
+              <span>Spaceshiptrip</span>
+              <span className="text-pickle-700">·</span>
+              <a
+                href="https://github.com/spaceshiptrip/ath-open"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-pickle-400 hover:text-ball transition-colors underline underline-offset-2"
+              >
+                GitHub
+              </a>
+              <span className="text-pickle-700">·</span>
+              <span>Open Source</span>
+            </p>
           </div>
-          <p className="text-xs text-pickle-500 text-center sm:text-right">
-            {TOURNAMENT.date} · {TOURNAMENT.warmUp} Warm-up · {TOURNAMENT.matchTime} Matches
-          </p>
+
+          {/* Right — Vibe Monkey logo */}
+          <div className="bg-white rounded-xl p-1 shadow-md shrink-0">
+            <img
+              src={vibemonkeyLogo}
+              alt="Vibe Monkey"
+              className="w-12 h-12 rounded-lg object-cover"
+            />
+          </div>
+
         </div>
       </div>
     </footer>
