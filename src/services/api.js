@@ -35,13 +35,13 @@ export const api = {
     return sheetsGet({ action: 'getMatches' })
   },
 
-  async updateScore({ matchId, winner }) {
+  async updateScore({ matchId, winner, scoreA = '', scoreB = '' }) {
     if (USE_MOCK) {
       const match = mockMatches.find(m => m.id === matchId)
-      if (match) match.winner = winner
+      if (match) { match.winner = winner; match.scoreA = scoreA; match.scoreB = scoreB }
       return { success: true }
     }
-    return sheetsAction({ action: 'updateScore', matchId, winner })
+    return sheetsAction({ action: 'updateScore', matchId, winner, scoreA, scoreB })
   },
 
   async getStandings() {

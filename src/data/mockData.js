@@ -41,30 +41,30 @@ export const mockPlayers = [
 // Rhon & Joe play 4 men's games (17 slots / 5 non-mixed men → 2 play 4, 3 play 3)
 export const mockMatches = [
   // Round 1 — 8:30 AM — Men's Doubles
-  { id: 'm1',  round: 1, court: 'S', isMix: false, teamAP1: 'a4',  teamAP2: 'a5',  teamBP1: 'b6',  teamBP2: 'b8',  winner: '' },
-  { id: 'm2',  round: 1, court: 'N', isMix: false, teamAP1: 'a6',  teamAP2: 'a7',  teamBP1: 'b7',  teamBP2: 'b11', winner: '' },
+  { id: 'm1',  round: 1, court: 'S', isMix: false, teamAP1: 'a4',  teamAP2: 'a5',  teamBP1: 'b6',  teamBP2: 'b8',  winner: '', scoreA: '', scoreB: '' },
+  { id: 'm2',  round: 1, court: 'N', isMix: false, teamAP1: 'a6',  teamAP2: 'a7',  teamBP1: 'b7',  teamBP2: 'b11', winner: '', scoreA: '', scoreB: '' },
   // Round 2 — 8:50 AM — Men's Doubles
-  { id: 'm3',  round: 2, court: 'S', isMix: false, teamAP1: 'a8',  teamAP2: 'a9',  teamBP1: 'b4',  teamBP2: 'b12', winner: '' },
-  { id: 'm4',  round: 2, court: 'N', isMix: false, teamAP1: 'a10', teamAP2: 'a11', teamBP1: 'b3',  teamBP2: 'b5',  winner: '' },
+  { id: 'm3',  round: 2, court: 'S', isMix: false, teamAP1: 'a8',  teamAP2: 'a9',  teamBP1: 'b4',  teamBP2: 'b12', winner: '', scoreA: '', scoreB: '' },
+  { id: 'm4',  round: 2, court: 'N', isMix: false, teamAP1: 'a10', teamAP2: 'a11', teamBP1: 'b3',  teamBP2: 'b5',  winner: '', scoreA: '', scoreB: '' },
   // Round 3 — 9:15 AM — Men's Doubles
-  { id: 'm5',  round: 3, court: 'S', isMix: false, teamAP1: 'a7',  teamAP2: 'a10', teamBP1: 'b8',  teamBP2: 'b11', winner: '' },
-  { id: 'm6',  round: 3, court: 'N', isMix: false, teamAP1: 'a6',  teamAP2: 'a12', teamBP1: 'b2',  teamBP2: 'b7',  winner: '' },
+  { id: 'm5',  round: 3, court: 'S', isMix: false, teamAP1: 'a7',  teamAP2: 'a10', teamBP1: 'b8',  teamBP2: 'b11', winner: '', scoreA: '', scoreB: '' },
+  { id: 'm6',  round: 3, court: 'N', isMix: false, teamAP1: 'a6',  teamAP2: 'a12', teamBP1: 'b2',  teamBP2: 'b7',  winner: '', scoreA: '', scoreB: '' },
   // Round 4 — 9:40 AM — Mixed Doubles ★ (both courts)
-  { id: 'm7',  round: 4, court: 'S', isMix: true,  teamAP1: 'a4',  teamAP2: 'a1',  teamBP1: 'b12', teamBP2: 'b10', winner: '' },
-  { id: 'm8',  round: 4, court: 'N', isMix: true,  teamAP1: 'a5',  teamAP2: 'a2',  teamBP1: 'b3',  teamBP2: 'b9',  winner: '' },
+  { id: 'm7',  round: 4, court: 'S', isMix: true,  teamAP1: 'a4',  teamAP2: 'a1',  teamBP1: 'b12', teamBP2: 'b10', winner: '', scoreA: '', scoreB: '' },
+  { id: 'm8',  round: 4, court: 'N', isMix: true,  teamAP1: 'a5',  teamAP2: 'a2',  teamBP1: 'b3',  teamBP2: 'b9',  winner: '', scoreA: '', scoreB: '' },
   // Round 5 — 10:10 AM — Mixed South ★, Men's North
-  { id: 'm9',  round: 5, court: 'S', isMix: true,  teamAP1: 'a5',  teamAP2: 'a3',  teamBP1: 'b6',  teamBP2: 'b1',  winner: '' },
-  { id: 'm10', round: 5, court: 'N', isMix: false, teamAP1: 'a12', teamAP2: 'a9',  teamBP1: 'b2',  teamBP2: 'b8',  winner: '' },
+  { id: 'm9',  round: 5, court: 'S', isMix: true,  teamAP1: 'a5',  teamAP2: 'a3',  teamBP1: 'b6',  teamBP2: 'b1',  winner: '', scoreA: '', scoreB: '' },
+  { id: 'm10', round: 5, court: 'N', isMix: false, teamAP1: 'a12', teamAP2: 'a9',  teamBP1: 'b2',  teamBP2: 'b8',  winner: '', scoreA: '', scoreB: '' },
   // Round 6 — 10:30 AM — Men's Doubles
-  { id: 'm11', round: 6, court: 'S', isMix: false, teamAP1: 'a11', teamAP2: 'a7',  teamBP1: 'b4',  teamBP2: 'b7',  winner: '' },
-  { id: 'm12', round: 6, court: 'N', isMix: false, teamAP1: 'a4',  teamAP2: 'a8',  teamBP1: 'b5',  teamBP2: 'b11', winner: '' },
+  { id: 'm11', round: 6, court: 'S', isMix: false, teamAP1: 'a11', teamAP2: 'a7',  teamBP1: 'b4',  teamBP2: 'b7',  winner: '', scoreA: '', scoreB: '' },
+  { id: 'm12', round: 6, court: 'N', isMix: false, teamAP1: 'a4',  teamAP2: 'a8',  teamBP1: 'b5',  teamBP2: 'b11', winner: '', scoreA: '', scoreB: '' },
   // Round 7 — 11:00 AM — Mixed Doubles ★ (both courts)
-  { id: 'm13', round: 7, court: 'S', isMix: true,  teamAP1: 'a12', teamAP2: 'a2',  teamBP1: 'b2',  teamBP2: 'b13', winner: '' },
-  { id: 'm14', round: 7, court: 'N', isMix: true,  teamAP1: 'a8',  teamAP2: 'a3',  teamBP1: 'b12', teamBP2: 'b10', winner: '' },
+  { id: 'm13', round: 7, court: 'S', isMix: true,  teamAP1: 'a12', teamAP2: 'a2',  teamBP1: 'b2',  teamBP2: 'b13', winner: '', scoreA: '', scoreB: '' },
+  { id: 'm14', round: 7, court: 'N', isMix: true,  teamAP1: 'a8',  teamAP2: 'a3',  teamBP1: 'b12', teamBP2: 'b10', winner: '', scoreA: '', scoreB: '' },
   // Round 8 — 11:30 AM — Men's Doubles
-  { id: 'm15', round: 8, court: 'S', isMix: false, teamAP1: 'a10', teamAP2: 'a6',  teamBP1: 'b4',  teamBP2: 'b11', winner: '' },
-  { id: 'm16', round: 8, court: 'N', isMix: false, teamAP1: 'a11', teamAP2: 'a5',  teamBP1: 'b5',  teamBP2: 'b8',  winner: '' },
+  { id: 'm15', round: 8, court: 'S', isMix: false, teamAP1: 'a10', teamAP2: 'a6',  teamBP1: 'b4',  teamBP2: 'b11', winner: '', scoreA: '', scoreB: '' },
+  { id: 'm16', round: 8, court: 'N', isMix: false, teamAP1: 'a11', teamAP2: 'a5',  teamBP1: 'b5',  teamBP2: 'b8',  winner: '', scoreA: '', scoreB: '' },
   // Round 9 — Mixed Doubles ★ (both courts)
-  { id: 'm17', round: 9, court: 'S', isMix: true,  teamAP1: 'a9',  teamAP2: 'a2',  teamBP1: 'b6',  teamBP2: 'b1',  winner: '' },
-  { id: 'm18', round: 9, court: 'N', isMix: true,  teamAP1: 'a4',  teamAP2: 'a3',  teamBP1: 'b3',  teamBP2: 'b9',  winner: '' },
+  { id: 'm17', round: 9, court: 'S', isMix: true,  teamAP1: 'a9',  teamAP2: 'a2',  teamBP1: 'b6',  teamBP2: 'b1',  winner: '', scoreA: '', scoreB: '' },
+  { id: 'm18', round: 9, court: 'N', isMix: true,  teamAP1: 'a4',  teamAP2: 'a3',  teamBP1: 'b3',  teamBP2: 'b9',  winner: '', scoreA: '', scoreB: '' },
 ]

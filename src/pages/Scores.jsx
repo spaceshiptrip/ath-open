@@ -22,12 +22,12 @@ export default function Scores() {
     })
   }, [])
 
-  const handleSetWinner = async (matchId, winner) => {
+  const handleSetWinner = async (matchId, winner, scoreA = '', scoreB = '') => {
     setSaving(matchId)
     try {
-      await api.updateScore({ matchId, winner })
+      await api.updateScore({ matchId, winner, scoreA, scoreB })
       setMatches(prev =>
-        prev.map(m => m.id === matchId ? { ...m, winner } : m)
+        prev.map(m => m.id === matchId ? { ...m, winner, scoreA, scoreB } : m)
       )
     } catch (err) {
       alert('Failed to save: ' + err.message)
