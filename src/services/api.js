@@ -6,7 +6,7 @@ const USE_MOCK = !SHEETS_API_URL
 async function sheetsGet(params) {
   const url = new URL(SHEETS_API_URL)
   Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, String(v)))
-  const res = await fetch(url.toString())
+  const res = await fetch(url.toString(), { cache: 'no-store' })
   if (!res.ok) throw new Error(`Sheets API error ${res.status}`)
   return res.json()
 }
@@ -19,7 +19,12 @@ async function sheetsAction(params) {
 export const api = {
   async getPlayers() {
     if (USE_MOCK) return { success: true, data: mockPlayers }
-    return sheetsGet({ action: 'getPlayers' })
+    const res = await sheetsGet({ action: 'getPlayers' })
+    if (res.success) res.data = res.data.map(p => ({
+      ...p,
+      isCaptain: p.isCaptain === true || p.isCaptain === 'TRUE',
+    }))
+    return res
   },
 
   async registerPlayer(player) {

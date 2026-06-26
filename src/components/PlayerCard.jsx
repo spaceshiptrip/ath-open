@@ -6,7 +6,7 @@ const TEAM_COLORS = {
 export default function PlayerCard({ player, compact = false }) {
   const { firstName, lastName, team, gender, isCaptain, headshotUrl } = player
   const colors = TEAM_COLORS[team] || TEAM_COLORS.A
-  const initials = `${firstName[0]}${lastName[0]}`
+  const initials = `${firstName?.[0] ?? ''}${lastName?.[0] ?? ''}`
 
   if (compact) {
     return (

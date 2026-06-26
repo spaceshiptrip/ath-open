@@ -136,31 +136,31 @@ for i, w in enumerate(sched_widths, 1):
 # isMix=TRUE rows highlighted in yellow
 matches = [
     # id     round court isMix  AP1   AP2   BP1   BP2   win  sA sB
-    # R1 8:30 AM — Men's Doubles
-    ["m1",  1,"S","FALSE","a4", "a5", "b6", "b8", "", "", ""],
-    ["m2",  1,"N","FALSE","a6", "a7", "b7", "b11","", "", ""],
-    # R2 8:50 AM — Men's Doubles
-    ["m3",  2,"S","FALSE","a8", "a9", "b4", "b12","", "", ""],
-    ["m4",  2,"N","FALSE","a10","a11","b3", "b5", "", "", ""],
-    # R3 9:15 AM — Men's Doubles
-    ["m5",  3,"S","FALSE","a7", "a10","b8", "b11","", "", ""],
-    ["m6",  3,"N","FALSE","a6", "a12","b2", "b7", "", "", ""],
-    # R4 9:40 AM — Mixed Doubles ★ both courts
+    # R1 8:10 AM — Men's Doubles
+    ["m1",  1,"S","FALSE","a4", "a5", "b3", "b4", "", "", ""],
+    ["m2",  1,"N","FALSE","a6", "a7", "b12","b2", "", "", ""],
+    # R2 8:35 AM — Men's Doubles
+    ["m3",  2,"S","FALSE","a8", "a9", "b8", "b6", "", "", ""],
+    ["m4",  2,"N","FALSE","a10","a11","b7", "b11","", "", ""],
+    # R3 8:55 AM — Men's Doubles
+    ["m5",  3,"S","FALSE","a7", "a10","b3", "b5", "", "", ""],
+    ["m6",  3,"N","FALSE","a6", "a12","b7", "b4", "", "", ""],
+    # R4 9:15 AM — Mixed Doubles ★ both courts
     ["m7",  4,"S","TRUE", "a4", "a1", "b12","b10","", "", ""],
     ["m8",  4,"N","TRUE", "a5", "a2", "b3", "b9", "", "", ""],
-    # R5 10:10 AM — Mixed South ★, Men's North
+    # R5 9:40 AM — Mixed South ★, Men's North
     ["m9",  5,"S","TRUE", "a5", "a3", "b6", "b1", "", "", ""],
-    ["m10", 5,"N","FALSE","a12","a9", "b2", "b8", "", "", ""],
-    # R6 10:30 AM — Men's Doubles
-    ["m11", 6,"S","FALSE","a11","a7", "b4", "b7", "", "", ""],
-    ["m12", 6,"N","FALSE","a4", "a8", "b5", "b11","", "", ""],
-    # R7 11:00 AM — Mixed Doubles ★ both courts
+    ["m10", 5,"N","FALSE","a12","a9", "b8", "b7", "", "", ""],
+    # R6 10:10 AM — Men's Doubles
+    ["m11", 6,"S","FALSE","a11","a7", "b5", "b11","", "", ""],
+    ["m12", 6,"N","FALSE","a4", "a8", "b2", "b4", "", "", ""],
+    # R7 10:30 AM — Mixed Doubles ★ both courts
     ["m13", 7,"S","TRUE", "a12","a2", "b2", "b13","", "", ""],
     ["m14", 7,"N","TRUE", "a8", "a3", "b12","b10","", "", ""],
-    # R8 11:30 AM — Men's Doubles
-    ["m15", 8,"S","FALSE","a10","a6", "b4", "b11","", "", ""],
-    ["m16", 8,"N","FALSE","a11","a5", "b5", "b8", "", "", ""],
-    # R9 — Mixed Doubles ★ both courts
+    # R8 11:00 AM — Men's Doubles
+    ["m15", 8,"S","FALSE","a10","a6", "b5", "b8", "", "", ""],
+    ["m16", 8,"N","FALSE","a11","a5", "b11","b4", "", "", ""],
+    # R9 11:30 AM — Mixed Doubles ★ both courts
     ["m17", 9,"S","TRUE", "a9", "a2", "b6", "b1", "", "", ""],
     ["m18", 9,"N","TRUE", "a4", "a3", "b3", "b9", "", "", ""],
 ]
@@ -241,8 +241,8 @@ for row_idx, (key, val) in enumerate(instructions, 1):
 # ════════════════════════════════════════════════════════════════════════════════
 
 ROUND_TIMES = {
-    1: "8:30 AM", 2: "8:50 AM", 3: "9:15 AM", 4: "9:40 AM",
-    5: "10:10 AM", 6: "10:30 AM", 7: "11:00 AM", 8: "11:30 AM", 9: "—",
+    1: "8:10 AM", 2: "8:35 AM", 3: "8:55 AM", 4: "9:15 AM",
+    5: "9:40 AM", 6: "10:10 AM", 7: "10:30 AM", 8: "11:00 AM", 9: "11:30 AM",
 }
 
 # Build player lookup  {id: {id, name, first, last, team, gender, isCaptain, partnerId}}
@@ -267,7 +267,7 @@ for _m in matches:
     bc_pairs.setdefault(_kb, []).append((_r, _c, _mix))
 
 CAPTAIN_PAIR  = frozenset({"b2", "b13"})   # Jay + Cora, R7-S
-FOUR_GAME_IDS = {"b8", "b11"}              # Rhon and Joe play 4 games
+FOUR_GAME_IDS = {"b3", "b4"}               # Marv(#1) and Arman(#2) play 4 games
 
 # Display order
 HSB_ORDER = [player_map[i] for i in
@@ -590,6 +590,173 @@ write_matrix(
 # 8. Blue Crew Player Summary
 # ════════════════════════════════════════════════════════════════════════════════
 write_summary("Blue Crew Player Summary", BC_ORDER, bc_pairs, four_ids=FOUR_GAME_IDS)
+
+
+# ════════════════════════════════════════════════════════════════════════════════
+# 9. Rankings & Analysis
+# ════════════════════════════════════════════════════════════════════════════════
+ws_ra = wb.create_sheet("Rankings & Analysis")
+ws_ra.column_dimensions["A"].width = 7
+ws_ra.column_dimensions["B"].width = 14
+ws_ra.column_dimensions["C"].width = 8
+ws_ra.column_dimensions["D"].width = 10
+ws_ra.column_dimensions["E"].width = 12
+ws_ra.column_dimensions["F"].width = 10
+ws_ra.column_dimensions["G"].width = 10
+ws_ra.column_dimensions["H"].width = 70
+
+def _sec(ws, row, text, fill=DK_GRN):
+    ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=8)
+    c = ws.cell(row=row, column=1, value=text)
+    c.fill = fill; c.font = Font(color="FFFFFF", bold=True, size=10)
+    c.alignment = Alignment(horizontal="left", vertical="center")
+    ws.row_dimensions[row].height = 22
+
+def _ra(ws, row, col, val, fill=None, bold=False, align="center", wrap=False):
+    c = ws.cell(row=row, column=col, value=val)
+    if fill: c.fill = fill
+    c.font = Font(bold=bold)
+    c.alignment = Alignment(horizontal=align, vertical="center", wrap_text=wrap)
+    c.border = border
+    return c
+
+_row = 1
+# Title
+ws_ra.merge_cells("A1:H1")
+c = ws_ra.cell(row=1, column=1, value="ATH Open — Rankings & Pairings Analysis")
+c.fill = DK_GRN; c.font = Font(color="FFFFFF", bold=True, size=12)
+c.alignment = Alignment(horizontal="center", vertical="center")
+ws_ra.row_dimensions[1].height = 28
+_row = 2
+
+# ── HSB Rankings ──
+_sec(ws_ra, _row, "Hill Street Blues — Men's Seeding"); _row += 1
+for _ci, _h in enumerate(["Seed","Player","Games","Men's","Mix★","Role","","Game Log"], 1):
+    c = ws_ra.cell(row=_row, column=_ci, value=_h)
+    c.fill = MD_GRN; c.font = Font(color="FFFFFF", bold=True, size=9)
+    c.alignment = Alignment(horizontal="center", vertical="center"); c.border = border
+_row += 1
+
+HSB_SEEDS = ["a4","a5","a6","a7","a8","a9","a10","a11","a12"]
+for _seed, _pid in enumerate(HSB_SEEDS, 1):
+    _p = player_map[_pid]
+    _pg = _player_games(_pid, hsb_pairs)
+    _total = len(_pg); _mix = sum(1 for x in _pg if x[2])
+    _log = ",  ".join(f"R{r}-{c}{'★' if m else ''} w/{player_map[pt]['name']}" for (r,c,m,pt) in _pg)
+    _ra(ws_ra, _row, 1, _seed, fill=R_BLUE)
+    _ra(ws_ra, _row, 2, _p["name"], fill=R_BLUE, bold=True, align="left")
+    _ra(ws_ra, _row, 3, _total, fill=R_BLUE, bold=True)
+    _ra(ws_ra, _row, 4, _total - _mix, fill=R_BLUE)
+    _ra(ws_ra, _row, 5, _mix if _mix else "—", fill=C_MIX if _mix else R_BLUE)
+    _ra(ws_ra, _row, 6, "—", fill=R_BLUE)
+    _ra(ws_ra, _row, 7, "", fill=R_BLUE)
+    _ra(ws_ra, _row, 8, _log, fill=R_BLUE, align="left", wrap=True)
+    ws_ra.row_dimensions[_row].height = 18; _row += 1
+
+# HSB Women
+for _pid in ["a1","a2","a3"]:
+    _p = player_map[_pid]
+    _pg = _player_games(_pid, hsb_pairs)
+    _total = len(_pg); _mix = sum(1 for x in _pg if x[2])
+    _log = ",  ".join(f"R{r}-{c}{'★' if m else ''} w/{player_map[pt]['name']}" for (r,c,m,pt) in _pg)
+    _role = "Captain" if _p["isCaptain"] else "—"
+    _ra(ws_ra, _row, 1, "—", fill=R_PINK)
+    _ra(ws_ra, _row, 2, _p["name"] + (" ©" if _p["isCaptain"] else ""), fill=R_PINK, bold=True, align="left")
+    _ra(ws_ra, _row, 3, _total, fill=R_PINK, bold=True)
+    _ra(ws_ra, _row, 4, _total - _mix, fill=R_PINK)
+    _ra(ws_ra, _row, 5, _mix if _mix else "—", fill=C_MIX if _mix else R_PINK)
+    _ra(ws_ra, _row, 6, _role, fill=R_PINK)
+    _ra(ws_ra, _row, 7, "", fill=R_PINK)
+    _ra(ws_ra, _row, 8, _log, fill=R_PINK, align="left", wrap=True)
+    ws_ra.row_dimensions[_row].height = 18; _row += 1
+
+_row += 1  # spacer
+
+# ── BC Rankings ──
+_sec(ws_ra, _row, "Blue Crew — Men's Seeding (from docx)"); _row += 1
+for _ci in range(1, 9):
+    ws_ra.cell(row=_row, column=_ci).fill = MD_GRN
+    ws_ra.cell(row=_row, column=_ci).font = Font(color="FFFFFF", bold=True, size=9)
+    ws_ra.cell(row=_row, column=_ci).border = border
+ws_ra.cell(row=_row, column=1).value = "Seed"
+ws_ra.cell(row=_row, column=2).value = "Player"
+ws_ra.cell(row=_row, column=3).value = "Games"
+ws_ra.cell(row=_row, column=4).value = "Men's"
+ws_ra.cell(row=_row, column=5).value = "Mix★"
+ws_ra.cell(row=_row, column=6).value = "Role"
+ws_ra.cell(row=_row, column=7).value = "Issues"
+ws_ra.cell(row=_row, column=8).value = "Game Log"
+_row += 1
+
+BC_SEEDS = ["b3","b4","b12","b2","b6","b5","b7","b8","b11"]  # Marv,Arman,PierreY,Jay,Trevor,Jon,Richard,Rhon,Joe
+BC_SEED_NUMS = {p: i for i,p in enumerate(["b3","b4","b12","b2","b6","b5","b7","b8","b11"], 1)}
+
+for _pid in BC_SEEDS:
+    _p = player_map[_pid]
+    _pg = _player_games(_pid, bc_pairs)
+    _total = len(_pg); _mix = sum(1 for x in _pg if x[2])
+    _log = ",  ".join(f"R{r}-{c}{'★' if m else ''} w/{player_map[pt]['name']}" for (r,c,m,pt) in _pg)
+    _men_pts = [pt for (r,c,m,pt) in _pg if not m]
+    _dup = len(_men_pts) != len(set(_men_pts))
+    _rnds = sorted([r for (r,c,m,pt) in _pg])
+    _b2b = any(_rnds[i+1]-_rnds[i]==1 for i in range(len(_rnds)-1))
+    _issue = ("❌ repeat partner" if _dup else "") + (" ⚠️ back-to-back" if _b2b else "")
+    _seed_num = BC_SEED_NUMS.get(_pid, "—")
+    _rfill = R_ORNG if _total == 4 else R_BLUE
+    _issue_fill = PatternFill("solid", fgColor="FFCCCC") if _dup else (PatternFill("solid", fgColor="FFF9C4") if _b2b else _rfill)
+    _ra(ws_ra, _row, 1, _seed_num, fill=_rfill)
+    _ra(ws_ra, _row, 2, _p["name"], fill=_rfill, bold=True, align="left")
+    _ra(ws_ra, _row, 3, _total, fill=_rfill, bold=True)
+    _ra(ws_ra, _row, 4, _total - _mix, fill=_rfill)
+    _ra(ws_ra, _row, 5, _mix if _mix else "—", fill=C_MIX if _mix else _rfill)
+    _role = "Captain" if _p["isCaptain"] else ("Couple" if _p["partnerId"] else "—")
+    _ra(ws_ra, _row, 6, _role, fill=_rfill)
+    _ra(ws_ra, _row, 7, _issue if _issue else "✓", fill=_issue_fill, align="left")
+    _ra(ws_ra, _row, 8, _log, fill=_rfill, align="left", wrap=True)
+    ws_ra.row_dimensions[_row].height = 18; _row += 1
+
+# BC Women
+for _pid in ["b13","b1","b9","b10"]:
+    _p = player_map[_pid]
+    _pg = _player_games(_pid, bc_pairs)
+    _total = len(_pg); _mix = sum(1 for x in _pg if x[2])
+    _log = ",  ".join(f"R{r}-{c}{'★' if m else ''} w/{player_map[pt]['name']}" for (r,c,m,pt) in _pg)
+    _rfill = R_PURP if _p["isCaptain"] else R_PINK
+    _role = "Captain" if _p["isCaptain"] else ("Couple" if _p["partnerId"] else "—")
+    _ra(ws_ra, _row, 1, "—", fill=_rfill)
+    _ra(ws_ra, _row, 2, _p["name"] + (" ©" if _p["isCaptain"] else ""), fill=_rfill, bold=True, align="left")
+    _ra(ws_ra, _row, 3, _total, fill=_rfill, bold=True)
+    _ra(ws_ra, _row, 4, 0, fill=_rfill)
+    _ra(ws_ra, _row, 5, _mix, fill=C_MIX)
+    _ra(ws_ra, _row, 6, _role, fill=_rfill)
+    _ra(ws_ra, _row, 7, "✓", fill=_rfill)
+    _ra(ws_ra, _row, 8, _log, fill=_rfill, align="left", wrap=True)
+    ws_ra.row_dimensions[_row].height = 18; _row += 1
+
+_row += 1  # spacer
+
+# ── Issues summary ──
+_sec(ws_ra, _row, "✅  Pairings Finalized — Known Back-to-Back Gaps", fill=PatternFill("solid", fgColor="2d7d4f")); _row += 1
+issues = [
+    ("⚠️  BC",   "Marv back-to-back",            "R3-S (8:55 AM) → R4-N (9:15 AM). No rest between men's doubles and mixed game with Carmela. 20 min gap."),
+    ("⚠️  BC",   "Richard back-to-back",          "R2-N (8:35 AM) → R3-N (8:55 AM). Two consecutive men's doubles games. 20 min gap."),
+    ("⚠️  BC",   "Jay back-to-back",              "R6-N (10:10 AM) → R7-S★ (10:30 AM). Men's doubles then captain's mixed game with Cora. 20 min gap."),
+    ("ℹ️  HSB",  "Jeff E back-to-back (existing)","R4-N (9:15 AM) → R5-S (9:40 AM). Pre-existing, unchanged from original schedule. 25 min gap."),
+    ("ℹ️  HSB",  "Mich back-to-back (existing)",  "R6-N (10:10 AM) → R7-N (10:30 AM). Pre-existing, unchanged. 20 min gap."),
+    ("ℹ️  HSB",  "Jeff W back-to-back (existing)","R2-N (8:35 AM) → R3-S (8:55 AM). Pre-existing, unchanged. 20 min gap."),
+]
+for _sev, _title, _desc in issues:
+    _sfill = PatternFill("solid", fgColor="FFCCCC") if "CRITICAL" in _sev else (PatternFill("solid", fgColor="FFF9C4") if "⚠️" in _sev else PatternFill("solid", fgColor="E8F5E9"))
+    ws_ra.merge_cells(start_row=_row, start_column=1, end_row=_row, end_column=2)
+    c = ws_ra.cell(row=_row, column=1, value=_sev); c.fill = _sfill; c.font = Font(bold=True, size=9); c.border = border
+    ws_ra.merge_cells(start_row=_row, start_column=3, end_row=_row, end_column=3)
+    c = ws_ra.cell(row=_row, column=3, value=_title); c.fill = _sfill; c.font = Font(bold=True, size=9); c.border = border
+    ws_ra.merge_cells(start_row=_row, start_column=4, end_row=_row, end_column=8)
+    c = ws_ra.cell(row=_row, column=4, value=_desc); c.fill = _sfill; c.font = Font(size=9)
+    c.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True); c.border = border
+    ws_ra.row_dimensions[_row].height = 30; _row += 1
+
+ws_ra.freeze_panes = "A2"
 
 
 wb.save("backend/ATH_Open_Sheets_Template.xlsx")
