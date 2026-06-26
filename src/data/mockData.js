@@ -28,7 +28,7 @@ export const mockPlayers = [
   { id: 'b7',  firstName: 'Richard', lastName: '',  team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''   },
   { id: 'b8',  firstName: 'Rhon',    lastName: '',  team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''   },
   { id: 'b11', firstName: 'Joe',     lastName: '',  team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: ''   },
-  { id: 'b12', firstName: 'Pierre',  lastName: '',  team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: 'b10'},
+  { id: 'b12', firstName: 'Pierre',  lastName: 'Y', team: 'B', gender: 'M', isCaptain: false, headshotUrl: '', partnerId: 'b10'},
 ]
 
 // 18 matches: 9 rounds × 2 courts (S = South, N = North)

@@ -97,7 +97,7 @@ team_b = [
     ["b7",  "Richard", "", "B", "M", "FALSE", "", "", "", "", ""],
     ["b8",  "Rhon",    "", "B", "M", "FALSE", "", "", "", "", ""],
     ["b11", "Joe",     "", "B", "M", "FALSE", "", "", "", "", ""],
-    ["b12", "Pierre",  "", "B", "M", "FALSE", "", "", "", "", "b10"],
+    ["b12", "Pierre",  "Y", "B", "M", "FALSE", "", "", "", "", "b10"],
 ]
 
 for row_idx, row in enumerate(team_a + team_b, 3):
