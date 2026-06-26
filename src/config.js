@@ -28,8 +28,9 @@ export const TOURNAMENT = {
 export const RULES = [
   'Warm-up: 8:00 AM | Match time: 8:10 AM – Noon',
   'Coin/paddle toss to determine 1st server of each game.',
-  "→ At 11-all: game point — Receivers' Choice.",
+  "→ Receivers' Choice.",
   'Play 11 points per game, win by 2 points.',
+  '→ At 11-all, next point is game point.',
   'REPORT WIN ONLY to your captain.',
   '18 games total: 11 Men\'s Doubles + 7 Mixed Doubles games (9 rounds × 2 courts).',
   'Each man plays 3 games (some play 4), each with a different partner.',

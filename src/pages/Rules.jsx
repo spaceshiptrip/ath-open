@@ -15,8 +15,9 @@ export default function Rules() {
 
         <Section title="Match Play">
           <Rule>Coin/paddle toss to determine 1st server of each game.</Rule>
-          <SubRule>At 11-all: game point — <strong>Receivers' Choice</strong>.</SubRule>
+          <SubRule>Receivers' Choice.</SubRule>
           <Rule>Play <strong>11 points per game</strong>, win by 2 points.</Rule>
+          <SubRule>At 11-all, next point is game point.</SubRule>
           <Rule>Report <strong>WIN ONLY</strong> to your captain.</Rule>
         </Section>
 
