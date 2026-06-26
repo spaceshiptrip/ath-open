@@ -103,12 +103,17 @@ export default function Home() {
         <div className="card">
           <h2 className="section-title mb-3">Key Rules</h2>
           <ul className="space-y-2">
-            {RULES.slice(1, 6).map((rule, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                <span className="text-pickle-400 mt-0.5 shrink-0">▸</span>
-                {rule}
-              </li>
-            ))}
+            {RULES.slice(1, 6).map((rule, i) => {
+              const isSub = rule.startsWith('→ ')
+              return (
+                <li key={i} className={`flex items-start gap-2 text-sm text-gray-700 ${isSub ? 'ml-4' : ''}`}>
+                  <span className={`mt-0.5 shrink-0 ${isSub ? 'text-gray-300' : 'text-pickle-400'}`}>
+                    {isSub ? '◦' : '▸'}
+                  </span>
+                  {isSub ? rule.slice(2) : rule}
+                </li>
+              )
+            })}
           </ul>
           <Link to="/rules" className="inline-block mt-4 text-sm text-pickle-600 hover:underline font-medium">
             All rules →

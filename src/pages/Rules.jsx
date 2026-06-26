@@ -1,4 +1,4 @@
-import { TOURNAMENT, RULES } from '../config'
+import { TOURNAMENT } from '../config'
 
 export default function Rules() {
   return (
@@ -9,34 +9,33 @@ export default function Rules() {
       <div className="card space-y-4">
         <Section title="Schedule">
           <Rule>Warm-up: <strong>8:00 AM</strong></Rule>
-          <Rule>Match time: <strong>8:30 AM – Noon</strong></Rule>
+          <Rule>Match time: <strong>{TOURNAMENT.matchTime}</strong></Rule>
           <Rule>Location: <strong>{TOURNAMENT.location}</strong></Rule>
         </Section>
 
         <Section title="Match Play">
           <Rule>Coin/paddle toss to determine 1st server of each game.</Rule>
+          <SubRule>At 11-all: game point — <strong>Receivers' Choice</strong>.</SubRule>
           <Rule>Play <strong>11 points per game</strong>, win by 2 points.</Rule>
-          <Rule>At 11-all, the next point is game point — <strong>Receivers' Choice</strong>.</Rule>
           <Rule>Report <strong>WIN ONLY</strong> to your captain.</Rule>
         </Section>
 
         <Section title="Player Format">
-          <Rule>Each player will play at least <strong>2 games</strong>, maximum <strong>3</strong>.</Rule>
-          <Rule>Captain may play 1 different pairing each game.</Rule>
-          <Rule>Each man plays <strong>3 games</strong>, each with a different partner.</Rule>
-          <Rule>2 women play 2 games; captain plays 1 game.</Rule>
+          <Rule>Each man plays <strong>3 games</strong> (top 2 seeds play 4), each with a different partner.</Rule>
+          <Rule>3 women play <strong>2 games</strong> each; captain plays 1 game.</Rule>
+          <Rule>Couples always play together in Mixed Doubles.</Rule>
         </Section>
 
         <Section title="Games Breakdown">
-          <Rule>16 total games (8 rounds × 2 courts).</Rule>
-          <Rule>27 Men's Doubles + 5 Mixed Doubles games.</Rule>
-          <Rule>Mixed Doubles marked with ★ on the schedule (Rounds 3, 4, 6).</Rule>
+          <Rule><strong>18 total games</strong> — 9 rounds × 2 courts.</Rule>
+          <Rule>11 Men's Doubles + 7 Mixed Doubles (★).</Rule>
+          <Rule>Mixed Doubles in rounds 4, 5 (South only), 7, and 9.</Rule>
         </Section>
 
-        <Section title="Scoring">
+        <Section title="Scoring Key">
           <Rule>S = South Court · N = North Court</Rule>
           <Rule>★ = Mixed Doubles</Rule>
-          <Rule>Only wins are recorded — no score tracking.</Rule>
+          <Rule>© = Captain's game</Rule>
         </Section>
       </div>
     </div>
@@ -58,6 +57,15 @@ function Rule({ children }) {
   return (
     <li className="flex items-start gap-2 text-sm text-gray-700">
       <span className="text-pickle-400 mt-0.5 shrink-0">▸</span>
+      <span>{children}</span>
+    </li>
+  )
+}
+
+function SubRule({ children }) {
+  return (
+    <li className="flex items-start gap-2 text-sm text-gray-600 ml-5">
+      <span className="text-gray-300 mt-0.5 shrink-0">◦</span>
       <span>{children}</span>
     </li>
   )
