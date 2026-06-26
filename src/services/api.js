@@ -40,6 +40,17 @@ export const api = {
     return sheetsGet({ action: 'getMatches' })
   },
 
+  async updatePlayer(player) {
+    if (USE_MOCK) {
+      const idx = mockPlayers.findIndex(p => p.id === player.id)
+      if (idx >= 0) Object.assign(mockPlayers[idx], player)
+      return { success: true }
+    }
+    const res = await sheetsAction({ action: 'updatePlayer', ...player })
+    if (!res.success) throw new Error(res.error || 'Failed to save player')
+    return res
+  },
+
   async updateScore({ matchId, winner, scoreA = '', scoreB = '' }) {
     if (USE_MOCK) {
       const match = mockMatches.find(m => m.id === matchId)

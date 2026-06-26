@@ -31,6 +31,9 @@ function doGet(e) {
       case 'registerPlayer':
         result = registerPlayer(e.parameter);
         break;
+      case 'updatePlayer':
+        result = updatePlayer(e.parameter);
+        break;
       case 'updateScore':
         result = updateScore(
           e.parameter.matchId,
@@ -108,6 +111,28 @@ function getMatches() {
     });
 
   return { success: true, data };
+}
+
+// Updates firstName, lastName, and/or headshotUrl for a player by id.
+function updatePlayer(params) {
+  const sheet = getSpreadsheet().getSheetByName('Players');
+  if (!sheet) return { success: false, error: 'Players sheet not found.' };
+  const data   = sheet.getDataRange().getValues();
+  const header = data[0];
+  const idCol  = header.indexOf('id');
+
+  for (let i = 1; i < data.length; i++) {
+    if (String(data[i][idCol]) === String(params.id)) {
+      ['firstName', 'lastName', 'headshotUrl'].forEach(field => {
+        const col = header.indexOf(field);
+        if (col >= 0 && params[field] !== undefined) {
+          sheet.getRange(i + 1, col + 1).setValue(params[field]);
+        }
+      });
+      return { success: true };
+    }
+  }
+  return { success: false, error: 'Player not found: ' + params.id };
 }
 
 // Updates winner and (optionally) scoreA / scoreB for a match.
