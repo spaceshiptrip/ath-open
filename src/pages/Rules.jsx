@@ -10,7 +10,10 @@ export default function Rules() {
         <Section title="Schedule">
           <Rule>Warm-up: <strong>8:00 AM</strong></Rule>
           <Rule>Match time: <strong>{TOURNAMENT.matchTime}</strong></Rule>
-          <Rule>Location: <strong>{TOURNAMENT.location}</strong></Rule>
+          <Rule>
+            Location: <strong>{TOURNAMENT.location}</strong>
+            <span className="block text-gray-500 font-normal">551 S. Hill Avenue, Pasadena, CA 91106</span>
+          </Rule>
         </Section>
 
         <Section title="Match Play">
@@ -24,7 +27,6 @@ export default function Rules() {
         <Section title="Player Format">
           <Rule>Each man plays <strong>3 games</strong> (top 2 seeds play 4), each with a different partner.</Rule>
           <Rule>3 women play <strong>2 games</strong> each; captain plays 1 game.</Rule>
-          <Rule>Couples always play together in Mixed Doubles.</Rule>
         </Section>
 
         <Section title="Games Breakdown">
@@ -37,6 +39,42 @@ export default function Rules() {
           <Rule>S = South Court · N = North Court</Rule>
           <Rule>★ = Mixed Doubles</Rule>
           <Rule>© = Captain's game</Rule>
+        </Section>
+      </div>
+
+      <div className="card space-y-4 mt-4">
+        <Section title="Food & Payment">
+          <Rule>
+            Pizzas ordered by <strong>Susan</strong> — delivered after the tournament by{' '}
+            <strong>Brooklyn Square Pizza</strong>, Pasadena.
+          </Rule>
+          <Rule>
+            <strong>$390 total</strong> (tax &amp; tip included) — split equally between both teams.
+          </Rule>
+          <Rule>
+            <strong>$195 per team</strong> · $15 per person + court fees.
+            <span className="block text-gray-500 font-normal mt-0.5">Please send payment to <strong>Jay</strong>.</span>
+          </Rule>
+          <Rule>
+            Pizza order (11 pies):
+            <ul className="mt-1 space-y-0.5 text-gray-600">
+              <li className="ml-2">× 1 — Vegetarian (artichoke &amp; tomatoes)</li>
+              <li className="ml-2">× 1 — Margherita or Eggplant Parmigiana</li>
+              <li className="ml-2">× 2 — BBQ Chicken</li>
+              <li className="ml-2">× 2 — Pepperoni Grandma</li>
+              <li className="ml-2">× 2 — New York Classic</li>
+              <li className="ml-2">× 2 — Sausage</li>
+            </ul>
+          </Rule>
+        </Section>
+
+        <Section title="What to Bring">
+          <Rule>Your own drinks</Rule>
+          <Rule>Snacks to share (optional)</Rule>
+          <Rule>Easy-up / shade tent (Pierre?)</Rule>
+          <Rule>Fans</Rule>
+          <Rule>Tripod &amp; power batteries</Rule>
+          <Rule>Mahjong / card table (TBD)</Rule>
         </Section>
       </div>
     </div>
